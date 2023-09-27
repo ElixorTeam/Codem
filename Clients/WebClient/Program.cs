@@ -1,5 +1,3 @@
-using WebClient.Data;
-
 namespace WebClient;
 
 public class Program
@@ -11,7 +9,6 @@ public class Program
         // Add services to the container.
         builder.Services.AddRazorPages();
         builder.Services.AddServerSideBlazor();
-        builder.Services.AddSingleton<WeatherForecastService>();
 
         WebApplication app = builder.Build();
 

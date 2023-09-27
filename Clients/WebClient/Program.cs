@@ -1,4 +1,9 @@
+using Blazorise;
+using Blazorise.Tailwind;
+using Blazorise.Icons.FontAwesome;
+
 namespace WebClient;
+
 
 public class Program
 {
@@ -9,6 +14,7 @@ public class Program
         // Add services to the container.
         builder.Services.AddRazorPages();
         builder.Services.AddServerSideBlazor();
+        builder.Services.AddBlazorise().AddTailwindProviders().AddFontAwesomeIcons();
 
         WebApplication app = builder.Build();
 

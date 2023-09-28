@@ -16,8 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css" />
-    <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css.map" />
+    <ProjectReference Include="..\..\Core\CodeMirror6\CodeMirror6.csproj" />
   </ItemGroup>
 
 </Project>

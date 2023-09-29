@@ -4,30 +4,13 @@ namespace WebClient.Shared.Components;
 
 public partial class CodeEditor : ComponentBase
 {
-    public string EditorCode { get; set; } = 
-@"
-## Title
+    [Parameter] public string EditorCode { get; set; }
 
-```jsx
-function Demo() {
-  return <div>demo</div>
-}
-```
+    [Parameter] public bool IsEditable { get; set; }
 
-```bash
-# Not dependent on uiw.
-npm install @codemirror/lang-markdown --save
-npm install @codemirror/language-data --save
-```
-
-[website ulr](https://github.com/gaelj/BlazorCodeMirror6)
-
-```go
-package main
-import ""fmt""
-func main() {
-  fmt.Println(""Hello, 世界"")
-}
-```
-";
+    public CodeEditor()
+    {
+        EditorCode = "";
+        IsEditable = true;
+    }
 }

@@ -5,22 +5,6 @@
 
 <div id=@Id />
 
-@* <div> *@
-@*     @hasFocus *@
-@* </div> *@
-
-@* @if (ranges != null) { *@
-@*     <div> *@
-@*         Selection ranges: *@
-@*     </div> *@
-@*     @foreach(var range in ranges) { *@
-@*         <div> *@
-@*             From @range.From *@
-@*             To @range.To *@
-@*         </div> *@
-@*     } *@
-@* } *@
-
 @code {
     [Parameter] public string Id { get; set; } = $"CodeMirror6_Editor_{Guid.NewGuid().ToString()}";
     [Parameter] public int TabSize { get; set; } = 8;

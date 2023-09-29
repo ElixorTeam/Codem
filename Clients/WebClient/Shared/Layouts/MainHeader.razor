@@ -13,22 +13,14 @@
         <a
           href="/search"
           class="h-8 w-8 overflow-hidden rounded-md border border-black/[.1] bg-white shadow-sm hover:bg-slate-100 sm:hidden">
-          <Image Source="assets/loupe.svg" Class="p-2 contrast-0" />
+          <Image Source="assets/magnify.svg" Class="p-2 contrast-0" />
         </a>
-        <label class="relative hidden sm:block">
-          <input
-            type="text"
-            onkeydown="window.location.href = 'http://localhost:5291/search'"
-            class="hidden h-8 overflow-hidden rounded-md border border-black/[.1] px-2 pr-8 text-xs sm:block"
-            placeholder="Search a snippet..."
-          />
-          <Image Source="assets/loupe.svg" Class="absolute right-0 top-0 mr-2 mt-2 h-4 w-4 contrast-0" Text=""/>
-        </label>
+        <HeaderSearch />
       </div>
     </div>
     <a href="/profile" class="flex h-full cursor-pointer items-center gap-2">
       <div class="h-6 w-6 overflow-hidden rounded-full">
-        <Image Source="assets/avatar_artyom.jpg" Text=""/>
+        <Image Source="assets/avatar.jpg" Text=""/>
       </div>
         <div class="hidden sm:block">
           <p class="text-sm font-semibold text-slate-800">Ap73MKa</p>

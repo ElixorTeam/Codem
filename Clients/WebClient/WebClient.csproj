@@ -16,5 +16,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\CodeMirror6\CodeMirror6.csproj" />
   </ItemGroup>
-
+    
+  <Target Name="NpmInit" BeforeTargets="BeforeBuild;BeforeRebuild;Rollup">
+    <Exec Command="npm install" />
+  </Target>
+    
 </Project>

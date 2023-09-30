@@ -1,21 +1,40 @@
-import {basicSetup} from "codemirror"
-import {EditorView, keymap, placeholder} from "@codemirror/view"
-import {EditorState, Compartment} from "@codemirror/state"
-import {cpp} from "@codemirror/lang-cpp"
-import {css} from "@codemirror/lang-css"
-import {html} from "@codemirror/lang-html"
-import {javascript} from "@codemirror/lang-javascript"
-import {json} from "@codemirror/lang-json"
-import {markdown, markdownLanguage} from "@codemirror/lang-markdown"
-import {python} from "@codemirror/lang-python"
-import {sql} from "@codemirror/lang-sql"
-import {xml} from "@codemirror/lang-xml"
-import {indentWithTab} from "@codemirror/commands"
-import {languages} from "@codemirror/language-data"
-import {autocompletion} from "@codemirror/autocomplete"
-import {CmInstance} from "./CmInstance"
+import { basicSetup } from "codemirror"
+import { EditorView, keymap, placeholder } from "@codemirror/view"
+import { EditorState, Compartment } from "@codemirror/state"
+import { markdown, markdownLanguage } from "@codemirror/lang-markdown"
+import { indentWithTab } from "@codemirror/commands"
+import { languages } from "@codemirror/language-data"
+import { autocompletion } from "@codemirror/autocomplete"
+import { CmInstance } from "./CmInstance"
 
-let CMInstances: { [id: string]: CmInstance } = {}
+const CMInstances: { [id: string]: CmInstance } = {}
+
+
+const createUpdateListener = (dotnetHelper: any) => {
+    const invokeMethodAsync = async (method: string, arg: any) => {
+        await dotnetHelper.invokeMethodAsync(method, arg);
+    }
+
+    return EditorView.updateListener.of(async (update) => {
+        const { docChanged, focusChanged, view, state, selectionSet } = update;
+
+        if (docChanged || (focusChanged && !view.hasFocus)) {
+            const docString = state.doc.toString()
+            await invokeMethodAsync("DocChanged", docString);
+        }
+
+        if (focusChanged) {
+            const hasFocus = view.hasFocus;
+            await invokeMethodAsync("FocusChanged", hasFocus);
+        }
+
+        if (selectionSet) {
+            const ranges = state.selection.ranges.map(r => ({ from: r.from, to: r.to }));
+            await invokeMethodAsync("SelectionSet", ranges);
+        }
+    });
+}
+
 
 export function initCodeMirror(
     dotnetHelper: any,
@@ -24,63 +43,46 @@ export function initCodeMirror(
     placeholderText: string,
     tabulationSize: number
 ) {
-    var language = new Compartment
-    var tabSize = new Compartment
-    var state = EditorState.create({
+    const language = new Compartment()
+    const tabSize = new Compartment()
+    const state = EditorState.create({
         doc: initialText,
         extensions: [
             basicSetup,
             language.of(markdown({ base: markdownLanguage, codeLanguages: languages })),
-            tabSize.of(EditorState.tabSize.of(tabulationSize)),
+            tabSize.of(EditorState.tabSize.of(4)),
             keymap.of([indentWithTab]),
-            EditorView.updateListener.of(async (update) => {
-                if (update.docChanged) {
-                    await dotnetHelper.invokeMethodAsync("DocChanged", update.state.doc.toString());
-                }
-                if (update.focusChanged) {
-                    await dotnetHelper.invokeMethodAsync("FocusChanged", update.view.hasFocus);
-                    if (!update.view.hasFocus)
-                        await dotnetHelper.invokeMethodAsync("DocChanged", update.state.doc.toString());
-                }
-                if (update.selectionSet) {
-                    await dotnetHelper.invokeMethodAsync("SelectionSet", update.state.selection.ranges.map(r => {return {from: r.from, to: r.to}}));
-                }
-            }),
-            placeholder(placeholderText),
+            createUpdateListener(dotnetHelper),
             autocompletion(),
         ]
     })
-
-    var view = new EditorView({
+    
+    const view = new EditorView({
         state,
         parent: document.getElementById(id),
     })
 
-    CMInstances[id] = new CmInstance();
-
-    CMInstances[id].dotNetHelper = dotnetHelper
-    CMInstances[id].state = state
-    CMInstances[id].view = view
-    CMInstances[id].tabSize = tabSize
-    CMInstances[id].language = language
+    const cmInstance = new CmInstance();
+    cmInstance.dotNetHelper = dotnetHelper;
+    cmInstance.state = state;
+    cmInstance.view = view;
+    cmInstance.tabSize = tabSize;
+    cmInstance.language = language;
+    
+    CMInstances[id] = cmInstance;
 }
 
-export function setTabSize(id: string, size: number)
-{
+export const setTabSize = (id: string, size: number) => {
     CMInstances[id].view.dispatch({
         effects: CMInstances[id].tabSize.reconfigure(EditorState.tabSize.of(size))
     })
 }
 
-export function setText(id: string, text: string)
-{
+export const setText = (id: string, text: string) => {
     const transaction = CMInstances[id].view.state.update({
         changes: {from: 0, to: CMInstances[id].view.state.doc.length, insert: text}
     })
     CMInstances[id].view.dispatch(transaction)
 }
 
-export function dispose(id: string)
-{
-    CMInstances[id] = undefined;
-}
+export const dispose = (id: string) => CMInstances[id]

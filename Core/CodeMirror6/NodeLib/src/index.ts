@@ -16,21 +16,16 @@ const createUpdateListener = (dotnetHelper: any) => {
     }
 
     return EditorView.updateListener.of(async (update) => {
-        const { docChanged, focusChanged, view, state, selectionSet } = update;
+        const { docChanged, focusChanged, view, state} = update;
 
         if (docChanged || (focusChanged && !view.hasFocus)) {
             const docString = state.doc.toString()
-            await invokeMethodAsync("DocChanged", docString);
+            await invokeMethodAsync("OnJsTextChanged", docString);
         }
 
         if (focusChanged) {
             const hasFocus = view.hasFocus;
-            await invokeMethodAsync("FocusChanged", hasFocus);
-        }
-
-        if (selectionSet) {
-            const ranges = state.selection.ranges.map(r => ({ from: r.from, to: r.to }));
-            await invokeMethodAsync("SelectionSet", ranges);
+            await invokeMethodAsync("OnJsFocusChanged", hasFocus);
         }
     });
 }

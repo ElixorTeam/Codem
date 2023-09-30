@@ -1,0 +1,33 @@
+@page "/c/{Id}"
+
+<div
+  class="flex w-full grid-cols-[1fr,300px] grid-rows-1 flex-col gap-2 px-4 pb-4 pt-2 sm:grid sm:flex-none lg:gap-4 lg:px-8"
+>
+  <CodeEditor EditorCode="Hello World" />
+  <SnippetInfo
+    Author="Ap73MKa"
+    Title="PythonCode"
+    Access="Public"
+    Description="Cool turing machine"
+    ProgramLanguage="Python"
+    Stars="140"
+    Views="1400"
+    CreateDate="DateOnly.FromDateTime(DateTime.Today)"
+    />
+</div>
+<div class="mx-auto w-full max-w-5xl px-4 pb-4 pt-2">
+  <p class="mb-4 text-2xl font-semibold text-slate-800">Comments</p>
+  <div class="mb-8 mt-4 flex max-w-2xl">
+    <CreateCommentForm />
+  </div>
+  <ul class="flex flex-col gap-6">
+    <li>
+      <Comment
+        Author="Ap73MKa"
+        AvatarSrc="assets/avatar.jpg"
+        CreateDate="DateOnly.FromDateTime(DateTime.Today)"
+        CommentText="Nice code!"
+      />
+    </li>
+  </ul>
+</div>

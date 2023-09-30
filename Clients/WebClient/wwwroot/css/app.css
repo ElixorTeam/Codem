@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  #blazor-error-ui {
+    @apply bg-yellow-200 fixed hidden bottom-0 left-0 w-full z-50 shadow-md p-2;
+  }
+
+  #blazor-error-ui .dismiss {
+    @apply cursor-pointer absolute top-2 right-2;
+  }
+}
+
+.cm-editor.cm-focused {
+  @apply !outline-none;
+}
+
+.cm-gutters {
+  @apply !bg-slate-100;
+}

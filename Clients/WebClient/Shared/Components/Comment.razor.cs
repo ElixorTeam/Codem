@@ -1,0 +1,12 @@
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+
+namespace WebClient.Shared.Components;
+
+public partial class Comment : ComponentBase
+{
+    [Parameter] public string Author { get; set; }
+    [Parameter] public DateOnly CreateDate { get; set; }
+    [Parameter] public string AvatarSrc { get; set; }
+    [Parameter] public string CommentText { get; set; }
+}

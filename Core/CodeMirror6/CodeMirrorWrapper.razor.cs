@@ -27,7 +27,7 @@ public partial class CodeMirrorWrapper : ComponentBase, IAsyncDisposable
         get => _text;
         set { _text = value.Replace("\r", ""); }
     }
-    [Parameter] public string PlaceholderText { get; set; } = string.Empty;
+    [Parameter] public bool ReadOnly { get; set; }
     [Parameter] public EventCallback<string> TextChanged { get; set; }
     [Parameter] public EventCallback<bool> FocusChanged { get; set; }
 
@@ -78,6 +78,13 @@ public partial class CodeMirrorWrapper : ComponentBase, IAsyncDisposable
     {
         if (_hasFocus == value) return;
         _hasFocus = value;
+        await FocusChanged.InvokeAsync(_hasFocus);
+        await InvokeAsync(StateHasChanged);
+    }
+    
+    [JSInvokable]
+    public async Task OnReadOnlyChanged(bool value)
+    {
         await FocusChanged.InvokeAsync(_hasFocus);
         await InvokeAsync(StateHasChanged);
     }

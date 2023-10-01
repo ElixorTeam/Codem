@@ -1,14 +1,13 @@
-import { basicSetup } from "codemirror"
-import { EditorView, keymap, placeholder } from "@codemirror/view"
-import { EditorState, Compartment } from "@codemirror/state"
-import { markdown, markdownLanguage } from "@codemirror/lang-markdown"
-import { indentWithTab } from "@codemirror/commands"
-import { languages } from "@codemirror/language-data"
-import { autocompletion } from "@codemirror/autocomplete"
-import { CmInstance } from "./CmInstance"
+import {basicSetup} from "codemirror"
+import {EditorView, keymap} from "@codemirror/view"
+import {Compartment, EditorState} from "@codemirror/state"
+import {markdown, markdownLanguage} from "@codemirror/lang-markdown"
+import {indentWithTab} from "@codemirror/commands"
+import {languages} from "@codemirror/language-data"
+import {autocompletion} from "@codemirror/autocomplete"
+import {CmInstance} from "./CmInstance"
 
 const CMInstances: { [id: string]: CmInstance } = {}
-
 
 const createUpdateListener = (dotnetHelper: any) => {
     const invokeMethodAsync = async (method: string, arg: any) => {
@@ -30,22 +29,17 @@ const createUpdateListener = (dotnetHelper: any) => {
     });
 }
 
-
-export function initCodeMirror(
-    dotnetHelper: any,
-    id: string,
-    initialText: string,
-    placeholderText: string,
-    tabulationSize: number
-) {
+export function initCodeMirror(dotnetHelper: any, id: string, initialText: string, readOnly: boolean) {
     const language = new Compartment()
     const tabSize = new Compartment()
+    
     const state = EditorState.create({
         doc: initialText,
         extensions: [
             basicSetup,
             language.of(markdown({ base: markdownLanguage, codeLanguages: languages })),
             tabSize.of(EditorState.tabSize.of(4)),
+            EditorState.readOnly.of(readOnly),
             keymap.of([indentWithTab]),
             createUpdateListener(dotnetHelper),
             autocompletion(),
@@ -57,27 +51,20 @@ export function initCodeMirror(
         parent: document.getElementById(id),
     })
 
-    const cmInstance = new CmInstance();
-    cmInstance.dotNetHelper = dotnetHelper;
-    cmInstance.state = state;
-    cmInstance.view = view;
-    cmInstance.tabSize = tabSize;
-    cmInstance.language = language;
-    
-    CMInstances[id] = cmInstance;
-}
-
-export const setTabSize = (id: string, size: number) => {
-    CMInstances[id].view.dispatch({
-        effects: CMInstances[id].tabSize.reconfigure(EditorState.tabSize.of(size))
-    })
+    CMInstances[id] = new CmInstance(dotnetHelper, view, language);
 }
 
 export const setText = (id: string, text: string) => {
-    const transaction = CMInstances[id].view.state.update({
-        changes: {from: 0, to: CMInstances[id].view.state.doc.length, insert: text}
+    const transaction = CMInstances[id].getState().update({
+        changes: {from: 0, to: CMInstances[id].getState().doc.length, insert: text}
     })
     CMInstances[id].view.dispatch(transaction)
 }
 
-export const dispose = (id: string) => CMInstances[id]
+export const setTabSize = (id: string, size: number) => {
+}
+
+export const setReadOnly = (id: string, value: boolean) => {
+}
+
+export const dispose = (id: string) => delete CMInstances[id]

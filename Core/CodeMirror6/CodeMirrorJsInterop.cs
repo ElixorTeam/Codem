@@ -21,23 +21,28 @@ public class CodeMirrorJsInterop : IAsyncDisposable
     
     public async Task InitCodeMirror()
     {
-    
         IJSObjectReference module = await _moduleTask.Value;
         await module.InvokeVoidAsync(
             "initCodeMirror",
             _dotnetHelperRef,
             _codeMirror.Id,
             _codeMirror.Text,
-            _codeMirror.PlaceholderText,
-            _codeMirror.TabSize
+            _codeMirror.ReadOnly
         );
     }
     
+    [Obsolete("Js not ready")]
     public async Task SetTabSize()
     {
         IJSObjectReference module = await _moduleTask.Value;
         await module.InvokeVoidAsync("setTabSize", _codeMirror.Id, _codeMirror.TabSize);
     }
+    
+    // public async Task SetReadOnly()
+    // {
+    //     IJSObjectReference module = await _moduleTask.Value;
+    //     await module.InvokeVoidAsync("setReadOnly", _codeMirror.Id, true);
+    // }
 
     public async Task SetText()
     {
@@ -51,9 +56,18 @@ public class CodeMirrorJsInterop : IAsyncDisposable
     
     public async ValueTask DisposeAsync()
     {
-        if (_moduleTask.IsValueCreated) {
-            IJSObjectReference module = await _moduleTask.Value;
-            await module.DisposeAsync();
+        try
+        {
+            if (_moduleTask.IsValueCreated)
+            {
+                IJSObjectReference module = await _moduleTask.Value;
+                await module.InvokeVoidAsync("dispose");
+                await module.DisposeAsync();
+            }
+        }
+        catch (JSDisconnectedException e)
+        {
+            // ignore 
         }
     }
 }

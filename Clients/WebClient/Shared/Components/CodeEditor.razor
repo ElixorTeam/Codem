@@ -22,6 +22,6 @@
     </button>
   </div>
   <div class="w-full bg-white">
-    <CodeMirrorWrapper @bind-Text="EditorCode" TabSize="4"/>
+    <CodeMirrorWrapper TabSize="4" ReadOnly="@IsReadOnly" Language="@ActiveLanguage" />
   </div>
 </div>

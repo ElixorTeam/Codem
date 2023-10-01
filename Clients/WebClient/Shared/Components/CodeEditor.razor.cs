@@ -4,13 +4,12 @@ namespace WebClient.Shared.Components;
 
 public partial class CodeEditor : ComponentBase
 {
-    [Parameter] public string EditorCode { get; set; }
-
-    [Parameter] public bool IsEditable { get; set; }
+    [Parameter] public string ActiveLanguage { get; set; }
+    [Parameter] public bool IsReadOnly { get; set; }
 
     public CodeEditor()
     {
-        EditorCode = "";
-        IsEditable = true;
-    }
+        IsReadOnly = false;
+        ActiveLanguage = "Markdown";
+    } 
 }

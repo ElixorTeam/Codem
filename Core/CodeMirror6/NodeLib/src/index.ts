@@ -1,9 +1,8 @@
 import { basicSetup } from "codemirror"
 import { EditorView, keymap } from "@codemirror/view"
 import { Compartment, EditorState } from "@codemirror/state"
-import { markdown, markdownLanguage } from "@codemirror/lang-markdown"
 import { indentWithTab } from "@codemirror/commands"
-import { languages } from "@codemirror/language-data"
+import { languages } from "@codemirror/language-data";
 import { autocompletion } from "@codemirror/autocomplete"
 import { CmInstance } from "./CmInstance"
 import { DotNetHelperType } from "./DotNetHelperType";
@@ -30,24 +29,36 @@ const createUpdateListener = (dotnetHelper: any) => {
     });
 }
 
-export function initCodeMirror(
+const getLangLib = async(name: string) => {
+    try {
+        return await languages.find(l => l.name == name).load()
+    }
+    catch {
+        return await languages.find(l => l.name == "Python").load()
+    }
+}
+
+export async function initCodeMirror(
     dotnetHelper: DotNetHelperType,
     id: string,
     initialText: string,
-    isReadOnly: boolean,
-    customTabSize: number,
+    readOnly: boolean,
+    tabSize: number,
+    language: string
 ) {
-    const language = new Compartment()
-    const tabSize = new Compartment()
-    const readOnly = new Compartment()
+    const languageComp = new Compartment()
+    const tabSizeComp = new Compartment()
+    const readOnlyComp = new Compartment()
+    
+    const langLib = await getLangLib(language)
     
     const state = EditorState.create({
         doc: initialText,
         extensions: [
             basicSetup,
-            language.of(markdown({ base: markdownLanguage, codeLanguages: languages })),
-            tabSize.of(EditorState.tabSize.of(customTabSize)),
-            readOnly.of(EditorState.readOnly.of(isReadOnly)),
+            languageComp.of(langLib),
+            tabSizeComp.of(EditorState.tabSize.of(tabSize)),
+            readOnlyComp.of(EditorState.readOnly.of(readOnly)),
             keymap.of([indentWithTab]),
             createUpdateListener(dotnetHelper),
             autocompletion(),
@@ -62,9 +73,9 @@ export function initCodeMirror(
     CMInstances[id] = new CmInstance(
         dotnetHelper,
         view,
-        language,
-        tabSize,
-        readOnly
+        languageComp,
+        tabSizeComp,
+        readOnlyComp
     );
 }
 
@@ -73,6 +84,14 @@ export const setText = (id: string, text: string) => {
         changes: {from: 0, to: CMInstances[id].getState().doc.length, insert: text}
     })
     CMInstances[id].view.dispatch(transaction)
+}
+
+export const setLanguage = async(id: string, lang: string) => {
+    const langLib = await getLangLib(lang)
+    const config = {
+        effects: CMInstances[id].language.reconfigure(langLib)
+    }
+    CMInstances[id].view.dispatch(config)
 }
 
 export const setTabSize = (id: string, size: number) => {

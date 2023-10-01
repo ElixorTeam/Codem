@@ -28,7 +28,8 @@ public class CodeMirrorJsInterop : IAsyncDisposable
             _codeMirror.Id,
             _codeMirror.Text,
             _codeMirror.ReadOnly,
-            _codeMirror.TabSize
+            _codeMirror.TabSize,
+            "Python"
         );
     }
     

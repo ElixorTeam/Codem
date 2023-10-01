@@ -1,11 +1,12 @@
-import {basicSetup} from "codemirror"
-import {EditorView, keymap} from "@codemirror/view"
-import {Compartment, EditorState} from "@codemirror/state"
-import {markdown, markdownLanguage} from "@codemirror/lang-markdown"
-import {indentWithTab} from "@codemirror/commands"
-import {languages} from "@codemirror/language-data"
-import {autocompletion} from "@codemirror/autocomplete"
-import {CmInstance} from "./CmInstance"
+import { basicSetup } from "codemirror"
+import { EditorView, keymap } from "@codemirror/view"
+import { Compartment, EditorState } from "@codemirror/state"
+import { markdown, markdownLanguage } from "@codemirror/lang-markdown"
+import { indentWithTab } from "@codemirror/commands"
+import { languages } from "@codemirror/language-data"
+import { autocompletion } from "@codemirror/autocomplete"
+import { CmInstance } from "./CmInstance"
+import { DotNetHelperType } from "./DotNetHelperType";
 
 const CMInstances: { [id: string]: CmInstance } = {}
 
@@ -29,17 +30,24 @@ const createUpdateListener = (dotnetHelper: any) => {
     });
 }
 
-export function initCodeMirror(dotnetHelper: any, id: string, initialText: string, readOnly: boolean) {
+export function initCodeMirror(
+    dotnetHelper: DotNetHelperType,
+    id: string,
+    initialText: string,
+    isReadOnly: boolean,
+    customTabSize: number,
+) {
     const language = new Compartment()
     const tabSize = new Compartment()
+    const readOnly = new Compartment()
     
     const state = EditorState.create({
         doc: initialText,
         extensions: [
             basicSetup,
             language.of(markdown({ base: markdownLanguage, codeLanguages: languages })),
-            tabSize.of(EditorState.tabSize.of(4)),
-            EditorState.readOnly.of(readOnly),
+            tabSize.of(EditorState.tabSize.of(customTabSize)),
+            readOnly.of(EditorState.readOnly.of(isReadOnly)),
             keymap.of([indentWithTab]),
             createUpdateListener(dotnetHelper),
             autocompletion(),
@@ -51,7 +59,13 @@ export function initCodeMirror(dotnetHelper: any, id: string, initialText: strin
         parent: document.getElementById(id),
     })
 
-    CMInstances[id] = new CmInstance(dotnetHelper, view, language);
+    CMInstances[id] = new CmInstance(
+        dotnetHelper,
+        view,
+        language,
+        tabSize,
+        readOnly
+    );
 }
 
 export const setText = (id: string, text: string) => {
@@ -62,9 +76,17 @@ export const setText = (id: string, text: string) => {
 }
 
 export const setTabSize = (id: string, size: number) => {
+    const config = {
+        effects: CMInstances[id].tabSize.reconfigure(EditorState.tabSize.of(size))
+    }
+    CMInstances[id].view.dispatch(config)
 }
 
 export const setReadOnly = (id: string, value: boolean) => {
+    const config = {
+        effects: CMInstances[id].readonly.reconfigure(EditorState.readOnly.of(value))
+    }
+    CMInstances[id].view.dispatch(config)
 }
 
 export const dispose = (id: string) => delete CMInstances[id]

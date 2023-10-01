@@ -27,22 +27,22 @@ public class CodeMirrorJsInterop : IAsyncDisposable
             _dotnetHelperRef,
             _codeMirror.Id,
             _codeMirror.Text,
-            _codeMirror.ReadOnly
+            _codeMirror.ReadOnly,
+            _codeMirror.TabSize
         );
     }
     
-    [Obsolete("Js not ready")]
     public async Task SetTabSize()
     {
         IJSObjectReference module = await _moduleTask.Value;
         await module.InvokeVoidAsync("setTabSize", _codeMirror.Id, _codeMirror.TabSize);
     }
     
-    // public async Task SetReadOnly()
-    // {
-    //     IJSObjectReference module = await _moduleTask.Value;
-    //     await module.InvokeVoidAsync("setReadOnly", _codeMirror.Id, true);
-    // }
+    public async Task SetReadOnly()
+    {
+        IJSObjectReference module = await _moduleTask.Value;
+        await module.InvokeVoidAsync("setReadOnly", _codeMirror.Id, true);
+    }
 
     public async Task SetText()
     {

@@ -1,3 +1,4 @@
+using CodeMirror6;
 namespace WebClient;
 
 
@@ -10,6 +11,7 @@ public class Program
         // Add services to the container.
         builder.Services.AddRazorPages();
         builder.Services.AddServerSideBlazor();
+        builder.Services.AddTransient<CodeMirrorJsInterop>();
 
         WebApplication app = builder.Build();
 

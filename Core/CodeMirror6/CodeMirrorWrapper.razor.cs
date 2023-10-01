@@ -4,30 +4,34 @@ using Microsoft.JSInterop;
 
 namespace CodeMirror6;
 
-public partial class CodeMirrorWrapper : ComponentBase, IAsyncDisposable
+public partial class CodeMirrorWrapper : ComponentBase
 {
     private int _prevTabSize;
     
     private bool _hasFocus;
     private bool _shouldRender = true;
     
-    private string _text = string.Empty;
-    private string _prevText = string.Empty;
-    public readonly string Id = Guid.NewGuid().ToString();
-    
-    private CodeMirrorJsInterop? _jsInterop;
-    
-    [Inject] private IJSRuntime JSRuntime { get; set; }
+    private string _text;
+    private string _prevText;
+    private string _prevLanguage;
+
+    #region Inject
+
+    [Inject] private CodeMirrorJsInterop JsInterop { get; set; }
+
+    #endregion
 
     #region Parameters
-
-    [Parameter] public int TabSize { get; set; } = 4;
-    [Parameter] public string Text 
+    
+    public readonly string Id;
+    public string Text 
     {
         get => _text;
         set { _text = value.Replace("\r", ""); }
     }
+    [Parameter] public int TabSize { get; set; }
     [Parameter] public bool ReadOnly { get; set; }
+    [Parameter] public string Language { get; set; }
     [Parameter] public EventCallback<string> TextChanged { get; set; }
     [Parameter] public EventCallback<bool> FocusChanged { get; set; }
 
@@ -35,8 +39,16 @@ public partial class CodeMirrorWrapper : ComponentBase, IAsyncDisposable
     
     #region ComponentBase
 
+    public CodeMirrorWrapper()
+    {
+        TabSize = 4;
+        Id = Guid.NewGuid().ToString();
+        Text = string.Empty;
+    }
+    
     protected override void OnInitialized()
     {
+        _prevLanguage = Language;
         _prevTabSize = TabSize;
         _prevText = Text;
     }
@@ -44,16 +56,13 @@ public partial class CodeMirrorWrapper : ComponentBase, IAsyncDisposable
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        if (_jsInterop == null)
-        {
-            _jsInterop = new(JSRuntime, this);
-            await _jsInterop.InitCodeMirror();
-        }
+        await JsInterop.InitCodeMirror(this);
     }
 
     protected override async Task OnParametersSetAsync()
     {
         _shouldRender = false;
+        await UpdateLanguageForRender();
         await UpdateTabForRender();
         await UpdateTextForRender();
     }
@@ -62,12 +71,12 @@ public partial class CodeMirrorWrapper : ComponentBase, IAsyncDisposable
 
     #endregion
 
-    #region Public
+    #region Public JSInvokable
 
     [JSInvokable]
     public async Task OnJsTextChanged(string value)
     {
-        if (Text.Replace("\r", "") == value.Replace("\r", "")) return;
+        if (Text == value.Replace("\r", "")) return;
         Text = value;
         _prevText = Text;
         await TextChanged.InvokeAsync(Text);
@@ -92,29 +101,31 @@ public partial class CodeMirrorWrapper : ComponentBase, IAsyncDisposable
     #endregion
     
     #region Private
-
+    
+    private async Task UpdateLanguageForRender()
+    {
+        if (Language == _prevLanguage) return;
+        _prevLanguage = Language;
+        await JsInterop.SetLanguage();
+        _shouldRender = true;
+    }
+    
     private async Task UpdateTabForRender()
     {
-        if (_prevTabSize == TabSize || _jsInterop == null) return;
+        if (_prevTabSize == TabSize) return;
         _prevTabSize = TabSize;
-        await _jsInterop.SetTabSize();
+        await JsInterop.SetTabSize();
         _shouldRender = true;
     }
     
     private async Task UpdateTextForRender()
     {
-        if (_prevText.Replace("\r", "") == Text.Replace("\r", "") || _jsInterop == null)
+        if (_prevText.Replace("\r", "") == Text.Replace("\r", ""))
             return;
         _prevText = Text;
-        await _jsInterop.SetText();
+        await JsInterop.SetText();
         _shouldRender = true;
     }
 
     #endregion
-    
-    public async ValueTask DisposeAsync()
-    {
-        if (_jsInterop != null)
-            await _jsInterop.DisposeAsync();
-    }
 }

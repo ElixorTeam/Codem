@@ -6,8 +6,11 @@
     "postcss-cli": "^10.1.0",
     "tailwindcss": "^3.3.3"
   },
-    "scripts": {
-      "tw": "npx tailwindcss -i wwwroot/css/app.css -o wwwroot/css/app.min.css --watch",
-      "buildcss": "postcss wwwroot/css/app.css -o wwwroot/css/app.min.css"
-    }
+  "scripts": {
+    "tw": "npx tailwindcss -i wwwroot/css/app.css -o wwwroot/css/app.min.css --watch",
+    "buildcss": "postcss wwwroot/css/app.css -o wwwroot/css/app.min.css"
+  },
+  "devDependencies": {
+    "tailwind-scrollbar": "^3.0.5"
+  }
 }

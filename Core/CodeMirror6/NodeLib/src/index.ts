@@ -34,7 +34,7 @@ const getLangLib = async(name: string) => {
         return await languages.find(l => l.name == name).load()
     }
     catch {
-        return await languages.find(l => l.name == "Python").load()
+        return await languages.find(l => l.name == "Markdown").load()
     }
 }
 

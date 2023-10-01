@@ -2,9 +2,6 @@ using Microsoft.JSInterop;
 
 namespace CodeMirror6;
 
-/// <summary>
-/// Wraps JavaScript functionality in a .NET class for easy consumption.
-/// </summary>
 public class CodeMirrorJsInterop : IAsyncDisposable
 {
     private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
@@ -29,7 +26,7 @@ public class CodeMirrorJsInterop : IAsyncDisposable
             _codeMirror.Text,
             _codeMirror.ReadOnly,
             _codeMirror.TabSize,
-            "Python"
+            "Markdown"
         );
     }
     

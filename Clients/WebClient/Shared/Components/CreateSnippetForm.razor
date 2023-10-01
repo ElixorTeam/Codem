@@ -18,6 +18,7 @@
           <input
             type="text"
             id="title"
+            @bind="Title"
             class="h-8 w-full rounded-md border border-black/[.2] px-2 text-sm shadow-sm"
             placeholder="Untitled snippet..."
           />
@@ -25,11 +26,14 @@
       </div>
       <div>
         <label for="syntax" class="text-sm">Syntax highlighting</label>
-        <select id="syntax" class="mt-1 h-8 w-full rounded-md border border-black/[.2] bg-white px-2 pr-10 text-sm"
-                @bind="ActiveLanguage">
+        <select
+          id="syntax"
+          @bind="ActiveLanguage"
+          class="mt-1 p-0 h-8 w-full rounded-md border border-black/[.2] bg-white px-2 text-sm thin-scroll"
+        >
           @foreach (string language in Languages)
           {
-              <option value="@language">@language</option>
+            <option value="@language">@language</option>
           }
         </select>
       </div>
@@ -37,13 +41,13 @@
         <label for="expiration" class="text-sm">Expiration time</label>
         <select
           id="expiration"
-          class="mt-1 h-8 w-full rounded-md border border-black/[.2] bg-white px-2 pr-10 text-sm"
+          @bind="SelectedExpireTime"
+          class="mt-1 p-0 h-8 w-full rounded-md border border-black/[.2] bg-white px-2 pr-10 text-sm"
         >
-          <option selected>Never</option>
-          <option>1 Hour</option>
-          <option>1 Day</option>
-          <option>1 Week</option>
-          <option>1 Month</option>
+          @foreach (string time in ExpireTimeList)
+          {
+            <option value="@time">@time</option>
+          }
         </select>
       </div>
       <div>
@@ -52,8 +56,8 @@
           <input
             type="text"
             id="password"
-            disabled
-            class="h-8 w-full rounded-md border border-black/[.2] px-2 text-sm shadow-sm"
+            disabled="@(!HasPassword)"
+            class="h-8 w-full rounded-md border border-black/[.2] px-2 text-sm shadow-sm disabled:bg-slate-100"
             placeholder="Password..."
           />
         </div>
@@ -65,7 +69,8 @@
             aria-describedby="comments-description"
             name="is-private"
             type="checkbox"
-            class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+            @bind="IsPrivate"
+            class="h-4 w-4 rounded border-black/[.1] text-sky-400 focus:ring-transparent"
           />
         </div>
         <div class="ml-2 text-sm">
@@ -81,8 +86,9 @@
             aria-describedby="comments-description"
             name="comments"
             type="checkbox"
-            disabled
-            class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+            @bind="HasPassword"
+            disabled="@(!IsPrivate)"
+            class="h-4 w-4 rounded border-black/[.1] text-sky-400 focus:ring-transparent"
           />
         </div>
         <div class="ml-2 text-sm">

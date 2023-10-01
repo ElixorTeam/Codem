@@ -19,3 +19,15 @@
 .cm-gutters {
   @apply !bg-slate-100;
 }
+
+.cm-tooltip {
+  @apply rounded-md !overflow-hidden !bg-slate-100 !border-black/[.1] shadow
+}
+
+.cm-tooltip.cm-tooltip-autocomplete ul {
+  @apply scrollbar-thin scrollbar-thumb-slate-300 scrollbar-corner-transparent scrollbar-track-transparent
+}
+
+.thin-scroll {
+  @apply scrollbar-thin scrollbar-thumb-slate-300 scrollbar-corner-transparent scrollbar-track-transparent
+}

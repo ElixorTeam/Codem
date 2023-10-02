@@ -25,6 +25,11 @@ csharp_style_expression_bodied_lambdas = true:silent
 csharp_space_around_binary_operators = before_and_after
 csharp_style_expression_bodied_local_functions = false:silent
 
+
+[**.csproj]
+indent_size = 2
+trim_trailing_whitespace = true
+
 [**.{html,css,js,cshtml,razor}]
 indent_size = 2
 trim_trailing_whitespace = true

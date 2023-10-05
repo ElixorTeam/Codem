@@ -1,51 +1,84 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WebClient.Shared.Components;
 
 public class CodeFile
 {
-    public int Id { get; set; }
+    public Guid Id { get; }
     public string Text { get; set; }
     public string Title { get; set; }
+
+    public CodeFile(string text, string title)
+    {
+        Id = Guid.NewGuid();
+        Text = text;
+        Title = title;
+    }
 }
 
 public partial class CodeEditor : ComponentBase
 {
+
+    #region Parameters
+
     [Parameter] public string ActiveLanguage { get; set; }
     [Parameter] public bool IsReadOnly { get; set; }
 
-    public List<CodeFile> Files { get; set; }
-    public int CurrentId { get; set; }
+    #endregion
+    
+    private List<CodeFile> Files { get; } = new();
+    private Guid CurrentId { get; set; }
+    private CodeFile CurrentFile => 
+        Files.FirstOrDefault(f => f.Id == CurrentId) ?? GetFirstFileOrDefault();
 
-    public CodeEditor()
+    protected override void OnInitialized()
     {
-        IsReadOnly = false;
-        ActiveLanguage = "Markdown";
-        CurrentId = 0;
-        Files = new List<CodeFile>() {
-            new CodeFile { Id = 0, Text = "Hello", Title = "file.txt" }
-        };
+        base.OnInitialized();
+        CreateFirstFileIfNotExists();
+        CurrentId = Files.Last().Id;
+    }
+    
+    // First file trouble shooting
+    private void CreateFirstFileIfNotExists()
+    {
+        if (Files.Count == 0) 
+            AddFile();
     }
 
-    public void SwitchFile(int Id)
+    private CodeFile GetFirstFileOrDefault()
     {
-        CurrentId = Id;
+        CreateFirstFileIfNotExists();
+        return Files.First();
     }
 
-    public void AddFile()
+    // File functions
+    private void SwitchFile(Guid id)
     {
-        int NewId = Files.Count;
-        string fileName = NewId == 0 ? "file.txt" : $"file{NewId}.txt";
-        CodeFile NewFile = new CodeFile { Id = NewId, Text = "", Title = fileName };
-        Files.Add(NewFile);
-        CurrentId = NewFile.Id;
+        CurrentId = id;
     }
 
-    public void DeleteFile()
+    private void AddFile(string text = "", string title = "new file")
     {
-        Files.RemoveAll(i => i.Id == CurrentId);
-        if (Files.Count == 0) AddFile();
-        else CurrentId = Files[Files.Count() - 1].Id;
+        CodeFile newFile = new(text, title);
+        Files.Add(newFile);
+        CurrentId = newFile.Id;
+    }
+
+    private void DeleteFile()
+    {
+        int fileIndex = Files.FindIndex(f => f.Id == CurrentId);
+        Files.RemoveAt(fileIndex);
+        StateHasChanged();
+        if (fileIndex == 0)
+        {
+            CreateFirstFileIfNotExists();
+            return;
+        }
+        int nextFileIndex = fileIndex >= Files.Count ? fileIndex - 1 : fileIndex;
+        CurrentId = Files[nextFileIndex].Id;
     }
 }

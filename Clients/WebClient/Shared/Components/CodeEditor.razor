@@ -17,40 +17,106 @@
       <li class="flex h-full items-center pl-2">
         <button
           type="button"
-          onclick="@AddFile"
+          @onclick="() => AddFile()"
           class="flex h-4 w-4 items-center justify-center rounded-full hover:bg-white"
         >
           <p class="pb-1 text-slate-800">+</p>
         </button>
       </li>
     </ul>
-    <button
-      type="button"
-      id="dropdownDefaultButton"
-      data-dropdown-toggle="dropdown"
-      class="w-6 border-l border-l-black/[.1] h-full flex items-center justify-center hover:bg-slate-200"
-    >
-      <img src="assets/dots.svg" alt="" class="contrast-0" />
-    </button>
+    <div class="h-full">
+      <button
+        type="button"
+        id="editorContextMenuButton"
+        data-dropdown-offset-skidding="-51"
+        data-dropdown-toggle="editorContextMenu"
+        class="w-6 border-l border-l-black/[.1] h-full flex items-center justify-center hover:bg-slate-200"
+      >
+        <img src="assets/dots.svg" alt="" class="contrast-0" />
+      </button>
+      <div
+        id="editorContextMenu"
+        class="z-10 hidden py-1 bg-slate-100 divide-y divide-black/[.1] border border-black/[.1] rounded-lg shadow w-32"
+      >
+        <ul
+          class="py-1 text-sm text-gray-700"
+          aria-labelledby="editorContextMenuButton"
+        >
+          <li>
+            <button
+              type="button"
+              data-modal-target="editFileModal"
+              data-modal-toggle="editFileModal"
+              class="px-3 py-1 flex w-full hover:bg-white/[.5] items-center gap-2"
+            >
+              <img src="assets/trash.svg" alt="" class="h-3 w-3" />
+              <p class="text-red-600">Delete file</p>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="px-3 py-1 flex items-center w-full hover:bg-white/[.5] gap-2">
+              <img src="assets/pencil.svg" alt="" class="h-3 w-3" />
+              <p class="text-gray-600">Rename file</p>
+            </button>
+          </li>
+        </ul>
+        <ul
+          class="py-1 text-sm text-gray-700 "
+          aria-labelledby="editorContextMenuButton"
+        >
+          <li>
+            <button type="button" class="px-3 py-1 w-full hover:bg-white/[.5]">
+              <p>Clone Project</p>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="px-3 py-1 w-full hover:bg-white/[.5]">
+              <p>Remove project</p>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
   </div>
   <div class="w-full bg-white">
-    <CodeMirrorWrapper @bind-Text="Files[CurrentId].Text" TabSize="4" ReadOnly="@IsReadOnly" Language="@ActiveLanguage" />
+    <CodeMirrorWrapper
+      @bind-Text="Files[CurrentId].Text"
+      TabSize="4"
+      ReadOnly="@IsReadOnly"
+      Language="@ActiveLanguage"
+    />
   </div>
 </div>
 
-<div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-      <li>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-      </li>
-      <li>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-      </li>
-      <li>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-      </li>
-      <li>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
-      </li>
-    </ul>
+<div
+  id="editFileModal"
+  tabindex="-1"
+  aria-hidden="true"
+  class="fixed top-0 left-0 right-0 z-50 hidden h-screen p-4 overflow-x-hidden overflow-y-auto md:inset-0"
+>
+  <div class="w-full p-4 max-w-xs max-h-full flex border border-black/[.1] flex-col items-center bg-slate-100 rounded-lg shadow">
+    <div class="p-2 text-center">
+      <p>
+        Are you sure you want to delete file?
+      </p>
+    </div>
+    <div class="flex gap-4 items-center p-2">
+      <button
+        data-modal-hide="editFileModal"
+        type="button"
+        @onclick="() => DeleteFile()"
+        class="bg-sky-400 border hover:bg-sky-500 transition-colors border-black/[.1] px-4 py-2 rounded-lg overflow-hidden"
+      >
+        <p class="text-white">Sure</p>
+      </button>
+      <button
+        data-modal-hide="editFileModal"
+        type="button"
+        class="text-gray-500 hover:text-gray-700 transition px-4 py-2 rounded-lg border border-black/[.1] overflow-hidden hover:bg-slate-200"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
 </div>

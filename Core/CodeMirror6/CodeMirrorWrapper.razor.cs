@@ -1,5 +1,4 @@
-﻿using CodeMirror6.Models;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace CodeMirror6;

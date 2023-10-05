@@ -33,12 +33,14 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
-   <Target Name="NpmInit" BeforeTargets="BeforeBuild;BeforeRebuild;Rollup">
-    <Exec Command="cd NodeLib &amp;&amp; npm install" />
-  </Target>
-
-   <Target Name="Rollup" BeforeTargets="BeforeBuild;BeforeRebuild">
-    <Exec Command="cd NodeLib &amp;&amp; npx rollup --config" />
+  <Target Name="NpmInit" BeforeTargets="BeforeBuild;BeforeRebuild;Rollup">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec Command="npm install &amp;&amp; npx rollup --config" WorkingDirectory="$(ProjectDir)\NodeLib"/>
   </Target>
 
 </Project>

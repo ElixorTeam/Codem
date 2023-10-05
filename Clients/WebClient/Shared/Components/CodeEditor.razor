@@ -1,27 +1,56 @@
 @inherits ComponentBase
 
-<div
-  class="mt-14 h-fit w-full overflow-hidden rounded-lg border border-black/[.1] bg-slate-200"
->
-  <div
-    class="flex h-8 w-full items-center border-b border-b-black/[.1] bg-slate-100"
-  >
+<div class="mt-14 h-fit w-full overflow-hidden rounded-lg border border-black/[.1] bg-slate-200">
+  <div class="flex h-8 w-full items-center border-b overflow-hidden border-b-black/[.1] bg-slate-100">
+    <ul class="flex h-full w-full overflow-x-auto overflow-y-hidden thin-scroll">
+      @foreach (CodeFile file in Files)
+      {
+        <li class="h-full">
+          <button
+            type="button"
+            @onclick="() => SwitchFile(file.Id)"
+            class="flex h-full items-center border-r border-r-black/[.1] px-4 @(file.Id == CurrentId ? "bg-white/[.7]" : "bg-transparent") hover:bg-white/[.5]">
+            <p class="text-xs">@file.Title</p>
+          </button>
+        </li>
+      }
+      <li class="flex h-full items-center pl-2">
+        <button
+          type="button"
+          onclick="@AddFile"
+          class="flex h-4 w-4 items-center justify-center rounded-full hover:bg-white"
+        >
+          <p class="pb-1 text-slate-800">+</p>
+        </button>
+      </li>
+    </ul>
     <button
       type="button"
-      class="flex h-full cursor-text items-center border-r border-r-black/[.1] bg-white/[.7] px-4 hover:bg-white/[.5]"
+      id="dropdownDefaultButton"
+      data-dropdown-toggle="dropdown"
+      class="w-6 border-l border-l-black/[.1] h-full flex items-center justify-center hover:bg-slate-200"
     >
-      <p class="text-xs">file.txt</p>
-    </button>
-    <button type="button" class="flex h-full items-center pl-2">
-      <button
-        type="button"
-        class="flex h-4 w-4 items-center justify-center rounded-full hover:bg-white"
-      >
-        <p class="pb-1 text-slate-800">+</p>
-      </button>
+      <img src="assets/dots.svg" alt="" class="contrast-0" />
     </button>
   </div>
   <div class="w-full bg-white">
-    <CodeMirrorWrapper TabSize="4" ReadOnly="@IsReadOnly" Language="@ActiveLanguage" />
+    <CodeMirrorWrapper @bind-Text="Files[CurrentId].Text" TabSize="4" ReadOnly="@IsReadOnly" Language="@ActiveLanguage" />
   </div>
+</div>
+
+<div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+      <li>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+      </li>
+      <li>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+      </li>
+      <li>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+      </li>
+      <li>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
+      </li>
+    </ul>
 </div>

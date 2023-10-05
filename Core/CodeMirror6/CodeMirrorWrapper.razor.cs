@@ -24,7 +24,7 @@ public partial class CodeMirrorWrapper : ComponentBase
     #region Parameters
     
     public readonly string Id;
-    public string Text 
+    [Parameter] public string Text 
     {
         get => _text;
         set { _text = value.Replace("\r", ""); }

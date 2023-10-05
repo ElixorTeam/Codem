@@ -36,8 +36,16 @@ public partial class CodeEditor : ComponentBase
     public void AddFile()
     {
         int NewId = Files.Count;
-        CodeFile NewFile = new CodeFile { Id = NewId, Text = "", Title = $"file{NewId}.txt" };
+        string fileName = NewId == 0 ? "file.txt" : $"file{NewId}.txt";
+        CodeFile NewFile = new CodeFile { Id = NewId, Text = "", Title = fileName };
         Files.Add(NewFile);
         CurrentId = NewFile.Id;
+    }
+
+    public void DeleteFile()
+    {
+        Files.RemoveAll(i => i.Id == CurrentId);
+        if (Files.Count == 0) AddFile();
+        else CurrentId = Files[Files.Count() - 1].Id;
     }
 }

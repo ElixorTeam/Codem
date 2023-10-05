@@ -29,7 +29,8 @@ public partial class CodeEditor : ComponentBase
     [Parameter] public bool IsReadOnly { get; set; }
 
     #endregion
-    
+
+    private string InputFileName { get; set; } = String.Empty; 
     private List<CodeFile> Files { get; } = new();
     private Guid CurrentId { get; set; }
     private CodeFile CurrentFile => 
@@ -80,5 +81,16 @@ public partial class CodeEditor : ComponentBase
         }
         int nextFileIndex = fileIndex >= Files.Count ? fileIndex - 1 : fileIndex;
         CurrentId = Files[nextFileIndex].Id;
+    }
+
+    private void ChangeFileName()
+    {
+        if (string.IsNullOrEmpty(InputFileName)) return;
+        CodeFile file = Files.FirstOrDefault(f => f.Id == CurrentId);
+        if (file == null) return;
+        {
+            file.Title = InputFileName;
+        }
+        InputFileName = String.Empty;
     }
 }

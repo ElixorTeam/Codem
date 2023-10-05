@@ -46,8 +46,8 @@
           <li>
             <button
               type="button"
-              data-modal-target="editFileModal"
-              data-modal-toggle="editFileModal"
+              data-modal-target="deleteFileModal"
+              data-modal-toggle="deleteFileModal"
               class="px-3 py-1 flex w-full hover:bg-white/[.5] items-center gap-2"
             >
               <TrashIcon class="h-3 w-3 text-red-600" />
@@ -55,8 +55,13 @@
             </button>
           </li>
           <li>
-            <button type="button" class="px-3 py-1 flex items-center w-full hover:bg-white/[.5] gap-2">
-              <PencilIcon class="h-3 w-3 text-gray-700" />
+            <button
+              type="button"
+              data-modal-target="editFileNameModal"
+              data-modal-toggle="editFileNameModal"
+              class="px-3 py-1 flex w-full hover:bg-white/[.5] items-center gap-2"
+            >
+              <PencilIcon class="h-3 w-3 text-gray-700"/>
               <p class="text-gray-600">Rename file</p>
             </button>
           </li>
@@ -91,7 +96,7 @@
 </div>
 
 <div
-  id="editFileModal"
+  id="deleteFileModal"
   tabindex="-1"
   aria-hidden="true"
   class="fixed top-0 left-0 right-0 z-50 hidden h-screen p-4 overflow-x-hidden overflow-y-auto md:inset-0"
@@ -104,7 +109,7 @@
     </div>
     <div class="flex gap-4 items-center p-2">
       <button
-        data-modal-hide="editFileModal"
+        data-modal-hide="deleteFileModal"
         type="button"
         @onclick="DeleteFile"
         class="bg-sky-400 border hover:bg-sky-500 transition-colors border-black/[.1] px-4 py-2 rounded-lg overflow-hidden"
@@ -112,7 +117,48 @@
         <p class="text-white">Sure</p>
       </button>
       <button
-        data-modal-hide="editFileModal"
+        data-modal-hide="deleteFileModal"
+        type="button"
+        class="text-gray-500 hover:text-gray-700 transition px-4 py-2 rounded-lg border border-black/[.1] overflow-hidden hover:bg-slate-200"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+<div
+  id="editFileNameModal"
+  tabindex="-1"
+  aria-hidden="true"
+  class="fixed top-0 left-0 right-0 z-50 hidden h-screen p-4 overflow-x-hidden overflow-y-auto md:inset-0"
+>
+  <div class="w-full p-4 max-w-xs max-h-full flex border border-black/[.1] flex-col items-center bg-slate-100 rounded-lg shadow">
+    <div class="p-2 px-6 w-full">
+      <label for="fileName" class="text-sm">
+        File name
+      </label>
+      <div class="mt-1">
+        <input
+          type="text"
+          id="fileName"
+          @bind="InputFileName"
+          class="h-10 w-full rounded-md border border-black/[.2] px-2 text-sm shadow-sm"
+          placeholder="Enter file name..."
+        />
+      </div>
+    </div>
+    <div class="flex gap-4 items-center p-2">
+      <button
+        data-modal-hide="editFileNameModal"
+        type="button"
+        @onclick="ChangeFileName"
+        class="bg-sky-400 border hover:bg-sky-500 transition-colors border-black/[.1] px-4 py-2 rounded-lg overflow-hidden"
+      >
+        <p class="text-white">Change</p>
+      </button>
+      <button
+        data-modal-hide="editFileNameModal"
         type="button"
         class="text-gray-500 hover:text-gray-700 transition px-4 py-2 rounded-lg border border-black/[.1] overflow-hidden hover:bg-slate-200"
       >

@@ -1,3 +1,5 @@
+@using HeroIcons.Blazor.Outline
+
 <a href="/c/@Id">
   <div class="mb-4 cursor-pointer overflow-hidden rounded-md border border-black/[.1] bg-slate-100 transition-colors hover:bg-slate-200">
     <div class="flex h-fit flex-col items-center gap-1 border-b border-b-black/[.1] bg-white/[.7] px-2 text-sm">
@@ -11,29 +13,17 @@
         <div class="flex items-center gap-2">
           <div class="flex items-center gap-1">
             <div class="mt-1 h-4 w-4 overflow-hidden rounded-full">
-              <img
-                src="@AvatarSrc"
-                alt=""
-                class="h-full w-full"
-              />
+              <img src="@AvatarSrc" alt="" class="h-full w-full" />
             </div>
             <h1 class="line-clamp-1 text-xs">@Author</h1>
           </div>
           <h1 class="line-clamp-1 text-xs">@PublicDate</h1>
           <div class="flex gap-0.5 items-center">
-            <img
-              src="assets/view.svg"
-              alt=""
-              class="h-3 w-3 contrast-0"
-            />
+            <EyeIcon class="h-3 w-3 text-gray-700" />
             <h1 class="text-xs">16</h1>
           </div>
           <div class="flex gap-0.5 items-center">
-            <img
-              src="assets/star.svg"
-              alt=""
-              class="h-3 w-3 contrast-0"
-            />
+            <StarIcon class="h-3 w-3 text-gray-700" />
             <h1 class="text-xs">2</h1>
           </div>
         </div>

@@ -10,10 +10,7 @@ public partial class MainLayout : LayoutComponentBase
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync("initFlowbite");
-        }
+        await JSRuntime.InvokeVoidAsync("initFlowbite");
     }
 }
 

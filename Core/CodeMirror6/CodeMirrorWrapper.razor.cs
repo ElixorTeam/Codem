@@ -42,7 +42,13 @@ public partial class CodeMirrorWrapper : ComponentBase
     {
         TabSize = 4;
         Id = Guid.NewGuid().ToString();
+        
+        Language = string.Empty;
         Text = string.Empty;
+        
+        _text = string.Empty;
+        _prevText = string.Empty;
+        _prevLanguage = string.Empty;
     }
     
     protected override void OnInitialized()

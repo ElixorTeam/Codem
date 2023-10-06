@@ -16,6 +16,7 @@ public partial class HeaderSearch : ComponentBase
         string url = "/search";
         if (!(string.IsNullOrEmpty(searchQuery))) 
             url = $"{url}?searchQuery={searchQuery}";
+        searchQuery = String.Empty;
         NavigationManager.NavigateTo(url);
     }
 }

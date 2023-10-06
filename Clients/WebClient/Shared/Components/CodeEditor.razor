@@ -15,21 +15,24 @@
           </button>
         </li>
       }
-      <li class="flex h-full items-center pl-2">
-        <button
-          type="button"
-          @onclick="() => AddFile()"
-          class="flex h-4 w-4 items-center justify-center rounded-full hover:bg-white"
-        >
-          <p class="pb-1 text-slate-800">+</p>
-        </button>
-      </li>
+      @if (!IsReadOnly)
+      {
+        <li class="flex h-full items-center pl-2">
+          <button
+            type="button"
+            @onclick="() => AddFile()"
+            class="flex h-4 w-4 items-center justify-center rounded-full hover:bg-white"
+          >
+            <p class="pb-1 text-slate-800">+</p>
+          </button>
+        </li>
+      }
     </ul>
     <div class="h-full">
       <button
         type="button"
         id="editorContextMenuButton"
-        data-dropdown-offset-skidding="-51"
+        data-dropdown-offset-skidding="-60"
         data-dropdown-toggle="editorContextMenu"
         class="w-6 border-l border-l-black/[.1] h-full flex items-center justify-center hover:bg-slate-200"
       >
@@ -37,21 +40,51 @@
       </button>
       <div
         id="editorContextMenu"
-        class="z-10 hidden py-1 bg-slate-100 divide-y divide-black/[.1] border border-black/[.1] rounded-lg shadow w-32"
+        class="z-10 hidden py-1 bg-slate-100 divide-y divide-black/[.1] border border-black/[.1] rounded-lg shadow w-fit"
       >
+        @if (!IsReadOnly)
+        {
+          <ul
+            class="py-1 text-sm text-gray-700"
+            aria-labelledby="editorContextMenuButton"
+          >
+            <li>
+              <button
+                type="button"
+                data-modal-target="deleteFileModal"
+                data-modal-toggle="deleteFileModal"
+                class="px-3 py-1 flex w-full hover:bg-white/[.5] items-center gap-2"
+              >
+                <TrashIcon class="h-3 w-3 text-red-600" />
+                <p class="text-red-600">Delete file</p>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                data-modal-target="editFileNameModal"
+                data-modal-toggle="editFileNameModal"
+                class="px-3 py-1 flex w-full hover:bg-white/[.5] items-center gap-2"
+              >
+                <PencilIcon class="h-3 w-3 text-gray-700"/>
+                <p class="text-gray-600">Rename file</p>
+              </button>
+            </li>
+          </ul>
+        }
         <ul
-          class="py-1 text-sm text-gray-700"
+          class="py-1 text-sm text-gray-700 "
           aria-labelledby="editorContextMenuButton"
         >
           <li>
             <button
               type="button"
-              data-modal-target="deleteFileModal"
-              data-modal-toggle="deleteFileModal"
+              data-modal-target="editFileNameModal"
+              data-modal-toggle="editFileNameModal"
               class="px-3 py-1 flex w-full hover:bg-white/[.5] items-center gap-2"
             >
-              <TrashIcon class="h-3 w-3 text-red-600" />
-              <p class="text-red-600">Delete file</p>
+              <DocumentDuplicateIcon class="h-3 w-3 text-gray-700"/>
+              <p class="text-gray-600">Clone Project</p>
             </button>
           </li>
           <li>
@@ -61,23 +94,8 @@
               data-modal-toggle="editFileNameModal"
               class="px-3 py-1 flex w-full hover:bg-white/[.5] items-center gap-2"
             >
-              <PencilIcon class="h-3 w-3 text-gray-700"/>
-              <p class="text-gray-600">Rename file</p>
-            </button>
-          </li>
-        </ul>
-        <ul
-          class="py-1 text-sm text-gray-700 "
-          aria-labelledby="editorContextMenuButton"
-        >
-          <li>
-            <button type="button" class="px-3 py-1 w-full hover:bg-white/[.5]">
-              <p>Clone Project</p>
-            </button>
-          </li>
-          <li>
-            <button type="button" class="px-3 py-1 w-full hover:bg-white/[.5]">
-              <p>Remove project</p>
+              <TrashIcon class="h-3 w-3 text-gray-700"/>
+              <p class="text-gray-600 line-clamp-1">Remove Project</p>
             </button>
           </li>
         </ul>
@@ -107,21 +125,21 @@
         Are you sure you want to delete file?
       </p>
     </div>
-    <div class="flex gap-4 items-center p-2">
+    <div class="flex gap-4 items-center p-2 pt-3">
       <button
         data-modal-hide="deleteFileModal"
         type="button"
         @onclick="DeleteFile"
         class="bg-sky-400 border hover:bg-sky-500 transition-colors border-black/[.1] px-4 py-2 rounded-lg overflow-hidden"
       >
-        <p class="text-white">Sure</p>
+        <p class="text-white text-sm">Sure</p>
       </button>
       <button
         data-modal-hide="deleteFileModal"
         type="button"
         class="text-gray-500 hover:text-gray-700 transition px-4 py-2 rounded-lg border border-black/[.1] overflow-hidden hover:bg-slate-200"
       >
-        Cancel
+        <p class="text-sm">Cancel</p>
       </button>
     </div>
   </div>
@@ -155,14 +173,14 @@
         @onclick="ChangeFileName"
         class="bg-sky-400 border hover:bg-sky-500 transition-colors border-black/[.1] px-4 py-2 rounded-lg overflow-hidden"
       >
-        <p class="text-white">Change</p>
+        <p class="text-white text-sm">Change</p>
       </button>
       <button
         data-modal-hide="editFileNameModal"
         type="button"
         class="text-gray-500 hover:text-gray-700 transition px-4 py-2 rounded-lg border border-black/[.1] overflow-hidden hover:bg-slate-200"
       >
-        Cancel
+        <p class="text-sm">Cancel</p>
       </button>
     </div>
   </div>

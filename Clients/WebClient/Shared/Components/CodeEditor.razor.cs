@@ -25,8 +25,9 @@ public partial class CodeEditor : ComponentBase
 
     #region Parameters
 
-    [Parameter] public string ActiveLanguage { get; set; }
-    [Parameter] public bool IsReadOnly { get; set; }
+    [Parameter] public string ActiveLanguage { get; set; } = "Markdown";
+    [Parameter] public bool IsReadOnly { get; set; } = false;
+    [Parameter] public bool IsOwner { get; set; } = false;
 
     #endregion
 

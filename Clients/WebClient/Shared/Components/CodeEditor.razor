@@ -76,28 +76,32 @@
           class="py-1 text-sm text-gray-700 "
           aria-labelledby="editorContextMenuButton"
         >
-          <li>
-            <button
-              type="button"
-              data-modal-target="editFileNameModal"
-              data-modal-toggle="editFileNameModal"
-              class="px-3 py-1 flex w-full hover:bg-white/[.5] items-center gap-2"
-            >
-              <DocumentDuplicateIcon class="h-3 w-3 text-gray-700"/>
-              <p class="text-gray-600">Clone Project</p>
-            </button>
-          </li>
-          <li>
-            <button
-              type="button"
-              data-modal-target="editFileNameModal"
-              data-modal-toggle="editFileNameModal"
-              class="px-3 py-1 flex w-full hover:bg-white/[.5] items-center gap-2"
-            >
-              <TrashIcon class="h-3 w-3 text-gray-700"/>
-              <p class="text-gray-600 line-clamp-1">Remove Project</p>
-            </button>
-          </li>
+          @if (!IsOwner)
+          {
+            <li>
+              <button
+                type="button"
+                data-modal-target="editFileNameModal"
+                data-modal-toggle="editFileNameModal"
+                class="px-3 py-1 flex w-full hover:bg-white/[.5] items-center gap-2">
+                <DocumentDuplicateIcon class="h-3 w-3 text-gray-700"/>
+                <p class="text-gray-600">Clone Project</p>
+              </button>
+            </li>
+          }
+          @if (IsOwner)
+          {
+            <li>
+              <button
+                type="button"
+                data-modal-target="editFileNameModal"
+                data-modal-toggle="editFileNameModal"
+                class="px-3 py-1 flex w-full hover:bg-white/[.5] items-center gap-2">
+                <TrashIcon class="h-3 w-3 text-gray-700"/>
+                <p class="text-gray-600 line-clamp-1">Remove Project</p>
+              </button>
+            </li>
+          }
         </ul>
       </div>
     </div>

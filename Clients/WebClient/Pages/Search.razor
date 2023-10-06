@@ -16,7 +16,7 @@
           class="h-full w-full pl-1 text-sm border-none focus:outline-none focus:ring-0"
         />
       </label>
-      <a href="/search?searchQuery=@SearchQuery">
+      <a href="@(string.IsNullOrEmpty(SearchQuery) ? "/search" : $"/search?searchQuery={SearchQuery}")">
         <button
           type="button"
           class="flex h-6 items-center gap-2 rounded-md border border-black/[.1] bg-sky-400 px-2 hover:bg-sky-500"

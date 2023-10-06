@@ -1,96 +1,85 @@
 @inherits ComponentBase
 
-<CodeEditor ActiveLanguage="@ActiveLanguage"/>
-
 <div class="sm:border-box w-full pt-14 sm:sticky sm:top-0 sm:h-fit">
   <div class="h-fit w-full overflow-hidden rounded-lg border border-black/[.15] bg-slate-100">
-    <div class="flex h-8 items-center border-b border-b-black/[.15] bg-white/[.7] px-4">
-      <p class="text-sm">Snippet settings</p>
-    </div>
-    <div class="flex h-full w-full flex-col gap-2 px-4 py-2">
-      <div>
-        <label for="title" class="text-sm">Title</label>
-        <div class="mt-1">
-          <input
-            type="text"
-            id="title"
-            @bind="Title"
-            class="h-8 w-full rounded-md border border-black/[.2] px-2 text-sm"
-            placeholder="Untitled snippet..."/>
-        </div>
+    <EditForm Model="@Model" OnSubmit="@HandleSubmit">
+      <DataAnnotationsValidator />
+      <ValidationSummary />
+      <div class="flex h-8 items-center border-b border-b-black/[.15] bg-white/[.7] px-4">
+        <p class="text-sm">Snippet settings</p>
       </div>
-      <div>
-        <label for="syntax" class="text-sm">Syntax highlighting</label>
-        <select
-          id="syntax"
-          @bind="ActiveLanguage"
-          class="mt-1 p-0 h-8 w-full rounded-md border border-black/[.2] bg-white px-2 text-sm thin-scroll">
-          @foreach (string language in Languages)
-          {
-            <option value="@language">@language</option>
-          }
-        </select>
-      </div>
-      <div>
-        <label for="expiration" class="text-sm">Expiration time</label>
-        <select
-          id="expiration"
-          @bind="SelectedExpireTime"
-          class="mt-1 p-0 h-8 w-full rounded-md border border-black/[.2] bg-white px-2 pr-10 text-sm">
-          @foreach (string time in ExpireTimeList)
-          {
-            <option value="@time">@time</option>
-          }
-        </select>
-      </div>
-      <div>
-        <label for="password" class="text-sm">Password</label>
-        <div class="mt-1">
-          <input
-            type="text"
-            id="password"
-            disabled="@(!HasPassword)"
-            class="h-8 w-full rounded-md border border-black/[.2] px-2 text-sm shadow-sm disabled:bg-slate-100"
-            placeholder="Password..."/>
+      <div class="flex h-full w-full flex-col gap-2 px-4 py-2">
+        <div>
+          <label for="title" class="text-sm">Title</label>
+          <div class="mt-1">
+            <input
+              type="text"
+              id="title"
+              @bind="Model.Title"
+              class="h-8 w-full rounded-md border border-black/[.2] px-2 text-sm"
+              placeholder="Untitled snippet..."/>
+          </div>
         </div>
+        <div>
+          <label for="syntax" class="text-sm">Syntax highlighting</label>
+          <select
+            id="syntax"
+            @bind="ActiveLanguage"
+            class="mt-1 p-0 h-8 w-full rounded-md border border-black/[.2] bg-white px-2 text-sm thin-scroll">
+            @foreach (string language in Languages)
+            {
+              <option value="@language">@language</option>
+            }
+          </select>
+        </div>
+        <div>
+          <label for="expiration" class="text-sm">Expiration time</label>
+          <select
+            id="expiration"
+            @bind="Model.ExpireTime"
+            class="mt-1 p-0 h-8 w-full rounded-md border border-black/[.2] bg-white px-2 pr-10 text-sm">
+            @foreach (ExpireTimeItem item in ExpireTimeList)
+            {
+              <option value="@item.TimeValue">@item.Text</option>
+            }
+          </select>
+        </div>
+        <div>
+          <label for="password" class="text-sm">Password</label>
+          <div class="mt-1">
+            <input
+              type="text"
+              id="password"
+              disabled="@(!Model.IsPrivate)"
+              @bind="Model.Password"
+              class="h-8 w-full rounded-md border border-black/[.2] px-2 text-sm shadow-sm disabled:bg-slate-100"
+              placeholder="Password..."/>
+          </div>
+        </div>
+        <div class="ml-2 mt-2 flex items-start">
+          <div class="flex h-5 items-center">
+            <input
+              id="is-private"
+              aria-describedby="comments-description"
+              name="is-private"
+              type="checkbox"
+              @bind="Model.IsPrivate"
+              class="h-4 w-4 rounded border-black/[.1] text-sky-400 focus:ring-transparent"/>
+          </div>
+          <div class="ml-2 text-sm">
+            <label for="is-private" class="font-medium text-gray-700">
+              Private
+            </label>
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="mb-2 mt-4 flex h-8 items-center justify-center rounded-md border border-black/[.2] bg-sky-400 hover:bg-sky-500">
+          <p class="pb-1 text-sm text-white">Create snippet</p>
+        </button>
       </div>
-      <div class="ml-2 mt-2 flex items-start">
-        <div class="flex h-5 items-center">
-          <input
-            id="is-private"
-            aria-describedby="comments-description"
-            name="is-private"
-            type="checkbox"
-            @bind="IsPrivate"
-            class="h-4 w-4 rounded border-black/[.1] text-sky-400 focus:ring-transparent"/>
-        </div>
-        <div class="ml-2 text-sm">
-          <label for="is-private" class="font-medium text-gray-700">
-            Private
-          </label>
-        </div>
-      </div>
-      <div class="ml-2 flex items-start">
-        <div class="flex h-5 items-center">
-          <input
-            id="is-password"
-            aria-describedby="comments-description"
-            name="comments"
-            type="checkbox"
-            @bind="HasPassword"
-            disabled="@(!IsPrivate)"
-            class="h-4 w-4 rounded border-black/[.1] text-sky-400 focus:ring-transparent"/>
-        </div>
-        <div class="ml-2 text-sm">
-          <label for="is-password" class="font-medium text-gray-700">
-            Use a password
-          </label>
-        </div>
-      </div>
-      <button
-        class="mb-2 mt-4 flex h-8 items-center justify-center rounded-md border border-black/[.2] bg-sky-400 hover:bg-sky-500">
-        <p class="pb-1 text-sm text-white">Create snippet</p>
-      </button>
-    </div>
+    </EditForm>
   </div>
 </div>
+
+

@@ -11,6 +11,13 @@ public class CodeFile
     public Guid Id { get; }
     public string Text { get; set; }
     public string Title { get; set; }
+    
+    public CodeFile()
+    {
+        Id = Guid.NewGuid();
+        Text = string.Empty;
+        Title = "Untitled";
+    }
 
     public CodeFile(string text, string title)
     {
@@ -41,7 +48,7 @@ public partial class CodeEditor : ComponentBase
     {
         base.OnInitialized();
         CreateFirstFileIfNotExists();
-        CurrentId = Files.Last().Id;
+        CurrentId = Files.First().Id;
     }
     
     // First file trouble shooting
@@ -70,16 +77,16 @@ public partial class CodeEditor : ComponentBase
         CurrentId = newFile.Id;
     }
 
-    private void DeleteFile()
+    private void DeleteFile(Guid id)
     {
-        int fileIndex = Files.FindIndex(f => f.Id == CurrentId);
+        int fileIndex = Files.FindIndex(f => f.Id == id);
         Files.RemoveAt(fileIndex);
-        StateHasChanged();
         if (fileIndex == 0)
         {
             CreateFirstFileIfNotExists();
             return;
         }
+        StateHasChanged();
         int nextFileIndex = fileIndex >= Files.Count ? fileIndex - 1 : fileIndex;
         CurrentId = Files[nextFileIndex].Id;
     }
@@ -87,8 +94,8 @@ public partial class CodeEditor : ComponentBase
     private void ChangeFileName()
     {
         if (string.IsNullOrEmpty(InputFileName)) return;
-        CodeFile file = Files.FirstOrDefault(f => f.Id == CurrentId);
-        if (file == null) return;
+        CodeFile? file = Files.FirstOrDefault(f => f.Id == CurrentId);
+        if (file != null)
         {
             file.Title = InputFileName;
         }

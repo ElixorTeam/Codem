@@ -1,18 +1,19 @@
 using Microsoft.AspNetCore.Components;
+using WebClient.Enums;
 
 namespace WebClient.Shared.Layouts;
 
 public partial class MainHeader
 {
-    [Parameter]
-    public bool IsDarkMode { get; set; }
-
-    [Parameter]
-    public EventCallback<bool> IsDarkModeChanged { get; set; }
+    [Parameter] public ThemesEnum Theme { get; set; }
+    [Parameter] public EventCallback<ThemesEnum> ThemeChanged { get; set; }
 
     private async Task ToggleTheme()
     {
-        IsDarkMode = !IsDarkMode;
-        await IsDarkModeChanged.InvokeAsync(IsDarkMode);
+        Array values = Enum.GetValues(typeof(ThemesEnum));
+        int index = Array.IndexOf(values, Theme);
+        int nextIndex = (index + 1) % values.Length;
+        Theme = (ThemesEnum)(values.GetValue(nextIndex) ?? ThemesEnum.Dark);
+        await ThemeChanged.InvokeAsync(Theme);
     }
 }

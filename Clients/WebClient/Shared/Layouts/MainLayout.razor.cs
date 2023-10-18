@@ -1,36 +1,27 @@
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using WebClient.Enums;
 
 namespace WebClient.Shared.Layouts;
 
 public sealed partial class MainLayout : LayoutComponentBase
 {
+    private ThemesEnum _currentTheme;
+    
     [Inject] private IJSRuntime JSRuntime { get; set; }
-
-    [Inject]
-    public ILocalStorageService LocalStorage { get; set; }
-
-    [Parameter]
-    public bool IsDarkMode
+    [Inject] public ILocalStorageService LocalStorage { get; set; }
+    [Parameter] public ThemesEnum CurrentTheme
     {
-        get => _isDarkMode;
+        get => _currentTheme;
         set
         {
-            _isDarkMode = value;
-            if (_localStorageHasBeenSet)
-            {
-                UpdateLocalStorage();
-            }
-            else
-            {
-                _localStorageHasBeenSet = true;
-            }
+            _currentTheme = value;
+            UpdateLocalStorage();
         }
     }
-    private bool _isDarkMode;
-    private bool _localStorageHasBeenSet;
-
+    
+    private string ThemeName => CurrentTheme.ToString().ToLower();
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -40,24 +31,19 @@ public sealed partial class MainLayout : LayoutComponentBase
             StateHasChanged();
         }
     }
-
-    async Task InitializeTheme()
+    
+    private async Task InitializeTheme()
     {
-        if (await LocalStorage.ContainKeyAsync("theme"))
-        {
-            string theme = await LocalStorage.GetItemAsStringAsync("theme");
-            IsDarkMode = theme == "dark";
-            _localStorageHasBeenSet = true;
-        }
+        string theme;
+        if (await LocalStorage.ContainKeyAsync("theme")) 
+            theme = await LocalStorage.GetItemAsStringAsync("theme");
         else
-        {
-            string preferredTheme = await JSRuntime.InvokeAsync<string>("getPreferredTheme");
-            IsDarkMode = preferredTheme == "dark";
-        }
+            theme = await JSRuntime.InvokeAsync<string>("getPreferredTheme");
+        CurrentTheme = (ThemesEnum)Enum.Parse(typeof(ThemesEnum), theme, true);
     }
 
-    void UpdateLocalStorage()
+    private void UpdateLocalStorage()
     {
-        LocalStorage.SetItemAsStringAsync("theme", IsDarkMode ? "dark" : "light");
+        LocalStorage.SetItemAsStringAsync("theme",   ThemeName);
     }
 }

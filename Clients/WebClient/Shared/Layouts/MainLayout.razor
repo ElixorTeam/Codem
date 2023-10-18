@@ -2,9 +2,9 @@
 
 <PageTitle>Codem</PageTitle>
 
-<div class="h-full grow w-full flex flex-col @(IsDarkMode ? "dark" : null)">
+<div class="h-full grow w-full flex flex-col @ThemeName">
   <div class="h-full w-full flex flex-col relative grow bg-slate-50 text-zinc-900 dark:bg-neutral-950 dark:text-white">
-    <MainHeader @bind-IsDarkMode="IsDarkMode" />
+    <MainHeader @bind-Theme="@CurrentTheme"/>
     <main class="mx-auto grow test-class h-full w-full max-w-screen-2xl">
       @Body
     </main>

@@ -10,13 +10,8 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageProjectUrl>https://github.com/gaelj/BlazorCodeMirror6</PackageProjectUrl>
-    <Authors>Gaël James</Authors>
     <Title>Tools</Title>
-    <Description>See https://github.com/gaelj/BlazorCodeMirror6/blob/main/README.md</Description>
     <PackageTags>Blazor;CodeMirror6</PackageTags>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/gaelj/BlazorCodeMirror6</RepositoryUrl>
     <TrimUnusedDependencies>false</TrimUnusedDependencies>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <Configurations>Release;Develop</Configurations>
@@ -27,7 +22,6 @@
     <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
     <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
   </PropertyGroup>
-
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
@@ -49,7 +43,7 @@
     </Exec>
     <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
     <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
-    <Exec Command="npm install --no-optional &amp;&amp; npx rollup --config" WorkingDirectory="$(ProjectDir)\NodeLib"/>
+    <Exec Command="npm install &amp;&amp; npx rollup --config" WorkingDirectory="$(ProjectDir)\NodeLib"/>
   </Target>
 
 </Project>

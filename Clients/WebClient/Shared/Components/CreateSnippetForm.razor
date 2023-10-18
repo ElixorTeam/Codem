@@ -1,6 +1,6 @@
 @inherits ComponentBase
 
-<div class="sm:border-box w-full pt-14 sm:sticky sm:top-0 sm:h-fit">
+<div class="w-full pt-14 sm:border-box sm:sticky sm:top-0 sm:h-fit">
   <div class="h-fit w-full overflow-hidden rounded-lg border border-black/[.15] bg-slate-100">
     <EditForm Model="@Model" OnSubmit="@HandleSubmit">
       <DataAnnotationsValidator />
@@ -16,7 +16,7 @@
               type="text"
               id="title"
               @bind="Model.Title"
-              class="h-8 w-full rounded-md border border-black/[.2] px-2 text-sm"
+              class="h-8 w-full rounded-md border border-black/[.2] px-2 text-sm focus:ring-0 focus:border-black/[.2]"
               placeholder="Untitled snippet..."/>
           </div>
         </div>
@@ -25,7 +25,7 @@
           <select
             id="syntax"
             @bind="ActiveLanguage"
-            class="mt-1 p-0 h-8 w-full rounded-md border border-black/[.2] bg-white px-2 text-sm thin-scroll">
+            class="mt-1 p-0 h-8 w-full rounded-md border border-black/[.2] bg-white px-2 focus:ring-0 focus:border-black/[.2] text-sm thin-scroll">
             @foreach (string language in Languages)
             {
               <option value="@language">@language</option>
@@ -37,7 +37,7 @@
           <select
             id="expiration"
             @bind="Model.ExpireTime"
-            class="mt-1 p-0 h-8 w-full rounded-md border border-black/[.2] bg-white px-2 pr-10 text-sm">
+            class="mt-1 p-0 h-8 w-full rounded-md border border-black/[.2] focus:ring-0 focus:border-black/[.2] bg-white px-2 pr-10 text-sm">
             @foreach (ExpireTimeItem item in ExpireTimeList)
             {
               <option value="@item.TimeValue">@item.Text</option>
@@ -52,11 +52,11 @@
               id="password"
               disabled="@(!Model.IsPrivate)"
               @bind="Model.Password"
-              class="h-8 w-full rounded-md border border-black/[.2] px-2 text-sm shadow-sm disabled:bg-slate-100"
+              class="h-8 w-full rounded-md border border-black/[.2] px-2 focus:ring-0 focus:border-black/[.2] text-sm disabled:bg-slate-100"
               placeholder="Password..."/>
           </div>
         </div>
-        <div class="ml-2 mt-2 flex items-start">
+        <div class="mt-2 flex items-start">
           <div class="flex h-5 items-center">
             <input
               id="is-private"
@@ -64,7 +64,7 @@
               name="is-private"
               type="checkbox"
               @bind="Model.IsPrivate"
-              class="h-4 w-4 rounded border-black/[.1] text-sky-400 focus:ring-transparent"/>
+              class="h-4 w-4 rounded border-black/[.2] border text-sky-400 focus:ring-0 focus:ring-offset-0"/>
           </div>
           <div class="ml-2 text-sm">
             <label for="is-private" class="font-medium text-gray-700">

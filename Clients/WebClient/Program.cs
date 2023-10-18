@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using CodeMirror6;
 namespace WebClient;
 
@@ -11,6 +12,7 @@ public class Program
         builder.Services.AddRazorPages();
         builder.Services.AddServerSideBlazor();
         builder.Services.AddTransient<CodeMirrorJsInterop>();
+        builder.Services.AddBlazoredLocalStorage();
 
         WebApplication app = builder.Build();
         

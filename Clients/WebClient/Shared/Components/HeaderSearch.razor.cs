@@ -8,16 +8,20 @@ public sealed partial class HeaderSearch : ComponentBase
 {
     [Inject] private NavigationManager NavigationManager { get; set; }
 
-    private string _searchQuery = ""; 
+    private string _searchQuery = String.Empty; 
     
-    private void RedirectToSearch(KeyboardEventArgs e)
+    private void RedirectToSearchByEnter(KeyboardEventArgs e)
     {
-        if (e.Code is not ("Enter" or "NumpadEnter")) 
-            return;
+        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+            RedirectToSearch();
+    }
+
+    private void RedirectToSearch()
+    {
         string url = RouteUtils.Search;
-        if (!string.IsNullOrEmpty(_searchQuery)) 
+        if (!(string.IsNullOrEmpty(_searchQuery))) 
             url = $"{url}?searchQuery={_searchQuery}";
-        _searchQuery = string.Empty;
+        _searchQuery = String.Empty;
         NavigationManager.NavigateTo(url);
     }
 }

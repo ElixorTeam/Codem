@@ -6,12 +6,16 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace WebClient.Pages;
 
-public partial class Search : ComponentBase
+public sealed partial class Search : ComponentBase, IDisposable
 {
-    [Inject]
-    public NavigationManager NavigationManager { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
+
+    private string SearchQuery { get; set; }
     
-    public string SearchQuery { get; set; }
+    public Search()
+    {
+        SearchQuery = string.Empty;
+    }
     
     protected override void OnInitialized()
     {
@@ -27,16 +31,15 @@ public partial class Search : ComponentBase
 
     private string getSearchQuery()
     {
-        Uri uri = new Uri(NavigationManager.Uri);
+        Uri uri = new(NavigationManager.Uri);
         NameValueCollection query = HttpUtility.ParseQueryString(uri.Query);
         string? searchQuery = query.Get("searchQuery");
-        if (string.IsNullOrEmpty(searchQuery)) return "";
-        return searchQuery;
+        return string.IsNullOrEmpty(searchQuery) ? "" : searchQuery;
     }
     
     private void RedirectToSearch(KeyboardEventArgs e)
     {
-        if (!(e.Code == "Enter" || e.Code == "NumpadEnter")) return;
+        if (e.Code is not ("Enter" or "NumpadEnter")) return;
         string url = "/search";
         if (!(string.IsNullOrEmpty(SearchQuery))) 
             url = $"{url}?searchQuery={SearchQuery}";

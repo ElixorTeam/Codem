@@ -3,29 +3,9 @@ using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebClient.Models;
 
 namespace WebClient.Shared.Components;
-
-public class CodeFile
-{
-    public Guid Id { get; }
-    public string Text { get; set; }
-    public string Title { get; set; }
-    
-    public CodeFile()
-    {
-        Id = Guid.NewGuid();
-        Text = string.Empty;
-        Title = "Untitled";
-    }
-
-    public CodeFile(string text, string title)
-    {
-        Id = Guid.NewGuid();
-        Text = text;
-        Title = title;
-    }
-}
 
 public partial class CodeEditor : ComponentBase
 {
@@ -33,15 +13,15 @@ public partial class CodeEditor : ComponentBase
     #region Parameters
 
     [Parameter] public string ActiveLanguage { get; set; } = "Markdown";
-    [Parameter] public bool IsReadOnly { get; set; } = false;
-    [Parameter] public bool IsOwner { get; set; } = false;
+    [Parameter] public bool IsReadOnly { get; set; }
+    [Parameter] public bool IsOwner { get; set; }
 
     #endregion
 
-    private string InputFileName { get; set; } = String.Empty; 
-    private List<CodeFile> Files { get; } = new();
     private Guid CurrentId { get; set; }
-    private CodeFile CurrentFile => 
+    private string InputFileName { get; set; } = string.Empty; 
+    private List<CodeFileModel> Files { get; } = new();
+    private CodeFileModel CurrentFile => 
         Files.FirstOrDefault(f => f.Id == CurrentId) ?? GetFirstFileOrDefault();
 
     protected override void OnInitialized()
@@ -51,20 +31,18 @@ public partial class CodeEditor : ComponentBase
         CurrentId = Files.First().Id;
     }
     
-    // First file trouble shooting
     private void CreateFirstFileIfNotExists()
     {
         if (Files.Count == 0) 
             AddFile();
     }
 
-    private CodeFile GetFirstFileOrDefault()
+    private CodeFileModel GetFirstFileOrDefault()
     {
         CreateFirstFileIfNotExists();
         return Files.First();
     }
-
-    // File functions
+    
     private void SwitchFile(Guid id)
     {
         CurrentId = id;
@@ -72,7 +50,7 @@ public partial class CodeEditor : ComponentBase
 
     private void AddFile(string text = "", string title = "new file")
     {
-        CodeFile newFile = new(text, title);
+        CodeFileModel newFile = new(text, title);
         Files.Add(newFile);
         CurrentId = newFile.Id;
     }
@@ -94,11 +72,9 @@ public partial class CodeEditor : ComponentBase
     private void ChangeFileName()
     {
         if (string.IsNullOrEmpty(InputFileName)) return;
-        CodeFile? file = Files.FirstOrDefault(f => f.Id == CurrentId);
+        CodeFileModel? file = Files.FirstOrDefault(f => f.Id == CurrentId);
         if (file != null)
-        {
             file.Title = InputFileName;
-        }
-        InputFileName = String.Empty;
+        InputFileName = string.Empty;
     }
 }

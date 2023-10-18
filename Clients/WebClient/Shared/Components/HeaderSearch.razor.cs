@@ -1,22 +1,23 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using WebClient.Utils;
 
 namespace WebClient.Shared.Components;
 
-public partial class HeaderSearch : ComponentBase
+public sealed partial class HeaderSearch : ComponentBase
 {
-    [Inject]
-    public NavigationManager NavigationManager { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
 
-    private string searchQuery = ""; 
+    private string _searchQuery = ""; 
     
     private void RedirectToSearch(KeyboardEventArgs e)
     {
-        if (!(e.Code == "Enter" || e.Code == "NumpadEnter")) return;
-        string url = "/search";
-        if (!(string.IsNullOrEmpty(searchQuery))) 
-            url = $"{url}?searchQuery={searchQuery}";
-        searchQuery = String.Empty;
+        if (e.Code is not ("Enter" or "NumpadEnter")) 
+            return;
+        string url = RouteUtils.Search;
+        if (!string.IsNullOrEmpty(_searchQuery)) 
+            url = $"{url}?searchQuery={_searchQuery}";
+        _searchQuery = string.Empty;
         NavigationManager.NavigateTo(url);
     }
 }

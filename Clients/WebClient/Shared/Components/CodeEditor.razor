@@ -1,10 +1,11 @@
 @inherits ComponentBase
 @using HeroIcons.Blazor.Outline
+@using WebClient.Models
 
 <div class="mt-14 h-fit w-full overflow-hidden rounded-lg border border-black/[.1] bg-slate-200">
   <div class="flex h-8 w-full items-center border-b overflow-hidden border-b-black/[.1] bg-slate-100">
     <ul class="flex h-full w-full overflow-x-auto overflow-y-hidden thin-scroll ">
-      @foreach (CodeFile file in Files)
+      @foreach (CodeFileModel file in Files)
       {
         <li class="@(file.Id == CurrentId ? "bg-white/[.7]" : "bg-transparent") h-full group/tab flex gap-1 border-r border-r-black/[.1] pl-3 pr-3 sm:pr-2 hover:bg-white/[.5]">
           <button

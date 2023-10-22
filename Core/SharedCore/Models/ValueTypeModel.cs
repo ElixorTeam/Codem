@@ -1,11 +1,11 @@
-﻿namespace WebClient.Models;
+﻿namespace SharedCore.Models;
 
-public sealed class EnumTypeModel<T>
+public class ValueTypeModel<T>
 {
     public string Name { get; }
     public T Value { get; }
 
-    public EnumTypeModel(string name, T value)
+    public ValueTypeModel(string name, T value)
     {
         Name = name;
         Value = value;

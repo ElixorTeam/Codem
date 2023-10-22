@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlCore", "Core\SqlCore\Sql
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlCoreTests", "Tests\SqlCoreTests\SqlCoreTests.csproj", "{EC248449-8BEC-4D77-B411-932D831D1970}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedCore", "Core\SharedCore\SharedCore.csproj", "{2AFD3883-A450-4F20-9EBE-031E93E47B62}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Any CPU = Release|Any CPU
@@ -45,6 +47,10 @@ Global
 		{EC248449-8BEC-4D77-B411-932D831D1970}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EC248449-8BEC-4D77-B411-932D831D1970}.Develop|Any CPU.ActiveCfg = Develop|Any CPU
 		{EC248449-8BEC-4D77-B411-932D831D1970}.Develop|Any CPU.Build.0 = Develop|Any CPU
+		{2AFD3883-A450-4F20-9EBE-031E93E47B62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AFD3883-A450-4F20-9EBE-031E93E47B62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AFD3883-A450-4F20-9EBE-031E93E47B62}.Develop|Any CPU.ActiveCfg = Develop|Any CPU
+		{2AFD3883-A450-4F20-9EBE-031E93E47B62}.Develop|Any CPU.Build.0 = Develop|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{3F19E260-F32D-4427-8012-E6B9426C5E8B} = {02413E8E-61B3-4C3A-A61E-0063922A461A}
 		{1398E62E-E36A-4D2D-89E0-0F8573FB9112} = {13684153-7C88-4C12-8217-58FC0F206D6C}
 		{EC248449-8BEC-4D77-B411-932D831D1970} = {5EC996F6-94FA-4CE8-A383-FDBFE0F66A5D}
+		{2AFD3883-A450-4F20-9EBE-031E93E47B62} = {13684153-7C88-4C12-8217-58FC0F206D6C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4186C43-3776-449B-938E-E2DB26A66303}

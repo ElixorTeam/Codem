@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Components;
-using WebClient.Enums;
+using SharedCore.Enums;
 
 namespace WebClient.Shared.Layouts;
 

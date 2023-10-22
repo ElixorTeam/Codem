@@ -1,7 +1,7 @@
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using WebClient.Enums;
+using SharedCore.Enums;
 
 namespace WebClient.Shared.Layouts;
 

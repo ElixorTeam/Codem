@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\CodeMirror6\CodeMirror6.csproj" />
+    <ProjectReference Include="..\..\Core\SharedCore\SharedCore.csproj" />
   </ItemGroup>
 
   <Target Name="NpmInit" BeforeTargets="BeforeBuild;BeforeRebuild;Rollup">

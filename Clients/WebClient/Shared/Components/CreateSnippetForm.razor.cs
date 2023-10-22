@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Components;
+using SharedCore.Models;
 using WebClient.Models;
 
 namespace WebClient.Shared.Components;
@@ -26,7 +27,7 @@ public sealed partial class CreateSnippetForm : ComponentBase
     #endregion
     private SnippetModel Model { get; set; }
     private List<string> Languages { get; set; }
-    private List<EnumTypeModel<TimeSpan>> ExpireTimeList { get; set; }
+    private List<ValueTypeModel<TimeSpan>> ExpireTimeList { get; set; }
     
     public CreateSnippetForm()
     {

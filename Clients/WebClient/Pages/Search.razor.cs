@@ -20,16 +20,16 @@ public sealed partial class Search : ComponentBase, IDisposable
     protected override void OnInitialized()
     {
         NavigationManager.LocationChanged += HandleLocationChanged;
-        SearchQuery = getSearchQuery();
+        SearchQuery = GetSearchQuery();
     }
     
     private void HandleLocationChanged(object? sender, LocationChangedEventArgs e)
     {
-        SearchQuery = getSearchQuery();
+        SearchQuery = GetSearchQuery();
         StateHasChanged();
     }
 
-    private string getSearchQuery()
+    private string GetSearchQuery()
     {
         Uri uri = new(NavigationManager.Uri);
         NameValueCollection query = HttpUtility.ParseQueryString(uri.Query);

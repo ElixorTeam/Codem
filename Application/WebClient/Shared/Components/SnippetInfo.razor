@@ -1,0 +1,56 @@
+@using HeroIcons.Blazor.Outline
+
+<div class="sm:border-box w-full pt-14 sm:sticky sm:top-0 sm:h-fit">
+  <div class="h-fit w-full overflow-hidden rounded-lg border border-black/[.15] bg-slate-100">
+    <div class="flex h-8 items-center border-b border-b-black/[.15] bg-white/[.7] px-4">
+      <p class="text-sm">Snippet info</p>
+    </div>
+    <div class="flex h-full w-full flex-col px-4 py-4 text-sm">
+      <div class="flex gap-2">
+        <p class="line-clamp-1 font-semibold text-slate-800">
+          @Title
+        </p>
+        <div
+          class="flex items-center justify-center overflow-hidden rounded-2xl border border-black/[.1] bg-slate-200 px-2"
+        >
+          <p class="text-xs">@Access</p>
+        </div>
+      </div>
+      <p class="my-4 line-clamp-3 text-slate-600">
+        @Description
+      </p>
+      <ul class="flex flex-col gap-1">
+        <li>
+          <div class="flex items-center gap-2">
+            <UserIcon class="h-4 w-4 text-gray-700" />
+            <h1 class="line-clamp-1 text-slate-800">@Author</h1>
+          </div>
+        </li>
+        <li>
+          <div class="flex items-center gap-2">
+            <CalendarIcon class="h-4 w-4 text-gray-700" />
+            <h1 class="line-clamp-1 text-slate-800">@CreateDate</h1>
+          </div>
+        </li>
+        <li>
+          <div class="flex items-center gap-2">
+            <CodeBreakIcon class="stroke-gray-700" />
+            <h1 class="line-clamp-1 text-slate-800">@ProgramLanguage</h1>
+          </div>
+        </li>
+        <li>
+          <div class="flex items-center gap-2">
+            <EyeIcon class="h-4 w-4 text-gray-700" />
+            <h1 class="line-clamp-1 text-slate-800">@Views</h1>
+          </div>
+        </li>
+        <li>
+          <div class="flex items-center gap-2">
+            <StarIcon class="h-4 w-4 text-gray-700" />
+            <h1 class="line-clamp-1 text-slate-800">@Stars</h1>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<label class="relative hidden sm:block">
+  <input
+    type="text"
+    @onkeyup="RedirectToSearchByEnter"
+    @bind="_searchQuery"
+    class="hidden h-8 overflow-hidden bg-transparent rounded-md border border-black/[.1] px-2 pr-8 text-xs focus:ring-0 focus:border-black/[.1] sm:block dark:border-white/[.15] dark:focus:border-white/[.15] dark:placeholder:text-neutral-600"
+    placeholder="Search a snippet..."
+  />
+  <button type="button" @onclick="RedirectToSearch" class="right-0 mr-2 mt-2 top-0 absolute">
+    <MagnifyIcon class="w-4 h-4 transition-colors stroke-gray-500 hover:stroke-gray-700 dark:stroke-neutral-400 dark:hover:stroke-neutral-200" />
+  </button>
+</label>

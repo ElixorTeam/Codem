@@ -1,0 +1,21 @@
+<div class="w-full flex-col overflow-hidden rounded-md border border-black/[.1] shadow-sm">
+  <div>
+    <label for="comment"></label>
+    <textarea
+      rows="4"
+      name="comment"
+      id="comment"
+      @bind="Text"
+      placeholder="Write a comment..."
+      class="w-full resize-none border-none bg-white p-2 text-sm focus:outline-none focus:ring-0"
+    ></textarea>
+  </div>
+  <div class="flex h-12 w-full items-center border-t border-t-black/[.1] bg-slate-100 pl-4">
+    <button
+      type="button"
+      class="h-8 rounded-md border border-black/[.1] bg-sky-400 px-4 shadow-sm hover:bg-sky-500"
+    >
+      <p class="text-sm text-white">Post comment</p>
+    </button>
+  </div>
+</div>

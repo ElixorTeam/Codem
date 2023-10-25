@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    color-scheme: dark;
+    @apply flex min-h-screen flex-col w-full h-full;
+  }
+}
+
+@layer components {
+  #blazor-error-ui {
+    @apply bg-yellow-200 fixed hidden bottom-0 left-0 w-full z-50 shadow-md p-2;
+  }
+
+  #blazor-error-ui .dismiss {
+    @apply cursor-pointer absolute top-2 right-2;
+  }
+}
+
+.cm-editor.cm-focused {
+  @apply !outline-none;
+}
+
+.ͼ2 .cm-activeLineGutter {
+  @apply dark:!bg-neutral-800;
+}
+
+.ͼ2 .cm-activeLine {
+  @apply dark:!bg-neutral-900;
+}
+
+.ͼ4 .cm-line {
+  @apply dark:!caret-white;
+}
+
+.cm-gutters {
+  @apply !bg-slate-100 dark:!bg-neutral-900 dark:!border-r-white/[.15];
+}
+
+.cm-selectionBackground {
+  @apply !bg-sky-400/[.2];
+}
+
+.cm-tooltip {
+  @apply rounded-md !overflow-hidden !bg-slate-100 !border-black/[.1] shadow dark:!bg-neutral-950 dark:!border-white/[.15];
+}
+
+.cm-tooltip.cm-tooltip-autocomplete ul {
+  @apply scrollbar-thin scrollbar-thumb-slate-300 scrollbar-corner-transparent scrollbar-track-transparent dark:scrollbar-thumb-neutral-700
+}
+
+.thin-scroll {
+  @apply scrollbar-thin scrollbar-thumb-slate-300 scrollbar-corner-transparent scrollbar-track-transparent dark:scrollbar-thumb-neutral-700
+}

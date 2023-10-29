@@ -62,7 +62,7 @@ public sealed partial class CreateSnippetForm : ComponentBase
         Console.WriteLine($"Title: {Model.Title}");
         Console.WriteLine($"ActiveLanguage: {ActiveLanguage}");
         Console.WriteLine($"ExpireTime: {finalDate}");
-        Console.WriteLine($"IsPrivate: {Model.IsPrivate}");
+        Console.WriteLine($"IsHidden: {Model.IsPrivate}");
         Console.WriteLine($"Password: {Model.Password}");
     }
 }

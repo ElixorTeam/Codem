@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace WebClient.Shared.Components;
+namespace WebClient.Components;
 
 public sealed partial class SearchItem : ComponentBase
 {

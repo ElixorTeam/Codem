@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using SharedCore.Models;
 using WebClient.Models;
 
-namespace WebClient.Shared.Components;
+namespace WebClient.Components;
 
 public sealed partial class CreateSnippetForm : ComponentBase
 {

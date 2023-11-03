@@ -1,0 +1,29 @@
+@using Blazor.Heroicons.Outline;
+
+<button
+  type="button"
+  id="editorContextMenuButton"
+  data-dropdown-offset-skidding="-60"
+  data-dropdown-toggle="editorContextMenu"
+  class="w-6 border-l border-l-black/[.1] h-full flex items-center justify-center hover:bg-slate-200 dark:border-l-white/[.15] dark:hover:bg-neutral-800"
+>
+  <EllipsisVerticalIcon class="text-gray-700 h-4 w-4 dark:text-neutral-400" />
+</button>
+<div
+  id="editorContextMenu"
+  class="z-10 hidden py-1 bg-slate-100 divide-y divide-black/[.1] border border-black/[.1] rounded-lg shadow w-fit"
+>
+  <ul class="py-1 text-sm text-gray-700" aria-labelledby="editorContextMenuButton">
+    @foreach (var entry in ContextMenuEntries)
+      {
+        @if (entry.IsVisible)
+        {
+          <ContextMenuEntry Entry="entry" />
+        }
+      }
+  </ul>
+</div>
+
+
+<DeleteFileModal CodeFileManager="CodeFileManager" />
+<EditFileNameModal ChangeFileNameAction="ChangeFileName" />

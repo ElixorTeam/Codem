@@ -17,14 +17,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazor.Heroicons" Version="1.2.3" />
     <PackageReference Include="Blazored.LocalStorage" Version="4.4.0" />
-    <PackageReference Include="HeroIcons.Blazor" Version="1.0.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\Domain\Domain.csproj" />
     <ProjectReference Include="..\..\Libs\SharedCore\SharedCore.csproj" />
     <ProjectReference Include="..\..\Tools\CodeMirror6\CodeMirror6.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Shared\Icons\" />
   </ItemGroup>
 
   <Target Name="NpmInit" BeforeTargets="BeforeBuild;BeforeRebuild;Rollup">

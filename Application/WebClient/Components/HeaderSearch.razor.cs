@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using WebClient.Utils;
 
-namespace WebClient.Shared.Components;
+namespace WebClient.Components;
 
 public sealed partial class HeaderSearch : ComponentBase
 {

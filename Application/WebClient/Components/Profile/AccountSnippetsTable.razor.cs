@@ -2,12 +2,12 @@ namespace WebClient.Components.Profile;
 
 public partial class AccountSnippetsTable
 {
-    public List<SnippetTableModel> snippetsList { get; set; } = new();
+    public List<SnippetTableModel> SnippetsList { get; set; } = new();
     
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        snippetsList = new List<SnippetTableModel>
+        SnippetsList = new List<SnippetTableModel>
         {
             new() {
                 Title="Python code",

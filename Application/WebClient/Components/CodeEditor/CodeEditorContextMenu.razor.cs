@@ -5,9 +5,14 @@ namespace WebClient.Components.CodeEditor;
 
 public partial class CodeEditorContextMenu
 {
+    
+    # region Parameters
+    
     [Parameter, EditorRequired] public bool IsReadOnly { get; set; }
     [Parameter, EditorRequired] public bool IsOwner { get; set; }
     [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
+    
+    # endregion
 
     private List<ContextMenuModel> ContextMenuEntries = new();
     
@@ -16,14 +21,38 @@ public partial class CodeEditorContextMenu
         base.OnInitialized();
         ContextMenuEntries = new List<ContextMenuModel>
         {
-            new("Delete file", @HeroiconName.Trash, "deleteFileModal", !IsReadOnly),
-            new("Rename file", @HeroiconName.Pencil, "editFileNameModal", !IsReadOnly),
-            new("Clone Project", @HeroiconName.DocumentDuplicate, "editFileNameModal", !IsOwner),
-            new("Remove Project", @HeroiconName.Trash, "editFileNameModal", IsOwner)
+            new()
+            {
+                Text="Delete file",
+                IconName = @HeroiconName.Trash,
+                ModalTarget = "deleteFileModal",
+                IsVisible = !IsReadOnly
+            },
+            new()
+            {
+                Text="Rename file",
+                IconName = @HeroiconName.Pencil,
+                ModalTarget = "editFileNameModal",
+                IsVisible = !IsReadOnly
+            },
+            new()
+            {
+                Text="Clone Project", 
+                IconName = @HeroiconName.DocumentDuplicate,
+                ModalTarget = "editFileNameModal",
+                IsVisible = !IsOwner
+            },
+            new()
+            {
+                Text="Remove Project",
+                IconName = @HeroiconName.Trash,
+                ModalTarget = "editFileNameModal",
+                IsVisible = IsOwner
+            }
         };
     }
 
-    public void ChangeFileName(String fileName)
+    public void ChangeFileName(string fileName)
     {
         CodeFileManager.ChangeFileName(CodeFileManager.GetCurrentFile().Id, fileName);
     }

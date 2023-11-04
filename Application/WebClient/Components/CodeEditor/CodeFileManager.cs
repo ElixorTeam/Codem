@@ -20,7 +20,8 @@ public class CodeFileManager
             AddFile();
     }
 
-    public CodeFileModel GetCurrentFile() => Files.FirstOrDefault(f => f.Id == CurrentId) ?? GetFirstFileOrDefault();
+    public CodeFileModel GetCurrentFile() => 
+        Files.FirstOrDefault(f => f.Id == CurrentId) ?? GetFirstFileOrDefault();
 
     public List<CodeFileModel> GetAllFiles() => Files;
     

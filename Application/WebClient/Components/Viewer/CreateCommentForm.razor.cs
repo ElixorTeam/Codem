@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace WebClient.Components;
+namespace WebClient.Components.Viewer;
 
 public sealed partial class CreateCommentForm : ComponentBase
 {

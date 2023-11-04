@@ -1,3 +1,4 @@
+using Blazor.Heroicons;
 using Microsoft.AspNetCore.Components;
 using SharedCore.Enums;
 
@@ -5,9 +6,9 @@ namespace WebClient.Components.Layouts;
 
 public partial class MainHeader
 {
-    [Parameter] public ThemesEnum Theme { get; set; }
+    [Parameter, EditorRequired] public ThemesEnum Theme { get; set; }
     [Parameter] public EventCallback<ThemesEnum> ThemeChanged { get; set; }
-
+    
     private async Task ToggleTheme()
     {
         Array values = Enum.GetValues(typeof(ThemesEnum));

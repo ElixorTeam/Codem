@@ -1,3 +1,4 @@
+@using Blazor.Heroicons;
 @using Blazor.Heroicons.Outline;
 
 <div
@@ -26,10 +27,19 @@
           <li class="sm:hidden">
             <p>Ap73MKa</p>
           </li>
-          @foreach (var stat in statList)
+          @foreach (StatModel stat in StatList)
           {
             <li>
-              <AccountStatEntry StatModel="stat"/>
+              <div class="flex items-center gap-2">
+                <Heroicon
+                  Name="@stat.IconName"
+                  Type="HeroiconType.Outline"
+                  class="h-4 w-4 text-gray-700 dark:text-neutral-300"
+                />
+                <h1 class="line-clamp-1 text-sm text-slate-800 dark:text-neutral-200">
+                  @stat.Value
+                </h1>
+              </div>
             </li>
           }
         </ul>

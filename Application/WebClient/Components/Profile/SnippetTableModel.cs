@@ -2,10 +2,10 @@ namespace WebClient.Components.Profile;
 
 public class SnippetTableModel
 {
-    public String Title { get; set; } = String.Empty;
-    public DateOnly PublicDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
-    public String ExpireTime { get; set; } = String.Empty;
-    public Int32 Views { get; set; } = Int32.MinValue;
-    public Int32 Stars { get; set; } = Int32.MinValue;
-    public String ProgramLanguage { get; set; } = String.Empty;
+    public string Title { get; init; } = string.Empty;
+    public DateOnly PublicDate { get; init; } = DateOnly.FromDateTime(DateTime.Today);
+    public string ExpireTime { get; init; } = string.Empty;
+    public int Views { get; init; } = int.MinValue;
+    public int Stars { get; init; } = int.MinValue;
+    public string ProgramLanguage { get; init; } = string.Empty;
 }

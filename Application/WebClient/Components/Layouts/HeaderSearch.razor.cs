@@ -6,13 +6,13 @@ namespace WebClient.Components.Layouts;
 
 public sealed partial class HeaderSearch : ComponentBase
 {
-    [Inject] private NavigationManager NavigationManager { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
 
-    private string _searchQuery = String.Empty; 
+    private string _searchQuery = string.Empty; 
     
     private void RedirectToSearchByEnter(KeyboardEventArgs e)
     {
-        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        if (e.Code is "Enter" or "NumpadEnter")
             RedirectToSearch();
     }
 
@@ -21,7 +21,7 @@ public sealed partial class HeaderSearch : ComponentBase
         string url = RouteUtils.Search;
         if (!(string.IsNullOrEmpty(_searchQuery))) 
             url = $"{url}?searchQuery={_searchQuery}";
-        _searchQuery = String.Empty;
+        _searchQuery = string.Empty;
         NavigationManager.NavigateTo(url);
     }
 }

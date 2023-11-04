@@ -27,6 +27,7 @@ public class CodeFileManager
     public void SwitchFile(Guid id)
     {
         CurrentId = id;
+        OnFileChange?.Invoke();
     }
 
     public void AddFile(string text = "", string title = "new file")
@@ -34,6 +35,7 @@ public class CodeFileManager
         CodeFileModel newFile = new(text, title);
         Files.Add(newFile);
         CurrentId = newFile.Id;
+        OnFileChange?.Invoke();
     }
 
     public void DeleteFile(Guid id)

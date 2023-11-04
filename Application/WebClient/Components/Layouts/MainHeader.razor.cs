@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using SharedCore.Enums;
 
-namespace WebClient.Shared.Layouts;
+namespace WebClient.Components.Layouts;
 
 public partial class MainHeader
 {

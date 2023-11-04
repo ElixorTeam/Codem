@@ -1,5 +1,7 @@
 @page "/search"
 
+@using Blazor.Heroicons.Outline;
+
 <PageTitle>Codem - Search</PageTitle>
 
 <div class="mx-auto mb-4 mt-16 w-full max-w-4xl">
@@ -13,7 +15,7 @@
           @bind="SearchQuery"
           @onkeyup="RedirectToSearch"
           placeholder="Search by name..."
-          class="h-full w-full pl-1 text-sm border-none focus:outline-none focus:ring-0"
+          class="h-full w-full pl-1 text-sm border-none focus1:outline-none focus:ring-0"
         />
       </label>
       <a href="@(string.IsNullOrEmpty(SearchQuery) ? "/search" : $"/search?searchQuery={SearchQuery}")">
@@ -22,7 +24,7 @@
           class="flex h-6 items-center gap-2 rounded-md border border-black/[.1] bg-sky-400 px-2 hover:bg-sky-500"
         >
           <p class="text-xs text-white">Search</p>
-          <MagnifyIcon class="h-3 w-3 stroke-white" />
+          <MagnifyingGlassIcon class="h-3 w-3 text-white" />
         </button>
       </a>
     </div>

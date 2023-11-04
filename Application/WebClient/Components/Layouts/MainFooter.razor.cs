@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
-namespace WebClient.Shared.Layouts;
+
+namespace WebClient.Components.Layouts;
 
 public sealed partial class MainFooter : ComponentBase
 {

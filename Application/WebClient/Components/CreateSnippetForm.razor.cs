@@ -7,7 +7,7 @@ namespace WebClient.Components;
 
 public sealed partial class CreateSnippetForm : ComponentBase
 {
-    private string _activeLanguage;
+    private string _activeLanguage = String.Empty;
     
     #region Parameters
 

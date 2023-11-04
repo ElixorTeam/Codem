@@ -1,0 +1,39 @@
+@using Blazor.Heroicons.Outline;
+
+<div
+  class="h-fit w-full overflow-hidden rounded-md border border-black/[.1] bg-slate-100 dark:bg-neutral-950 dark:border-white/[.15]"
+>
+  <div
+    class="flex h-8 w-full items-center border-b border-b-black/[.1] bg-white/[.7] px-4 dark:bg-neutral-900 dark:border-b-white/[.15]"
+  >
+    <p>Profile</p>
+  </div>
+  <div class="flex h-full w-full flex-col items-center px-2 py-4">
+    <div class="flex gap-4 sm:flex-col">
+      <div class="flex flex-col items-center gap-1 sm:mx-auto sm:gap-2">
+        <div class="h-24 w-24 overflow-hidden rounded-full sm:h-40 sm:w-40">
+          <img
+            src="assets/avatar.jpg"
+            alt=""
+            class="h-full w-full"
+          />
+        </div>
+        <p class="hidden text-lg sm:block sm:text-3xl">Ap73MKa</p>
+      </div>
+      <div class="flex items-start sm:w-full sm:px-12">
+
+        <ul class="flex flex-col gap-1">
+          <li class="sm:hidden">
+            <p>Ap73MKa</p>
+          </li>
+          @foreach (var stat in statList)
+          {
+            <li>
+              <AccountStatEntry StatModel="stat"/>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

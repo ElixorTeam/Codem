@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using SharedCore.Enums;
 
-namespace WebClient.Shared.Layouts;
+namespace WebClient.Components.Layouts;
 
 public sealed partial class MainLayout : LayoutComponentBase
 {

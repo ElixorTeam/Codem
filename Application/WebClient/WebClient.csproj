@@ -28,7 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Shared\Icons\" />
+    <AdditionalFiles Include="Components\Layouts\MainFooter.razor" />
+    <AdditionalFiles Include="Components\Layouts\MainHeader.razor" />
+    <AdditionalFiles Include="Components\Layouts\MainLayout.razor" />
   </ItemGroup>
 
   <Target Name="NpmInit" BeforeTargets="BeforeBuild;BeforeRebuild;Rollup">

@@ -24,9 +24,9 @@ public sealed partial class MainLayout : LayoutComponentBase
     private string ThemeName => CurrentTheme.ToString().ToLower();
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        await JSRuntime.InvokeVoidAsync("initFlowbite");
         if (firstRender)
         {
-            await JSRuntime.InvokeVoidAsync("initFlowbite");
             await InitializeTheme();
             StateHasChanged();
         }

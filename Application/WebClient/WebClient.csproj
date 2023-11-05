@@ -33,6 +33,10 @@
     <AdditionalFiles Include="Components\Layouts\MainLayout.razor" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_JsFileModuleStaticWebAsset Include="wwwroot\js\langDropdown.js" />
+  </ItemGroup>
+
   <Target Name="NpmInit" BeforeTargets="BeforeBuild;BeforeRebuild;Rollup">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

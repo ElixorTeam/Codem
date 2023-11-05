@@ -2,7 +2,7 @@ using Domain.Common;
 using Domain.Enums;
 using Domain.Exceptions;
 using Domain.ValueTypes;
-namespace Domain.Models;
+namespace Domain.Entities.SnippetAggregate;
 
 public class Snippet : IEntity
 {
@@ -10,13 +10,29 @@ public class Snippet : IEntity
     public string Name { get; set; }
     public Password? Password { get; private set; }
     public SnippetVisibilityEnum Visibility { get; private set; }
+    public IEnumerable<File> Files { get; private set; }
 
     public Snippet()
     {
         Name = string.Empty;
         Visibility = SnippetVisibilityEnum.Public;
+        Files = new List<File>();
     }
 
+    public void AddFile(File file)
+    {
+        if (Files.Any(f => f.Id == file.Id))
+        {
+            throw new FileAlreadyExistsException($"File with name '{file.Name}' already exists.");
+        }
+        Files = Files.Append(file).ToList();
+    }
+    
+    public void DeleteFile(File file)
+    {
+        Files = Files.Where(f => f.Name != file.Name).ToList();
+    }
+    
     public void ChangePassword(Password password)
     {
         if (Visibility is SnippetVisibilityEnum.Public)

@@ -1,4 +1,4 @@
-﻿namespace DomainLogic.Common;
+﻿namespace DomainTests.Common;
 
 public interface IValueTypeTest
 {

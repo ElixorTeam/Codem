@@ -1,7 +1,7 @@
 ﻿using Domain.ValueTypes;
-using DomainLogic.Common;
+using DomainTests.Common;
 using Xunit.Abstractions;
-namespace DomainLogic.ValueTypes;
+namespace DomainTests.ValueTypes;
 
 
 public class PasswordTests : IValueTypeTest

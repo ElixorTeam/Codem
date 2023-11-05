@@ -1,9 +1,9 @@
-﻿using Domain.Enums;
+﻿using Domain.Entities.SnippetAggregate;
+using Domain.Enums;
 using Domain.Exceptions;
-using Domain.Models;
 using Domain.ValueTypes;
 using Xunit.Abstractions;
-namespace DomainLogic.Models;
+namespace DomainTests.Models;
 
 public class SnippetTests
 {

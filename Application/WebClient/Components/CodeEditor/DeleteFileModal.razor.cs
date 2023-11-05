@@ -4,5 +4,5 @@ namespace WebClient.Components.CodeEditor;
 
 public partial class DeleteFileModal
 {
-    [Parameter] public CodeFileManager CodeFileManager { get; set; }
+    [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
 }

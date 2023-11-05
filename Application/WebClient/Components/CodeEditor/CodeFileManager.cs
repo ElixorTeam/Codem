@@ -33,7 +33,7 @@ public class CodeFileManager
 
     public void AddFile(string text = "", string title = "new file")
     {
-        CodeFileModel newFile = new(text, title);
+        CodeFileModel newFile = new(text, title, "Markdown");
         Files.Add(newFile);
         CurrentId = newFile.Id;
         OnFileChange?.Invoke();
@@ -60,6 +60,14 @@ public class CodeFileManager
         if (string.IsNullOrEmpty(fileName)) return;
         int fileIndex = Files.FindIndex(f => f.Id == id);
         Files[fileIndex].Title = fileName;
+        OnFileChange?.Invoke();
+    }
+
+    public void ChangeCurrentLanguage(string lang)
+    {
+        if (string.IsNullOrEmpty(lang)) return;
+        CodeFileModel file = GetCurrentFile();
+        file.Language = lang;
         OnFileChange?.Invoke();
     }
 

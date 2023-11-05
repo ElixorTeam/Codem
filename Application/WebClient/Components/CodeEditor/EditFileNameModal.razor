@@ -4,8 +4,8 @@
   aria-hidden="true"
   class="fixed top-0 left-0 right-0 z-50 hidden h-screen p-4 overflow-x-hidden overflow-y-auto md:inset-0"
 >
-  <div class="w-full p-4 max-w-xs max-h-full flex border border-black/[.1] flex-col items-center bg-slate-100 rounded-lg shadow">
-    <div class="p-2 px-6 w-full">
+  <div class="w-full p-2 max-w-[256px] max-h-full flex border border-black/[.1] flex-col items-center bg-slate-100 rounded-lg shadow dark:bg-neutral-950 dark:border-white/[.15]">
+    <div class="w-full p-2">
       <label for="fileName" class="text-sm">
         File name
       </label>
@@ -14,7 +14,8 @@
           type="text"
           id="fileName"
           @bind="InputFileName"
-          class="h-10 w-full rounded-md border border-black/[.2] px-2 text-sm shadow-sm"
+          pattern="\w+\.\w+"
+          class="h-8 w-full rounded-md border border-black/[.2] px-2 text-sm shadow-sm dark:bg-neutral-950 dark:border-white/[.15]"
           placeholder="Enter file name..."
         />
       </div>
@@ -24,14 +25,14 @@
         data-modal-hide="editFileNameModal"
         type="button"
         @onclick="ChangeFileName"
-        class="bg-sky-400 border hover:bg-sky-500 transition-colors border-black/[.1] px-4 py-2 rounded-lg overflow-hidden"
+        class="bg-sky-400 border hover:bg-sky-500 transition-colors border-black/[.1] px-4 py-1 rounded-lg overflow-hidden"
       >
         <p class="text-white text-sm">Change</p>
       </button>
       <button
         data-modal-hide="editFileNameModal"
         type="button"
-        class="text-gray-500 hover:text-gray-700 transition px-4 py-2 rounded-lg border border-black/[.1] overflow-hidden hover:bg-slate-200"
+        class="text-gray-500 hover:text-gray-700 transition px-4 py-1 rounded-lg border border-black/[.1] overflow-hidden hover:bg-slate-200 dark:text-neutral-300 dark:border-white/[.15] dark:hover:bg-neutral-900"
       >
         <p class="text-sm">Cancel</p>
       </button>

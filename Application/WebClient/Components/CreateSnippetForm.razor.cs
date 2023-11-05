@@ -7,7 +7,6 @@ namespace WebClient.Components;
 
 public sealed partial class CreateSnippetForm : ComponentBase
 {
-    private string _activeLanguage = String.Empty;
     
     #region Parameters
 
@@ -25,22 +24,14 @@ public sealed partial class CreateSnippetForm : ComponentBase
     [Parameter] public EventCallback<string> ActiveLanguageChanged { get; set; }
 
     #endregion
+    
+    private string _activeLanguage = String.Empty;
     private SnippetModel Model { get; set; }
-    private List<string> Languages { get; set; }
     private List<ValueTypeModel<TimeSpan>> ExpireTimeList { get; set; }
     
     public CreateSnippetForm()
     {
-        ActiveLanguage = string.Empty;
         Model = new();
-        Languages = new() {
-            "C", "C++", "CSS", "HTML", "Java", "JavaScript", "JSON", "JSX", "MariaDB SQL", "Markdown", "MS SQL",
-            "MySQL", "PHP", "PostgreSQL", "Python", "Rust", "SQL", "SQLite", "TSX", "TypeScript", "XML", "C#", 
-            "CMake", "Cython", "Dart", "Dockerfile", "Erlang", "Fortran", "F#", "Go", "Groovy", "Haskell", "HTTP", 
-            "Jinja2", "Kotlin", "LESS", "Lua", "Nginx", "Objective-C", "Objective-C++", "Pascal", "Perl", "PowerShell", 
-            "Ruby", "Sass", "SCSS", "Shell", "Swift", "sTeX", "LaTeX", "TOML", "VB.NET", "YAML",
-        };
-        Languages.Sort();
         ExpireTimeList = new() {
             new("Never", TimeSpan.FromDays(365)),
             new("1 hour", TimeSpan.FromHours(1)),

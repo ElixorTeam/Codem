@@ -1,0 +1,46 @@
+@using Blazor.Heroicons.Outline
+
+<button
+  id="dropdownSearchButton"
+  data-dropdown-offset-skidding="-40"
+  data-dropdown-toggle="dropdownSearch"
+  class="flex w-24 gap-2 h-full px-2 items-center justify-between hover:bg-white/[.4] dark:hover:bg-white/[.2]"
+>
+  <p class="line-clamp-1 text-sm">@ActiveLanguage</p>
+  <ChevronDownIcon class="h-4 w-4" />
+</button>
+
+<div
+  id="dropdownSearch"
+  class="z-10 hidden overflow-hidden rounded-lg border bg-slate-100 border-black/[.1] dark:border-white/[.15] dark:bg-neutral-950"
+>
+  <div class="h-full max-h-56 w-full flex flex-col overflow-hidden border-r border-r-black/[.1] dark:border-r-white/[.15]">
+    <div class="h-10 flex-shrink-0 w-full flex items-center px-2 border-b bg-slate-50 border-b-black/[.1] dark:bg-neutral-900 dark:border-b-white/[.15]">
+      <input
+        type="text"
+        @oninput="FilterItems"
+        class="h-full p-0 pr-2 bg-transparent w-full text-sm focus:ring-0 border-none"
+        placeholder="Search language..."/>
+      <MagnifyingGlassIcon class="h-4 w-4"/>
+    </div>
+    <ul
+      aria-labelledby="dropdownSearchButton"
+      class="h-full overflow-y-auto flex flex-col divide-y divide-black/[.1] dark:divide-white/[.15] scrollbar-thin scrollbar-thumb-slate-300 scrollbar-corner-transparent scrollbar-track-transparent dark:scrollbar-thumb-neutral-700"
+    >
+      @foreach (string item in Languages.Where(item =>
+        string.IsNullOrWhiteSpace(SearchString) ||
+        item.Contains(SearchString, StringComparison.OrdinalIgnoreCase)))
+      {
+        <li>
+          <button
+            type="button"
+            @onclick="() => SwitchLanguage(item)"
+            class="w-full h-8 px-2 text-left hover:bg-white/[.4] dark:hover:bg-white/[.2]"
+          >
+            <p>@item</p>
+          </button>
+        </li>
+      }
+    </ul>
+  </div>
+</div>

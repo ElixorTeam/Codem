@@ -9,5 +9,5 @@ public partial class EditFileNameModal
     
     private string InputFileName { get; set; } = string.Empty;
 
-    private void ChangeFileName() =>  ChangeFileNameAction(InputFileName);
+    private void ChangeFileName() => ChangeFileNameAction(InputFileName);
 }

@@ -23,18 +23,6 @@
           </div>
         </div>
         <div>
-          <label for="syntax" class="text-sm">Syntax highlighting</label>
-          <select
-            id="syntax"
-            @bind="ActiveLanguage"
-            class="mt-1 p-0 h-8 w-full rounded-md border bg-white border-black/[.2] px-2 text-sm thin-scroll focus:ring-0 focus:border-black/[.2] dark:bg-transparent dark:border-white/[.15] dark:focus:border-white/[.15]">
-            @foreach (string language in Languages)
-            {
-              <option value="@language">@language</option>
-            }
-          </select>
-        </div>
-        <div>
           <label for="expiration" class="text-sm">Expiration time</label>
           <select
             id="expiration"

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Components;
-using SharedCore.Models;
+using Сodem.Shared.Models;
 using WebClient.Models;
 
 namespace WebClient.Components;

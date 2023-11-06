@@ -1,6 +1,6 @@
 using Blazor.Heroicons;
 using Microsoft.AspNetCore.Components;
-using SharedCore.Enums;
+using Сodem.Shared.Enums;
 
 namespace WebClient.Components.Layouts;
 

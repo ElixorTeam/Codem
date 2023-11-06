@@ -1,4 +1,4 @@
-﻿using Domain.Models;
+﻿using Domain.Entities.SnippetAggregate;
 namespace SqlCore.Tables.CodeSnippets;
 
 public sealed class CodeSnippetRepository : ISnippetRepository

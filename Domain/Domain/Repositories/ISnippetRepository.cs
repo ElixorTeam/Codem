@@ -1,5 +1,5 @@
 using Domain.Common;
-using Domain.Models;
+using Domain.Entities.SnippetAggregate;
 namespace Domain.Repositories;
 
 public interface ISnippetRepository : IRepository<Snippet>

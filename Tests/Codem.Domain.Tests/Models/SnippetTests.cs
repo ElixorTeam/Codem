@@ -1,4 +1,4 @@
-﻿using Codem.Domain.Entities.SnippetAggregate;
+﻿using Codem.Domain.Aggregates.SnippetAggregate;
 using Codem.Domain.Enums;
 using Codem.Domain.Exceptions;
 using Codem.Domain.ValueTypes;

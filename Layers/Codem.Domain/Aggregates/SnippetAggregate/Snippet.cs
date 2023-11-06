@@ -2,7 +2,8 @@ using Codem.Domain.Common;
 using Codem.Domain.Enums;
 using Codem.Domain.Exceptions;
 using Codem.Domain.ValueTypes;
-namespace Codem.Domain.Entities.SnippetAggregate;
+
+namespace Codem.Domain.Aggregates.SnippetAggregate;
 
 public class Snippet : IEntity
 {

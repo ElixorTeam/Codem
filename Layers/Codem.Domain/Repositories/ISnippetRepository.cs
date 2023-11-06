@@ -1,5 +1,5 @@
+using Codem.Domain.Aggregates.SnippetAggregate;
 using Codem.Domain.Common;
-using Codem.Domain.Entities.SnippetAggregate;
 namespace Codem.Domain.Repositories;
 
 public interface ISnippetRepository : IRepository<Snippet>

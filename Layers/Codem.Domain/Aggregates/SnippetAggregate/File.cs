@@ -1,5 +1,6 @@
 using Codem.Domain.Common;
-namespace Codem.Domain.Entities.SnippetAggregate;
+
+namespace Codem.Domain.Aggregates.SnippetAggregate;
 
 public class File : IEntity
 {

@@ -13,4 +13,8 @@
       <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Aggregates\" />
+    </ItemGroup>
+
 </Project>

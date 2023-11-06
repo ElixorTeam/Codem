@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codem.Domain", "Layers\Code
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codem.Infrastructure", "Layers\Codem.Infrastructure\Codem.Infrastructure.csproj", "{974C2335-06FB-4EB0-ACDD-9C6A0D4C85AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codem.Api", "Layers\Codem.Api\Codem.Api.csproj", "{F4ED4DCC-B27F-41A3-B1F0-75A05F43CA37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Any CPU = Release|Any CPU
@@ -67,6 +69,10 @@ Global
 		{974C2335-06FB-4EB0-ACDD-9C6A0D4C85AF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{974C2335-06FB-4EB0-ACDD-9C6A0D4C85AF}.Develop|Any CPU.ActiveCfg = Develop|Any CPU
 		{974C2335-06FB-4EB0-ACDD-9C6A0D4C85AF}.Develop|Any CPU.Build.0 = Develop|Any CPU
+		{F4ED4DCC-B27F-41A3-B1F0-75A05F43CA37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4ED4DCC-B27F-41A3-B1F0-75A05F43CA37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4ED4DCC-B27F-41A3-B1F0-75A05F43CA37}.Develop|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4ED4DCC-B27F-41A3-B1F0-75A05F43CA37}.Develop|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{5E154591-2DED-4471-B80C-C2856091E43E} = {64FB7036-FD19-4A57-99B6-FAA502C21423}
 		{1C647F4C-0354-410B-AF57-B12B33514A60} = {64FB7036-FD19-4A57-99B6-FAA502C21423}
 		{974C2335-06FB-4EB0-ACDD-9C6A0D4C85AF} = {64FB7036-FD19-4A57-99B6-FAA502C21423}
+		{F4ED4DCC-B27F-41A3-B1F0-75A05F43CA37} = {64FB7036-FD19-4A57-99B6-FAA502C21423}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4186C43-3776-449B-938E-E2DB26A66303}

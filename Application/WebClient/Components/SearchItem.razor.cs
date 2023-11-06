@@ -4,20 +4,11 @@ namespace WebClient.Components;
 
 public sealed partial class SearchItem : ComponentBase
 {
-    [Parameter] public int Id { get; set; }
-    [Parameter] public DateOnly PublicDate { get; set; }
-    [Parameter] public string Title { get; set; }
-    [Parameter] public string Syntax { get; set; }
-    [Parameter] public string Author { get; set; }
-    [Parameter] public string AvatarSrc { get; set; }
-    [Parameter] public string Code { get; set; }
-
-    public SearchItem()
-    {
-        Title = string.Empty;
-        Syntax = string.Empty;
-        Author = string.Empty;
-        AvatarSrc = "assets/avatar.jpg";
-        Code = string.Empty;
-    }
+    [Parameter] public int Id { get; init; } = int.MinValue;
+    [Parameter] public DateOnly PublicDate { get; init; } = DateOnly.FromDateTime(DateTime.Now);
+    [Parameter] public string Title { get; init; } = string.Empty;
+    [Parameter] public string Syntax { get; init; } = string.Empty;
+    [Parameter] public string Author { get; init; } = string.Empty;
+    [Parameter] public string AvatarSrc { get; init; } = "assets/avatar.jpg";
+    [Parameter] public string Code { get; init; } = string.Empty;
 }

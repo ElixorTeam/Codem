@@ -14,7 +14,7 @@
       <button
         data-modal-hide="deleteFileModal"
         type="button"
-        @onclick="() => CodeFileManager.DeleteFile(CodeFileManager.GetCurrentFile().Id)"
+        @onclick="DeleteFileAction"
         class="bg-sky-400 border hover:bg-sky-500 transition-colors border-black/[.1] px-4 py-2 rounded-lg overflow-hidden"
       >
         <p class="text-white text-sm">Sure</p>

@@ -8,12 +8,12 @@ public sealed partial class SelectLanguage: ComponentBase
 {
     [Parameter] public string ActiveLanguage { get; set; } = "Markdown";
     [Parameter] public EventCallback<string> ActiveLanguageChanged { get; set; }
-    
-    [Inject] private IJSRuntime JSRuntime { get; set; }
-    private IJSObjectReference? _module;
-    private string SearchString { get; set; } = string.Empty;
 
-    private List<string> Languages { get; } = new() {
+    [Inject] private IJSRuntime JSRuntime { get; set; } = null!;
+    private IJSObjectReference Module { get; set; } = null!;
+    public string SearchString { get; set; } = string.Empty;
+
+    private static List<string> Languages { get; } = new() {
         "C", "C++", "CSS", "HTML", "Java", "JavaScript", "JSON", "JSX", "MariaDB SQL", "Markdown", "MS SQL",
         "MySQL", "PHP", "PostgreSQL", "Python", "Rust", "SQL", "SQLite", "TSX", "TypeScript", "XML", "C#", 
         "CMake", "Cython", "Dart", "Dockerfile", "Erlang", "Fortran", "F#", "Go", "Groovy", "Haskell", "HTTP", 
@@ -23,24 +23,23 @@ public sealed partial class SelectLanguage: ComponentBase
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-        {
-            _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./js/langDropdown.js");
-            await _module.InvokeVoidAsync("initLangDropdown");
-        }
+        if (!firstRender) return;
+        Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Components/CodeEditor/SelectLanguage.razor.js");
+        await Module.InvokeVoidAsync("initLangDropdown");
     }
 
-    private async Task HideDropdown()
-    {
-        if (_module == null) return;
-        await _module.InvokeVoidAsync("hideLangDropdown");
-    }
+    private async Task HideDropdown() => await Module.InvokeVoidAsync("hideLangDropdown");
+
+    private void ClearSearch() => SearchString = string.Empty;
+
+    private void UpdateSearchString(ChangeEventArgs e) => SearchString = e.Value?.ToString() ?? string.Empty;
     
-    private void FilterItems(ChangeEventArgs e) => SearchString = e.Value.ToString();
     private async void SwitchLanguage(string lang)
     {
         ActiveLanguage = lang;
         await ActiveLanguageChanged.InvokeAsync(lang);
         await HideDropdown();
+        ClearSearch();
+        StateHasChanged();
     }
 }

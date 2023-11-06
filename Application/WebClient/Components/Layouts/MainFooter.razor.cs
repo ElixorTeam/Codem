@@ -2,7 +2,7 @@
 
 namespace WebClient.Components.Layouts;
 
-public partial class MainFooter : ComponentBase
+public sealed partial class MainFooter : ComponentBase
 {
     private static string Incorporated => $"© {DateTime.Now.Year} Elixor, Inc.";
 }

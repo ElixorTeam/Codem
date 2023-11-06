@@ -1,10 +1,11 @@
 using Blazor.Heroicons;
+using Microsoft.AspNetCore.Components;
 
 namespace WebClient.Components.Profile;
 
-public partial class AccountInfo
+public sealed partial class AccountInfo: ComponentBase
 {
-    public List<StatModel> StatList { get; set; } = new();
+    private List<StatModel> StatList { get; set; } = new();
     
     protected override void OnInitialized()
     {

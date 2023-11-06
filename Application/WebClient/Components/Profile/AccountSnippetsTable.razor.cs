@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Components;
+
 namespace WebClient.Components.Profile;
 
-public partial class AccountSnippetsTable
+public sealed partial class AccountSnippetsTable: ComponentBase
 {
-    public List<SnippetTableModel> SnippetsList { get; set; } = new();
+    private List<SnippetTableModel> SnippetsList { get; set; } = new();
     
     protected override void OnInitialized()
     {

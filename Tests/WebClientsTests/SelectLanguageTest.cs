@@ -53,4 +53,17 @@ public class SelectLanguageTest
         string expectedActiveLanguage = firstLi.TextContent.Trim();
         Assert.Equal(expectedActiveLanguage, cut.Instance.ActiveLanguage);
     }
+    
+    [Fact]
+    public async Task ClearSearchButtonClearsSearchInput()
+    {
+        IRenderedComponent<SelectLanguage> cut = ctx.RenderComponent<SelectLanguage>();
+        IElement searchInput = cut.Find("input");
+        ChangeEventArgs changeEventArgs = new ChangeEventArgs { Value = "JavaScript" };
+        await searchInput.TriggerEventAsync("oninput", changeEventArgs);
+        IElement clearSearchButton = cut.Find("button[type='button']");
+        MouseEventArgs clickEvent = new MouseEventArgs { Button = 0 };
+        await clearSearchButton.TriggerEventAsync("onclick", clickEvent);
+        Assert.Equal(string.Empty, cut.Instance.SearchString);
+    }
 }

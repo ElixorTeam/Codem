@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace WebClient.Components.CodeEditor;
 
-public partial class CodeEditorContextMenu
+public sealed partial class CodeEditorContextMenu: ComponentBase
 {
     
     # region Parameters
@@ -14,12 +14,12 @@ public partial class CodeEditorContextMenu
     
     # endregion
 
-    private List<ContextMenuModel> ContextMenuEntries = new();
+    private List<ContextMenuModel> _contextMenuEntries = new();
     
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        ContextMenuEntries = new List<ContextMenuModel>
+        _contextMenuEntries = new List<ContextMenuModel>
         {
             new()
             {
@@ -52,8 +52,8 @@ public partial class CodeEditorContextMenu
         };
     }
 
-    public void ChangeFileName(string fileName)
-    {
+    public void ChangeFileName(string fileName) =>
         CodeFileManager.ChangeFileName(CodeFileManager.GetCurrentFile().Id, fileName);
-    }
+
+    public void DeleteCurrentFile() => CodeFileManager.DeleteFile(CodeFileManager.GetCurrentFile().Id);
 }

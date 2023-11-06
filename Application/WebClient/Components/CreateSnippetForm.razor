@@ -27,7 +27,7 @@
           <select
             id="expiration"
             @bind="Model.ExpireTime"
-            class="mt-1 p-0 h-8 w-full rounded-md border bg-white border-black/[.2] px-2 pr-10 text-sm focus:ring-0 focus:border-black/[.2] dark:bg-transparent dark:border-white/[.15] dark:focus:border-white/[.15]">
+            class="mt-1 p-0 h-8 w-full rounded-md border bg-white border-black/[.2] px-2 pr-10 text-sm focus:ring-0 focus:border-black/[.2] dark:bg-neutral-950 dark:border-white/[.15] dark:focus:border-white/[.15] dark:placeholder-neutral-950">
             @foreach (ValueTypeModel<TimeSpan> item in ExpireTimeList)
             {
               <option value="@item.Value">@item.Name</option>

@@ -892,12 +892,15 @@ input:checked + .toggle-bg {
 }
 
 body {
-  color-scheme: dark;
   display: flex;
   height: 100%;
   min-height: 100vh;
   width: 100%;
   flex-direction: column;
+}
+
+.dark {
+  color-scheme: dark;
 }
 
 *, ::before, ::after {
@@ -1343,6 +1346,10 @@ body {
 
 .w-4 {
   width: 1rem;
+}
+
+.w-44 {
+  width: 11rem;
 }
 
 .w-5 {
@@ -2353,33 +2360,33 @@ body {
   outline-offset: 2px !important;
 }
 
-:is(.dark .ͼ2 .cm-activeLineGutter) {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(38 38 38 / var(--tw-bg-opacity)) !important;
+:is(.dark .cm-activeLineGutter) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(38 38 38 / var(--tw-bg-opacity));
 }
 
-:is(.dark .ͼ2 .cm-activeLine) {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(23 23 23 / var(--tw-bg-opacity)) !important;
-}
-
-:is(.dark .ͼ4 .cm-line) {
-  caret-color: #ffffff !important;
+:is(.dark .cm-activeLine) {
+  background-color: rgb(255 255 255 / .1);
 }
 
 .cm-gutters {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(241 245 249 / var(--tw-bg-opacity)) !important;
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
 }
 
 :is(.dark .cm-gutters) {
-  border-right-color: rgb(255 255 255 / .15) !important;
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(23 23 23 / var(--tw-bg-opacity)) !important;
+  border-right-color: rgb(255 255 255 / .15);
+  --tw-bg-opacity: 1;
+  background-color: rgb(23 23 23 / var(--tw-bg-opacity));
 }
 
-.cm-selectionBackground {
-  background-color: rgb(56 189 248 / .2) !important;
+:is(.dark .cm-selectionBackground) {
+  background-color: rgb(125 211 252 / .3) !important;
+}
+
+:is(.dark .cm-focused .cm-cursor) {
+  --tw-border-opacity: 1;
+  border-left-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
 .cm-tooltip {
@@ -2854,6 +2861,16 @@ body {
 :is(.dark .dark\:text-white) {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+:is(.dark .dark\:placeholder-neutral-950)::-moz-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(10 10 10 / var(--tw-placeholder-opacity));
+}
+
+:is(.dark .dark\:placeholder-neutral-950)::placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(10 10 10 / var(--tw-placeholder-opacity));
 }
 
 :is(.dark .dark\:invert) {

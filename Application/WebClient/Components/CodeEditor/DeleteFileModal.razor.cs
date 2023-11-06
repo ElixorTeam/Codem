@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace WebClient.Components.CodeEditor;
 
-public partial class DeleteFileModal
+public sealed partial class DeleteFileModal: ComponentBase
 {
-    [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
+    [Parameter, EditorRequired] public Action DeleteFileAction { get; set; } = null!;
 }

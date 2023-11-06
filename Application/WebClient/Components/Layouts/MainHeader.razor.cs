@@ -4,7 +4,7 @@ using SharedCore.Enums;
 
 namespace WebClient.Components.Layouts;
 
-public partial class MainHeader
+public sealed partial class MainHeader: ComponentBase
 {
     [Parameter, EditorRequired] public ThemesEnum Theme { get; set; }
     [Parameter] public EventCallback<ThemesEnum> ThemeChanged { get; set; }

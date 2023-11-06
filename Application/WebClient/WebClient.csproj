@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <_JsFileModuleStaticWebAsset Include="wwwroot\js\langDropdown.js" />
+    <_JsFileModuleStaticWebAsset Include="Components\CodeEditor\SelectLanguage.razor.js" />
   </ItemGroup>
 
   <Target Name="NpmInit" BeforeTargets="BeforeBuild;BeforeRebuild;Rollup">

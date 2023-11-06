@@ -3,7 +3,7 @@ using WebClient.Models;
 
 namespace WebClient.Components.CodeEditor;
 
-public partial class CodeEditor : ComponentBase
+public sealed partial class CodeEditor : ComponentBase
 {
 
     #region Parameters

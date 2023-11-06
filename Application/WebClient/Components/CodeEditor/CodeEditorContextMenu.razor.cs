@@ -13,7 +13,9 @@ public sealed partial class CodeEditorContextMenu: ComponentBase
     [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
     
     # endregion
-
+    
+    private EditFileNameModal editModal;
+    
     private List<ContextMenuModel> _contextMenuEntries = new();
     
     protected override void OnInitialized()
@@ -28,13 +30,13 @@ public sealed partial class CodeEditorContextMenu: ComponentBase
                 ModalTarget = "deleteFileModal",
                 IsVisible = !IsReadOnly
             },
-            new()
-            {
-                Text="Rename file",
-                IconName = @HeroiconName.Pencil,
-                ModalTarget = "editFileNameModal",
-                IsVisible = !IsReadOnly
-            },
+            // new()
+            // {
+            //     Text="Rename file",
+            //     IconName = @HeroiconName.Pencil,
+            //     ModalTarget = "editFileNameModal",
+            //     IsVisible = !IsReadOnly
+            // },
             new()
             {
                 Text="Clone Project", 
@@ -51,6 +53,8 @@ public sealed partial class CodeEditorContextMenu: ComponentBase
             }
         };
     }
+    
+    private void CallChildFunction() => editModal.InvokeChildFunction();
 
     public void ChangeFileName(string fileName) =>
         CodeFileManager.ChangeFileName(CodeFileManager.GetCurrentFile().Id, fileName);

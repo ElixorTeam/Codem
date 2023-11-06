@@ -6,7 +6,6 @@
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.6",
     "autoprefixer": "^10.4.16",
-    "flowbite": "^2.0.0",
     "postcss": "^8.4.31",
     "postcss-cli": "^10.1.0",
     "tailwind-scrollbar": "^3.0.5",

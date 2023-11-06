@@ -1,26 +1,25 @@
 using AngleSharp.Dom;
 using Bunit;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using WebClient.Components.CodeEditor;
 
-namespace WebClientsTests;
+namespace WebClientTests;
 
-public class SelectLanguageTest
+public class SelectLanguageComponentTests
 {
-    private TestContext ctx = new();
+    private readonly TestContext _ctx = new();
 
-    public SelectLanguageTest()
+    public SelectLanguageComponentTests()
     {
-        ctx.JSInterop.SetupModule("./js/langDropdown.js");
-        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
-        ctx.JSInterop.SetupVoid("initLangDropdown").SetVoidResult();
+        _ctx.JSInterop.SetupModule("./js/langDropdown.js");
+        _ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+        _ctx.JSInterop.SetupVoid("initLangDropdown").SetVoidResult();
     }
     
     [Fact]
-    public void SelectLanguageRendersCorrectly()
+    public void ShouldRenderCodeFileTabsComponent()
     {
-        IRenderedComponent<SelectLanguage> cut = ctx.RenderComponent<SelectLanguage>();
+        IRenderedComponent<SelectLanguage> cut = _ctx.RenderComponent<SelectLanguage>();
         IElement button = cut.Find("#langDropdownButton");
         Assert.NotNull(button);
         IRefreshableElementCollection<IElement> languages = cut.FindAll("li");
@@ -28,42 +27,41 @@ public class SelectLanguageTest
     }
 
     [Fact]
-    public async Task SelectLanguageFiltersItems()
+    public async Task ShouldFilterItemsAfterInputSearchString()
     {
-        IRenderedComponent<SelectLanguage> cut = ctx.RenderComponent<SelectLanguage>();
+        IRenderedComponent<SelectLanguage> cut = _ctx.RenderComponent<SelectLanguage>();
         IElement searchInput = cut.Find("input");
         ChangeEventArgs changeEventArgs = new ChangeEventArgs { Value = "JavaScript" };
         await searchInput.TriggerEventAsync("oninput", changeEventArgs);
         IRefreshableElementCollection<IElement> languages = cut.FindAll("li");
-        Assert.NotEmpty(languages);
+        Assert.Equal(1, languages.Count);
         Assert.Equal("JavaScript", languages.First().TextContent);
     }
     
     [Fact]
-    public async Task SelectLanguageChooseLanguage()
+    public Task SholudSelectLanguage()
     {
-        IRenderedComponent<SelectLanguage> cut = ctx.RenderComponent<SelectLanguage>();
+        IRenderedComponent<SelectLanguage> cut = _ctx.RenderComponent<SelectLanguage>();
         IRefreshableElementCollection<IElement> liElements = cut.FindAll("li");
         Assert.NotEmpty(liElements);
         IElement firstLi = liElements.First();
         IElement? button = firstLi.FirstElementChild;
         Assert.NotNull(button);
-        MouseEventArgs clickEvent = new MouseEventArgs { Button = 0 };
-        await button.TriggerEventAsync("onclick", clickEvent);
+        button.Click();
         string expectedActiveLanguage = firstLi.TextContent.Trim();
         Assert.Equal(expectedActiveLanguage, cut.Instance.ActiveLanguage);
+        return Task.CompletedTask;
     }
     
     [Fact]
-    public async Task ClearSearchButtonClearsSearchInput()
+    public async Task ShouldClearInputSearchString()
     {
-        IRenderedComponent<SelectLanguage> cut = ctx.RenderComponent<SelectLanguage>();
+        IRenderedComponent<SelectLanguage> cut = _ctx.RenderComponent<SelectLanguage>();
         IElement searchInput = cut.Find("input");
         ChangeEventArgs changeEventArgs = new ChangeEventArgs { Value = "JavaScript" };
         await searchInput.TriggerEventAsync("oninput", changeEventArgs);
         IElement clearSearchButton = cut.Find("button[type='button']");
-        MouseEventArgs clickEvent = new MouseEventArgs { Button = 0 };
-        await clearSearchButton.TriggerEventAsync("onclick", clickEvent);
+        clearSearchButton.Click();
         Assert.Equal(string.Empty, cut.Instance.SearchString);
     }
 }

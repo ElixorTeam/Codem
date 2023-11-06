@@ -31,9 +31,9 @@ public class CodeFileManager
         OnFileChange?.Invoke();
     }
 
-    public void AddFile(string text = "", string title = "new file")
+    public void AddFile(string text = "", string title = "new file", string lang = "Markdown")
     {
-        CodeFileModel newFile = new(text, title, "Markdown");
+        CodeFileModel newFile = new(text, title, lang);
         Files.Add(newFile);
         CurrentId = newFile.Id;
         OnFileChange?.Invoke();

@@ -22,6 +22,10 @@
   }
 }
 
+.modalBackground {
+  @apply bg-black/[.3] dark:bg-black/[.5] absolute inset-0 z-40;
+}
+
 .cm-editor.cm-focused {
   @apply !outline-none;
 }

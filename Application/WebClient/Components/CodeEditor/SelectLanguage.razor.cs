@@ -24,7 +24,8 @@ public sealed partial class SelectLanguage: ComponentBase
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Components/CodeEditor/SelectLanguage.razor.js");
+        Module = await JSRuntime.InvokeAsync<IJSObjectReference>(
+            "import", "./Components/CodeEditor/SelectLanguage.razor.js");
         await Module.InvokeVoidAsync("initLangDropdown");
     }
 

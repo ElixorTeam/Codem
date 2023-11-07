@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@using Blazored.Toast.Configuration
+@inherits LayoutComponentBase
 
 <PageTitle>Codem</PageTitle>
 
@@ -9,5 +10,6 @@
       @Body
     </main>
     <MainFooter />
+    <BlazoredToasts Position="ToastPosition.BottomRight" Timeout="10" />
   </div>
 </div>

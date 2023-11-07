@@ -4,6 +4,7 @@ namespace WebClient.Components.CodeEditor;
 
 public class CodeFileManager
 {
+    private const int MaxFilesCount = 10;
     private List<CodeFileModel> Files { get; } = new();
     public Action? OnFileChange { get; set; }
     private Guid CurrentId { get; set; }
@@ -33,6 +34,7 @@ public class CodeFileManager
 
     public void AddFile(string text = "", string title = "new file", string lang = "Markdown")
     {
+        if (Files.Count >= MaxFilesCount) return;
         CodeFileModel newFile = new(text, title, lang);
         Files.Add(newFile);
         CurrentId = newFile.Id;

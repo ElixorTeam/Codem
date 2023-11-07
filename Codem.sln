@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codem.Infrastructure", "Lay
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codem.Api", "Layers\Codem.Api\Codem.Api.csproj", "{F4ED4DCC-B27F-41A3-B1F0-75A05F43CA37}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codem.Api.Tests", "Tests\Codem.Api.Tests\Codem.Api.Tests.csproj", "{59537C4B-FEFA-4261-94DD-C014F103B8C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Any CPU = Release|Any CPU
@@ -73,6 +75,10 @@ Global
 		{F4ED4DCC-B27F-41A3-B1F0-75A05F43CA37}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F4ED4DCC-B27F-41A3-B1F0-75A05F43CA37}.Develop|Any CPU.ActiveCfg = Debug|Any CPU
 		{F4ED4DCC-B27F-41A3-B1F0-75A05F43CA37}.Develop|Any CPU.Build.0 = Debug|Any CPU
+		{59537C4B-FEFA-4261-94DD-C014F103B8C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59537C4B-FEFA-4261-94DD-C014F103B8C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59537C4B-FEFA-4261-94DD-C014F103B8C3}.Develop|Any CPU.ActiveCfg = Debug|Any CPU
+		{59537C4B-FEFA-4261-94DD-C014F103B8C3}.Develop|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +94,7 @@ Global
 		{1C647F4C-0354-410B-AF57-B12B33514A60} = {64FB7036-FD19-4A57-99B6-FAA502C21423}
 		{974C2335-06FB-4EB0-ACDD-9C6A0D4C85AF} = {64FB7036-FD19-4A57-99B6-FAA502C21423}
 		{F4ED4DCC-B27F-41A3-B1F0-75A05F43CA37} = {64FB7036-FD19-4A57-99B6-FAA502C21423}
+		{59537C4B-FEFA-4261-94DD-C014F103B8C3} = {5EC996F6-94FA-4CE8-A383-FDBFE0F66A5D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4186C43-3776-449B-938E-E2DB26A66303}

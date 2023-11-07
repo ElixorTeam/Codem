@@ -1,6 +1,7 @@
 ﻿using MediatR;
-using Сodem.Shared.Dtos.SnippetAggregate;
-namespace Codem.Application.Queries.SnippetQueries.GetSnippetById;
+using Сodem.Shared.Dtos.Snippet;
+
+namespace Codem.Application.Snippet.Queries.GetSnippetById;
 
 public class GetSnippetByIdQuery : IRequest<SnippetDto>
 {

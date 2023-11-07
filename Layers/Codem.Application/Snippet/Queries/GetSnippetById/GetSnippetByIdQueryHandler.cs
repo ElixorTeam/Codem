@@ -1,20 +1,20 @@
 ﻿using MediatR;
-using Сodem.Shared.Dtos.SnippetAggregate;
+using Сodem.Shared.Dtos.Snippet;
 
-namespace Codem.Application.Queries.SnippetQueries.GetSnippetById;
+namespace Codem.Application.Snippet.Queries.GetSnippetById;
 
 public class GetSnippetByIdQueryHandler : IRequestHandler<GetSnippetByIdQuery, SnippetDto>
 {
     
     /*private readonly ISnippetRepository _snippetRepository;
     
-    public GetSnippetByIdQueryHandler(ISnippetRepository snippetRepository)
+    public GetSnippetListAllQueryHandler(ISnippetRepository snippetRepository)
     {
         _snippetRepository = snippetRepository;
     }*/
 
     public Task<SnippetDto> Handle(GetSnippetByIdQuery request, CancellationToken cancellationToken)
     {
-        return Task.FromResult(new SnippetDto() {Name = "Snippet"});
+        return Task.FromResult(new SnippetDto() { Name = "Snippet" });
     }
 }

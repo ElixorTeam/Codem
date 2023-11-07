@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Layers\Codem.Api\Codem.Api.csproj" />
     <ProjectReference Include="..\..\Libs\Сodem.Shared\Сodem.Shared.csproj" />
     <ProjectReference Include="..\..\Tools\CodeMirror6\CodeMirror6.csproj" />
   </ItemGroup>

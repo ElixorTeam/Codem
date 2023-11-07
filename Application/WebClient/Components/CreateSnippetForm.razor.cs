@@ -1,20 +1,26 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Codem.Api.Controllers;
 using Microsoft.AspNetCore.Components;
+using WebClient.Components.CodeEditor;
 using Сodem.Shared.Models;
 using WebClient.Models;
+using Сodem.Shared.Dtos.File;
+using Сodem.Shared.Dtos.Snippet;
 
 namespace WebClient.Components;
 
 public sealed partial class CreateSnippetForm : ComponentBase
 {
-    
+    [Inject] private SnippetController SnippetController { get; set; } = null!;
     [Parameter] public EventCallback<string> ActiveLanguageChanged { get; set; }
+    [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
     private SnippetModel Model { get; set; }
     private List<ValueTypeModel<TimeSpan>> ExpireTimeList { get; set; }
     
     public CreateSnippetForm()
     {
-        ExpireTimeList = new() {
+        ExpireTimeList = new List<ValueTypeModel<TimeSpan>>
+        {
             new("Never", TimeSpan.FromDays(365)),
             new("1 hour", TimeSpan.FromHours(1)),
             new("1 day", TimeSpan.FromDays(1)),
@@ -31,12 +37,29 @@ public sealed partial class CreateSnippetForm : ComponentBase
         };
     }
 
-    private void HandleSubmit()
+    private List<FileCreateDto> ConvertToFileDto(List<CodeFileModel> fileModelList)
+    {
+        return fileModelList.Select(file => 
+            new FileCreateDto { Data = file.Text, Name = file.Title }).ToList();
+    }
+
+    private async void HandleSubmit()
     {
         DateTime finalDate = DateTime.Now.Add(Model.ExpireTime);
-        Console.WriteLine($"Title: {Model.Title}");
-        Console.WriteLine($"ExpireTime: {finalDate}");
-        Console.WriteLine($"IsHidden: {Model.IsPrivate}");
-        Console.WriteLine($"Password: {Model.Password}");
+        List<FileCreateDto> files = ConvertToFileDto(CodeFileManager.GetAllFiles());
+        try
+        {
+            await SnippetController.CreateSnippet(new SnippetCreateDto
+            {
+                Files = files,
+                Name = Model.Title,
+                IsPrivate = Model.IsPrivate,
+                Password = Model.Password,
+            });
+        }
+        catch
+        {
+            Console.WriteLine("error");
+        }
     }
 }

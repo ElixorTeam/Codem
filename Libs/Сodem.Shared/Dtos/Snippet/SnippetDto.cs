@@ -4,18 +4,9 @@ namespace Сodem.Shared.Dtos.Snippet;
 
 public class SnippetDto
 { 
-    public Guid Id { get; set; }
-    public string Name { get; set; }
-    public bool IsPrivate { get; set; }
-    public string? Password { get; set; }
-    public List<FileDto> Files { get; set; }
-    
-    public SnippetDto()
-    {
-        Id = Guid.Empty;
-        Name = string.Empty;
-        IsPrivate = false;
-        Password = null;
-        Files = new();
-    }
+    public Guid Id { get; set; } = Guid.Empty;
+    public string Name { get; set; } = string.Empty;
+    public bool IsPrivate { get; set; } = false;
+    public string? Password { get; set; } = null;
+    public List<FileDto> Files { get; set; } = new();
 }

@@ -1,6 +1,7 @@
 @page "/search"
 
 @using Blazor.Heroicons.Outline;
+@using Сodem.Shared.Dtos.Snippet
 
 <PageTitle>Codem - Search</PageTitle>
 
@@ -21,6 +22,7 @@
       <a href="@(string.IsNullOrEmpty(SearchQuery) ? "/search" : $"/search?searchQuery={SearchQuery}")">
         <button
           type="button"
+          @onclick="UpdateFilteredList"
           class="flex h-6 items-center gap-2 rounded-md border border-black/[.1] bg-sky-400 px-2 hover:bg-sky-500"
         >
           <p class="text-xs text-white">Search</p>
@@ -33,15 +35,17 @@
     Code snippets
   </p>
   <ul class="my-4 flex h-full w-full flex-col px-2">
-    <li>
-      <SearchItem
-        Id="11"
-        Author="Ap73MKa"
-        Code="print(Hello World!)"
-        Syntax="Python"
-        Title="Python code"
-        PublicDate="DateOnly.FromDateTime(DateTime.Now)"
-      />
-    </li>
+    @foreach (SnippetDto snippet in SnippetList)
+    {
+      <li>
+        <SearchItem
+          Id="@snippet.Id"
+          Author="Ap73MKa"
+          Code="@getFirstFileCode(snippet)"
+          Syntax="Python"
+          Title="@snippet.Name"
+          PublicDate="DateOnly.FromDateTime(DateTime.Now)"/>
+      </li>
+    }
   </ul>
 </div>

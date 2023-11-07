@@ -25,7 +25,7 @@ public class SnippetController
         return dto;
     }
     
-    public async Task<List<SnippetDto>> GetSnippetByName(string name)
+    public async Task<List<SnippetDto>> GetSnippetListByName(string name)
     {
         List<SnippetDto> snippetDto = await _mediator.Send(new GetSnippetListByNameQuery(name));
         return snippetDto;

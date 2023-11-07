@@ -28,7 +28,7 @@ public class SnippetControllerTests
     {
         const string name = "Test name";
         
-        List<SnippetDto> dtos = await _controller.GetSnippetByName(name);
+        List<SnippetDto> dtos = await _controller.GetSnippetListByName(name);
         
         Assert.NotEmpty(dtos);
     }

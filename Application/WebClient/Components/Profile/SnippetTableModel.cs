@@ -2,6 +2,7 @@ namespace WebClient.Components.Profile;
 
 public class SnippetTableModel
 {
+    public Guid Id { get; init; }
     public string Title { get; init; } = string.Empty;
     public DateOnly PublicDate { get; init; } = DateOnly.FromDateTime(DateTime.Today);
     public string ExpireTime { get; init; } = string.Empty;

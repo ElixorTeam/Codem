@@ -7,6 +7,7 @@ public class GetSnippetListAllQueryHandler : IRequestHandler<GetSnippetListAllQu
 {
     public Task<List<SnippetDto>>Handle(GetSnippetListAllQuery request, CancellationToken cancellationToken)
     {
-        return Task.FromResult(new List<SnippetDto> ());
+        List<SnippetDto> list = new() { new SnippetDto{Name = "new name"} };
+        return Task.FromResult(list);
     }
 }

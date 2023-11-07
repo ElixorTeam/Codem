@@ -2,7 +2,7 @@ using Сodem.Shared.Dtos.File;
 
 namespace Сodem.Shared.Dtos.Snippet;
 
-public class SnippetCreateDto : SnippetDto
+public class SnippetCreateDto
 { 
     public string Name { get; set; }
     public bool IsPrivate { get; set; }

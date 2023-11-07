@@ -1,6 +1,5 @@
-using Codem.Application.Queries.SnippetQueries.GetSnippetById;
-
 using MediatR;
+using Codem.Application.Queries.SnippetQueries.GetSnippetById;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Codem.Api.Tests;
@@ -10,9 +9,8 @@ public static class MediatorConfiguration
     public static IMediator Get()
     {
         ServiceCollection services = new();
-        services.AddMediatR(typeof(GetSnippetByIdQuery).Assembly);
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetSnippetByIdQueryHandler).Assembly));
         ServiceProvider serviceProvider = services.BuildServiceProvider();
-        IMediator mediator = serviceProvider.GetRequiredService<IMediator>();
-        return mediator;
+        return serviceProvider.GetRequiredService<IMediator>();
     }
 }

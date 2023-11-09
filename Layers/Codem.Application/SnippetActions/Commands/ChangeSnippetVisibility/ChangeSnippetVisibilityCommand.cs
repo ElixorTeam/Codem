@@ -6,7 +6,7 @@ public class ChangeSnippetVisibilityCommand : IRequest
 {
     public Guid Id { get; }
     public SnippetVisibilityEnum Visibility { get; }
-    
+
     public ChangeSnippetVisibilityCommand(Guid id, bool isPrivate)
     {
         Id = id;

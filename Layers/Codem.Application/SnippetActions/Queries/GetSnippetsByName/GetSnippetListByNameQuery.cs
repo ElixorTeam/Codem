@@ -2,10 +2,10 @@
 
 public class GetSnippetListByNameQuery : IRequest<List<SnippetDto>>
 {
-    public string Name { get; }
+    public string Title { get; }
 
-    public GetSnippetListByNameQuery(string name)
+    public GetSnippetListByNameQuery(string title)
     {
-        Name = name;
+        Title = title;
     }
 }

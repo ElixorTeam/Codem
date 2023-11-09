@@ -2,7 +2,4 @@
 
 public class UpdateSnippetCommand : IRequest<SnippetDto>
 {
-    public UpdateSnippetCommand()
-    {
-    }
 }

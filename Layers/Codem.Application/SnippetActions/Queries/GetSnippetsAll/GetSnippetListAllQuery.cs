@@ -2,7 +2,4 @@
 
 public class GetSnippetListAllQuery : IRequest<List<SnippetDto>>
 {
-    public GetSnippetListAllQuery()
-    {
-    }
 }

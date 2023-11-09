@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Codem.Infrastructure.AutoMapper;
 using Codem.Infrastructure.Common;
 using Codem.Infrastructure.Models;
 using Codem.Infrastructure.UnitOfWork;
@@ -28,6 +29,7 @@ public static class DependencyInjection
         ISessionFactory sessionFactory = configuration.BuildSessionFactory();
         services.AddScoped<ISession>(_ => sessionFactory.OpenSession());
         services.AddScoped<IUnitOfWork, SqlUnitOfWork>();
+        services.AddAutoMapper(typeof(InfrastructureMappings));
     }
     
     #region Private

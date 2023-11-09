@@ -28,7 +28,7 @@ public class SqlFileMap : ClassMapping<SqlFileEntity>
             m.NotNullable(true);
         });
         
-        Property(x => x.Title, m =>
+        Property(x => x.Name, m =>
         {
             m.Column("TITLE");
             m.Type(NHibernateUtil.String);

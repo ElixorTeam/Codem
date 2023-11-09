@@ -25,7 +25,7 @@ public sealed partial class EditSnippetForm : ComponentBase
         new ValueTypeModel<TimeSpan>("1 month", TimeSpan.FromDays(31))
     };
     
-    private List<FileDto> ConvertToFileDto(List<CodeFileModel> fileModelList)
+    private List<FileDto> ConvertToFileDto(IList<CodeFileModel> fileModelList)
     {
         return fileModelList.Select(file => 
             new FileDto { Data = file.Text, Name = file.Title }).ToList();

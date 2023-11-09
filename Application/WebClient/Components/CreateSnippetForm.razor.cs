@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Blazored.Toast.Services;
 using Codem.Api.Controllers;
 using Microsoft.AspNetCore.Components;
 using WebClient.Components.CodeEditor;
@@ -11,6 +12,7 @@ namespace WebClient.Components;
 
 public sealed partial class CreateSnippetForm : ComponentBase
 {
+    [Inject] private IToastService ToastService { get; set; }
     [Inject] private SnippetController SnippetController { get; set; } = null!;
     [Parameter] public EventCallback<string> ActiveLanguageChanged { get; set; }
     [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
@@ -37,7 +39,7 @@ public sealed partial class CreateSnippetForm : ComponentBase
         };
     }
 
-    private List<FileCreateDto> ConvertToFileDto(List<CodeFileModel> fileModelList)
+    private List<FileCreateDto> ConvertToFileDto(IList<CodeFileModel> fileModelList)
     {
         return fileModelList.Select(file => 
             new FileCreateDto { Data = file.Text, Name = file.Title }).ToList();
@@ -61,5 +63,6 @@ public sealed partial class CreateSnippetForm : ComponentBase
         {
             Console.WriteLine("error");
         }
+        ToastService.ShowError("Adding form");
     }
 }

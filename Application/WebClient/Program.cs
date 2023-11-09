@@ -1,7 +1,7 @@
 using Blazored.LocalStorage;
 using Blazored.Toast;
 using Codem.Api;
-using Codem.Application;
+using Codem.Infrastructure;
 using CodeMirror6;
 namespace WebClient;
 
@@ -18,6 +18,14 @@ public class Program
         builder.Services.AddBlazoredLocalStorage();
         builder.Services.AddBlazoredToast();
         builder.Services.AddApi();
+        
+        #region Local
+        
+        builder.Services.AddNhibernate();
+        builder.Services.AddApi();
+        
+        #endregion
+        
         
         WebApplication app = builder.Build();
         

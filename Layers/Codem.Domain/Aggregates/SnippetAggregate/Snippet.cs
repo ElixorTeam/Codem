@@ -7,7 +7,7 @@ namespace Codem.Domain.Aggregates.SnippetAggregate;
 
 public class Snippet : IEntity
 {
-    public Guid Id { get; }
+    public Guid Id { get; set; }
     public string Name { get; set; }
     public Password? Password { get; private set; }
     public SnippetVisibilityEnum Visibility { get; private set; }

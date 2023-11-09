@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codem.Api", "Layers\Codem.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codem.Api.Tests", "Tests\Codem.Api.Tests\Codem.Api.Tests.csproj", "{59537C4B-FEFA-4261-94DD-C014F103B8C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitOfWork.Abstractions", "Libs\UnitOfWork.Abstractions\UnitOfWork.Abstractions.csproj", "{301D9E41-5B78-4B5C-9799-AA2F954351CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Any CPU = Release|Any CPU
@@ -79,6 +81,10 @@ Global
 		{59537C4B-FEFA-4261-94DD-C014F103B8C3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{59537C4B-FEFA-4261-94DD-C014F103B8C3}.Develop|Any CPU.ActiveCfg = Develop|Any CPU
 		{59537C4B-FEFA-4261-94DD-C014F103B8C3}.Develop|Any CPU.Build.0 = Develop|Any CPU
+		{301D9E41-5B78-4B5C-9799-AA2F954351CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{301D9E41-5B78-4B5C-9799-AA2F954351CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{301D9E41-5B78-4B5C-9799-AA2F954351CE}.Develop|Any CPU.ActiveCfg = Develop|Any CPU
+		{301D9E41-5B78-4B5C-9799-AA2F954351CE}.Develop|Any CPU.Build.0 = Develop|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +101,7 @@ Global
 		{974C2335-06FB-4EB0-ACDD-9C6A0D4C85AF} = {64FB7036-FD19-4A57-99B6-FAA502C21423}
 		{F4ED4DCC-B27F-41A3-B1F0-75A05F43CA37} = {64FB7036-FD19-4A57-99B6-FAA502C21423}
 		{59537C4B-FEFA-4261-94DD-C014F103B8C3} = {5EC996F6-94FA-4CE8-A383-FDBFE0F66A5D}
+		{301D9E41-5B78-4B5C-9799-AA2F954351CE} = {2032D3B5-1456-4A7E-9307-6964BA36BABC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4186C43-3776-449B-938E-E2DB26A66303}

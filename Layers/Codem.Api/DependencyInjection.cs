@@ -1,5 +1,5 @@
 ﻿using Codem.Api.Controllers;
-using Codem.Application;
+using Codem.Application.SnippetActions.Queries;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Codem.Api;

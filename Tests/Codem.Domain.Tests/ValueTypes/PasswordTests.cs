@@ -1,6 +1,7 @@
 ﻿using Codem.Domain.Tests.Common;
 using Codem.Domain.ValueTypes;
 using Xunit.Abstractions;
+
 namespace Codem.Domain.Tests.ValueTypes;
 
 

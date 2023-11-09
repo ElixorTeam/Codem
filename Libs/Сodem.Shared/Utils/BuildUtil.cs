@@ -1,4 +1,5 @@
 ﻿using Сodem.Shared.Enums;
+
 namespace Сodem.Shared.Utils;
 
 public static class BuildUtil

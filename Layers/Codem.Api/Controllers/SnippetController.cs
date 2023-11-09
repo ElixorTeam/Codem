@@ -1,9 +1,4 @@
 ﻿using MediatR;
-using Codem.Application.Snippet.Commands.CreateSnippet;
-using Codem.Application.Snippet.Commands.DeleteSnippet;
-using Codem.Application.Snippet.Queries.GetSnippetById;
-using Codem.Application.Snippet.Queries.GetSnippetsAll;
-using Codem.Application.Snippet.Queries.GetSnippetsByName;
 using Сodem.Shared.Dtos.Snippet;
 
 namespace Codem.Api.Controllers;

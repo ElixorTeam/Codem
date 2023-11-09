@@ -3,6 +3,7 @@ using Codem.Domain.Enums;
 using Codem.Domain.Exceptions;
 using Codem.Domain.ValueTypes;
 using Xunit.Abstractions;
+
 namespace Codem.Domain.Tests.Models;
 
 public class SnippetTests

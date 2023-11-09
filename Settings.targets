@@ -1,0 +1,17 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Target Name="PrintConfiguration" BeforeTargets="Build">
+        <Message Importance="high" Text="Current Configuration: $(ConfigurationName)" />
+    </Target>
+    
+    <ItemGroup Condition=" '$(ConfigurationName)' == 'Develop' ">
+        <None Include="$(SolutionDir).configs\dev\sqlconfig.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+    
+    <ItemGroup Condition=" '$(ConfigurationName)' == 'Release' ">
+        <None Include="$(SolutionDir).configs\prod\sqlconfig.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+</Project>

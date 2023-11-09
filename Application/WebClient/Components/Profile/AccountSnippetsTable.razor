@@ -42,7 +42,7 @@
       <tbody class="divide-y divide-gray-200 dark:divide-white/[.15]">
       @foreach (SnippetDto snippet in SnippetsList)
       {
-          <SnippetsTableEntry Snippet="@ConvertModel(snippet)" />
+          <SnippetsTableEntry TableInvokeAction="() => TableInvokeAction(SnippetsList.IndexOf(snippet))" Snippet="@ConvertModel(snippet)" />
       }
       </tbody>
     </table>

@@ -15,6 +15,12 @@ public sealed partial class AccountSnippetsTable: ComponentBase
         GetAllUserSnippets();
     }
 
+    public void TableInvokeAction(int fileIndex)
+    {
+        SnippetsList.RemoveAt(fileIndex);
+        StateHasChanged();
+    }
+
     private async void GetAllUserSnippets()
     {
         SnippetsList = await SnippetController.GetSnippetListAll();

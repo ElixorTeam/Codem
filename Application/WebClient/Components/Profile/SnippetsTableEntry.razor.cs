@@ -6,12 +6,13 @@ namespace WebClient.Components.Profile;
 
 public sealed partial class SnippetsTableEntry : ComponentBase
 {
-    [Inject] private SnippetController SnippetController { get; set; }
+    [Inject] private SnippetController SnippetController { get; set; } = null!;
+    [Parameter, EditorRequired] public Action TableInvokeAction { get; set; } = null!;
     [Parameter, EditorRequired] public SnippetTableModel Snippet { get; set; } = null!;
 
     private async void DeleteFile()
     {
         await SnippetController.DeleteSnippet(Snippet.Id);
-        StateHasChanged();
+        TableInvokeAction.Invoke();
     }
 }

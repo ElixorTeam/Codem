@@ -23,7 +23,7 @@ public class GetSnippetListAllQueryHandler : IRequestHandler<GetSnippetListAllQu
         return new()
         {
             Id = snippet.Id,
-            Name = snippet.Name
+            Title = snippet.Name
         };
     }
 }

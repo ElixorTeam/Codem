@@ -35,10 +35,10 @@ public sealed partial class EditSnippetForm : ComponentBase
     {
         DateTime finalDate = DateTime.Now.Add(Model.ExpireTime);
         List<FileDto> files = ConvertToFileDto(CodeFileManager.GetAllFiles());
-        SnippetDto snippetDto = new SnippetDto
+        SnippetDto snippetDto = new()
         {
             Id = SnippetId,
-            Name = Model.Title,
+            Title = Model.Title,
             IsPrivate = Model.IsPrivate,
             Password = Model.Password,
             Files = files,

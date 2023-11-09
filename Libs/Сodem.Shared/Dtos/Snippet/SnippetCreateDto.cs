@@ -4,7 +4,7 @@ namespace Сodem.Shared.Dtos.Snippet;
 
 public class SnippetCreateDto
 { 
-    public string Name { get; set; }
+    public string Title { get; set; }
     public bool IsPrivate { get; set; }
     public string? Password { get; set; }
     
@@ -12,7 +12,7 @@ public class SnippetCreateDto
     
     public SnippetCreateDto()
     {
-        Name = string.Empty;
+        Title = string.Empty;
         IsPrivate = false;
         Password = null;
         Files = new();

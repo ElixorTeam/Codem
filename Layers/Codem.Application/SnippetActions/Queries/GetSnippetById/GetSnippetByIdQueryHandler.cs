@@ -12,6 +12,6 @@ public class GetSnippetByIdQueryHandler : IRequestHandler<GetSnippetByIdQuery, S
 
     public Task<SnippetDto> Handle(GetSnippetByIdQuery request, CancellationToken cancellationToken)
     {
-        return Task.FromResult(new SnippetDto() { Name = "Snippet" });
+        return Task.FromResult(new SnippetDto() { Title = "Snippet" });
     }
 }

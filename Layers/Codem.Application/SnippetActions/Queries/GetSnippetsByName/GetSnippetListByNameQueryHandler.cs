@@ -12,6 +12,6 @@ public class GetSnippetListByNameQueryHandler : IRequestHandler<GetSnippetListBy
 
     public Task<List<SnippetDto>>Handle(GetSnippetListByNameQuery request, CancellationToken cancellationToken)
     {
-        return Task.FromResult(new List<SnippetDto> () { new() { Name = request.Name }});
+        return Task.FromResult(new List<SnippetDto> () { new() { Title = request.Name }});
     }
 }

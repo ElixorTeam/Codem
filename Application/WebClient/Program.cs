@@ -14,7 +14,7 @@ public class Program
         
         builder.Services.AddRazorPages();
         builder.Services.AddServerSideBlazor();
-        builder.Services.AddTransient<CodeMirrorJsInterop>();
+        builder.Services.AddScoped<CodeMirrorJsInterop>();
         builder.Services.AddBlazoredLocalStorage();
         builder.Services.AddBlazoredToast();
         builder.Services.AddApi();

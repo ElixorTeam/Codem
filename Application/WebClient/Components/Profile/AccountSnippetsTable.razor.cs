@@ -23,10 +23,10 @@ public sealed partial class AccountSnippetsTable: ComponentBase
 
     private SnippetTableModel ConvertModel(SnippetDto snippet)
     {
-        return new SnippetTableModel
+        return new()
         {
             Id=snippet.Id,
-            Title=snippet.Name,
+            Title=snippet.Title,
             PublicDate=DateOnly.FromDateTime(DateTime.Today),
             ExpireTime="1 week",
             Views=1400,

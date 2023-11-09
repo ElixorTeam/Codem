@@ -34,9 +34,9 @@ public sealed partial class Editor: ComponentBase
 
     private SnippetModel ConvertModel(SnippetDto snippetDto)
     {
-        return new SnippetModel
+        return new()
         {
-            Title = snippetDto.Name,
+            Title = snippetDto.Title,
             ExpireTime = TimeSpan.FromHours(1),
             IsPrivate = snippetDto.IsPrivate,
             Password = snippetDto.Password ?? string.Empty

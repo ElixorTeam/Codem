@@ -21,7 +21,7 @@ public sealed partial class CreateSnippetForm : ComponentBase
     
     public CreateSnippetForm()
     {
-        ExpireTimeList = new List<ValueTypeModel<TimeSpan>>
+        ExpireTimeList = new()
         {
             new("Never", TimeSpan.FromDays(365)),
             new("1 hour", TimeSpan.FromHours(1)),
@@ -30,7 +30,7 @@ public sealed partial class CreateSnippetForm : ComponentBase
             new("1 month", TimeSpan.FromDays(31))
         };
         
-        Model = new SnippetModel
+        Model = new()
         {
             ExpireTime = ExpireTimeList[0].Value,
             Title = string.Empty,
@@ -51,10 +51,10 @@ public sealed partial class CreateSnippetForm : ComponentBase
         List<FileCreateDto> files = ConvertToFileDto(CodeFileManager.GetAllFiles());
         try
         {
-            await SnippetController.CreateSnippet(new SnippetCreateDto
+            await SnippetController.CreateSnippet(new()
             {
                 Files = files,
-                Name = Model.Title,
+                Title = Model.Title,
                 IsPrivate = Model.IsPrivate,
                 Password = Model.Password,
             });

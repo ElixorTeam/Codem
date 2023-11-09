@@ -1,7 +1,10 @@
 using Codem.Api.Controllers;
+using Mapster;
 using Microsoft.AspNetCore.Components;
+using NHibernate.Mapping;
 using WebClient.Models;
 using WebClient.Utils;
+using Сodem.Shared.Dtos.File;
 using Сodem.Shared.Dtos.Snippet;
 
 namespace WebClient.Pages;
@@ -20,11 +23,11 @@ public sealed partial class Viewer : ComponentBase
         StateHasChanged();
     }
 
-    private List<CodeFileModel> ConvertFileList()
+    private List<CodeFile> ConvertFileList()
     {
-        if (SnippetDto == null) return new List<CodeFileModel>();
-        return SnippetDto.Files.Select(file => 
-            new CodeFileModel(file.Data, file.Name, "Markdown")).ToList();
+        if (SnippetDto == null) return new List<CodeFile>();
+        List<FileDto> fileDtos = SnippetDto.Files;
+        return fileDtos.Adapt<List<CodeFile>>();
     }
 
     private async void GetSnippet()

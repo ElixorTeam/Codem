@@ -1,4 +1,6 @@
+using Blazored.Toast.Services;
 using Codem.Api.Controllers;
+using Mapster;
 using Microsoft.AspNetCore.Components;
 using WebClient.Components.CodeEditor;
 using Сodem.Shared.Models;
@@ -10,8 +12,9 @@ namespace WebClient.Components;
 
 public sealed partial class EditSnippetForm : ComponentBase
 {
+    [Inject] private IToastService ToastService { get; set; } = null!;
     [Inject] private SnippetController SnippetController { get; set; } = null!;
-    [Parameter, EditorRequired] public SnippetModel Model { get; set; } = null!;
+    [Parameter, EditorRequired] public CodeSnippet Model { get; set; } = null!;
     [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
     [Parameter, EditorRequired] public Guid SnippetId { get; set; }
     
@@ -25,7 +28,7 @@ public sealed partial class EditSnippetForm : ComponentBase
         new ValueTypeModel<TimeSpan>("1 month", TimeSpan.FromDays(31))
     };
     
-    private List<FileDto> ConvertToFileDto(IList<CodeFileModel> fileModelList)
+    private List<FileDto> ConvertToFileDto(IList<CodeFile> fileModelList)
     {
         return fileModelList.Select(file => 
             new FileDto { Data = file.Text, Name = file.Title }).ToList();
@@ -34,23 +37,25 @@ public sealed partial class EditSnippetForm : ComponentBase
     private async void HandleSubmit()
     {
         DateTime finalDate = DateTime.Now.Add(Model.ExpireTime);
-        List<FileDto> files = ConvertToFileDto(CodeFileManager.GetAllFiles());
+        IList<CodeFile> files = CodeFileManager.GetAllFiles();
+        List<FileDto> fileDtos = files.Adapt<List<FileDto>>();
         SnippetDto snippetDto = new()
         {
             Id = SnippetId,
             Title = Model.Title,
             IsPrivate = Model.IsPrivate,
             Password = Model.Password,
-            Files = files,
+            Files = fileDtos,
         };
         
         try
         {
             await SnippetController.UpdateSnippet(snippetDto);
+            ToastService.ShowSuccess("Successfully edited");
         }
         catch
         {
-            Console.WriteLine("error");
+            ToastService.ShowError("Errors in form");
         }
     }
 }

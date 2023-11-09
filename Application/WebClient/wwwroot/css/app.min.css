@@ -1214,6 +1214,10 @@ body {
   margin-top: 2px;
 }
 
+.mt-\[1px\] {
+  margin-top: 1px;
+}
+
 .line-clamp-1 {
   overflow: hidden;
   display: -webkit-box;
@@ -2130,6 +2134,11 @@ body {
 .text-neutral-600 {
   --tw-text-opacity: 1;
   color: rgb(82 82 82 / var(--tw-text-opacity));
+}
+
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(240 82 82 / var(--tw-text-opacity));
 }
 
 .text-sky-400 {

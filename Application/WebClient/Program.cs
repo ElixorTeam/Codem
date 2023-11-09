@@ -1,9 +1,12 @@
+using System.Reflection;
 using Blazored.LocalStorage;
 using Blazored.Toast;
 using Codem.Api;
 using Codem.Application.AutoMapper;
 using Codem.Infrastructure;
 using CodeMirror6;
+using Mapster;
+
 namespace WebClient;
 
 
@@ -17,6 +20,8 @@ public class Program
         builder.Services.AddServerSideBlazor();
         builder.Services.AddBlazoredLocalStorage();
         builder.Services.AddBlazoredToast();
+        
+        TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetExecutingAssembly());
         
         #region Local
         

@@ -10,7 +10,7 @@ public class CodeFileManagerTests
     {
         CodeFileManager codeFileManager = new CodeFileManager();
         
-        CodeFileModel result = codeFileManager.GetCurrentFile();
+        CodeFile result = codeFileManager.GetCurrentFile();
         
         Assert.NotNull(result);
         Assert.Equal("new_file", result.Title);
@@ -35,7 +35,7 @@ public class CodeFileManagerTests
 
         codeFileManager.AddFile();
 
-        CodeFileModel addedFile = codeFileManager.GetAllFiles().Last();
+        CodeFile addedFile = codeFileManager.GetAllFiles().Last();
         Assert.NotNull(addedFile);
         Assert.Equal("new_file", addedFile.Title);
         Assert.Equal("Markdown", addedFile.Language);
@@ -62,7 +62,7 @@ public class CodeFileManagerTests
     {
         CodeFileManager codeFileManager = new CodeFileManager();
         int initialCount = codeFileManager.GetAllFiles().Count;
-        CodeFileModel fileToDelete = codeFileManager.GetAllFiles().First();
+        CodeFile fileToDelete = codeFileManager.GetAllFiles().First();
 
         codeFileManager.DeleteFile(fileToDelete.Id);
 
@@ -75,7 +75,7 @@ public class CodeFileManagerTests
     public void DeleteFile_NonExistentFile()
     {
         CodeFileManager codeFileManager = new CodeFileManager();
-        IList<CodeFileModel> initialFiles = codeFileManager.GetAllFiles();
+        IList<CodeFile> initialFiles = codeFileManager.GetAllFiles();
         Guid nonExistentId = Guid.NewGuid();
         codeFileManager.DeleteFile(nonExistentId);
         Assert.Equal(initialFiles, codeFileManager.GetAllFiles());
@@ -86,12 +86,12 @@ public class CodeFileManagerTests
     {
         CodeFileManager codeFileManager = new CodeFileManager();
         codeFileManager.AddFile();
-        CodeFileModel currentFile = codeFileManager.GetCurrentFile();
-        CodeFileModel nextFile = codeFileManager.GetAllFiles().First();
+        CodeFile currentFile = codeFileManager.GetCurrentFile();
+        CodeFile nextFile = codeFileManager.GetAllFiles().First();
 
         codeFileManager.DeleteFile(currentFile.Id);
 
-        CodeFileModel newCurrentFile = codeFileManager.GetCurrentFile();
+        CodeFile newCurrentFile = codeFileManager.GetCurrentFile();
         Assert.Equal(nextFile.Id, newCurrentFile.Id);
     }
     
@@ -101,13 +101,13 @@ public class CodeFileManagerTests
         CodeFileManager codeFileManager = new CodeFileManager();
         codeFileManager.AddFile();
         codeFileManager.AddFile();
-        CodeFileModel firstFile = codeFileManager.GetAllFiles().First();
+        CodeFile firstFile = codeFileManager.GetAllFiles().First();
         codeFileManager.SwitchFile(firstFile.Id);
 
-        CodeFileModel deleteFile = codeFileManager.GetAllFiles().Last();
+        CodeFile deleteFile = codeFileManager.GetAllFiles().Last();
         codeFileManager.DeleteFile(deleteFile.Id);
 
-        CodeFileModel currentFile = codeFileManager.GetCurrentFile();
+        CodeFile currentFile = codeFileManager.GetCurrentFile();
         Assert.Equal(firstFile.Id, currentFile.Id);
     }
     
@@ -116,7 +116,7 @@ public class CodeFileManagerTests
     {
         CodeFileManager codeFileManager = new CodeFileManager();
         const string newFileName = "Updated File Name";
-        CodeFileModel fileToModify = codeFileManager.GetAllFiles().First();
+        CodeFile fileToModify = codeFileManager.GetAllFiles().First();
 
         codeFileManager.ChangeFileName(fileToModify.Id, newFileName);
 
@@ -130,7 +130,7 @@ public class CodeFileManagerTests
         const string newLanguage = "C#";
 
         codeFileManager.ChangeLanguageOfCurrentFile(newLanguage);
-        CodeFileModel currentFile = codeFileManager.GetCurrentFile();
+        CodeFile currentFile = codeFileManager.GetCurrentFile();
 
         Assert.Equal(newLanguage, currentFile.Language);
     }

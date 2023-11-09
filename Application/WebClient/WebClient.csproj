@@ -21,6 +21,7 @@
     <PackageReference Include="Blazor.Heroicons" Version="1.2.3" />
     <PackageReference Include="Blazored.LocalStorage" Version="4.4.0" />
     <PackageReference Include="Blazored.Toast" Version="4.1.0" />
+    <PackageReference Include="Mapster" Version="7.4.0" />
   </ItemGroup>
 
   <ItemGroup>

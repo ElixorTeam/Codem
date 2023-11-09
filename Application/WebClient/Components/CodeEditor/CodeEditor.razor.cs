@@ -10,13 +10,13 @@ public sealed partial class CodeEditor : ComponentBase
 
     [Parameter, EditorRequired] public string ActiveLanguage { get; set; } = string.Empty;
     [Parameter] public CodeFileManager CodeFileManager { get; set; } = new();
-    [Parameter] public List<CodeFileModel> CodeFileList { get; set; } = new();
+    [Parameter] public List<CodeFile> CodeFileList { get; set; } = new();
     [Parameter] public bool IsReadOnly { get; set; }
     [Parameter] public bool IsOwner { get; set; }
 
     #endregion
     
-    private CodeFileModel CurrentCodeFile { get; set; } = null!;
+    private CodeFile CurrentCodeFile { get; set; } = null!;
     
     protected override void OnInitialized()
     {
@@ -28,7 +28,7 @@ public sealed partial class CodeEditor : ComponentBase
         CodeFileManager = new CodeFileManager(CodeFileList);
         CodeFileManager.OnFileChange = () =>
         {
-            CodeFileModel file = CodeFileManager.GetCurrentFile();
+            CodeFile file = CodeFileManager.GetCurrentFile();
             CurrentCodeFile = file;
             ActiveLanguage = file.Language;
             StateHasChanged();

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Blazored.Toast.Services;
 using Codem.Api.Controllers;
+using Mapster;
 using Microsoft.AspNetCore.Components;
 using WebClient.Components.CodeEditor;
 using Сodem.Shared.Models;
@@ -12,16 +13,16 @@ namespace WebClient.Components;
 
 public sealed partial class CreateSnippetForm : ComponentBase
 {
-    [Inject] private IToastService ToastService { get; set; }
+    [Inject] private IToastService ToastService { get; set; } = null!;
     [Inject] private SnippetController SnippetController { get; set; } = null!;
     [Parameter] public EventCallback<string> ActiveLanguageChanged { get; set; }
     [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
-    private SnippetModel Model { get; set; }
+    private CodeSnippet Model { get; set; }
     private List<ValueTypeModel<TimeSpan>> ExpireTimeList { get; set; }
     
     public CreateSnippetForm()
     {
-        ExpireTimeList = new()
+        ExpireTimeList = new List<ValueTypeModel<TimeSpan>>
         {
             new("Never", TimeSpan.FromDays(365)),
             new("1 hour", TimeSpan.FromHours(1)),
@@ -30,7 +31,7 @@ public sealed partial class CreateSnippetForm : ComponentBase
             new("1 month", TimeSpan.FromDays(31))
         };
         
-        Model = new()
+        Model = new CodeSnippet
         {
             ExpireTime = ExpireTimeList[0].Value,
             Title = string.Empty,
@@ -39,30 +40,28 @@ public sealed partial class CreateSnippetForm : ComponentBase
         };
     }
 
-    private List<FileCreateDto> ConvertToFileDto(IList<CodeFileModel> fileModelList)
-    {
-        return fileModelList.Select(file => 
-            new FileCreateDto { Data = file.Text, Name = file.Title }).ToList();
-    }
-
     private async void HandleSubmit()
     {
         DateTime finalDate = DateTime.Now.Add(Model.ExpireTime);
-        List<FileCreateDto> files = ConvertToFileDto(CodeFileManager.GetAllFiles());
+        IList<CodeFile> codeFiles = CodeFileManager.GetAllFiles();
+        List<FileCreateDto> filesDto = codeFiles.Adapt<List<FileCreateDto>>();
+        SnippetCreateDto snippetDto = new SnippetCreateDto()
+        {
+            Title = Model.Title,
+            IsPrivate = Model.IsPrivate,
+            Password = Model.Password,
+            Files = filesDto,
+        };
+        
         try
         {
-            await SnippetController.CreateSnippet(new()
-            {
-                Files = files,
-                Title = Model.Title,
-                IsPrivate = Model.IsPrivate,
-                Password = Model.Password,
-            });
+            await SnippetController.CreateSnippet(snippetDto);
+            ToastService.ShowSuccess("Successfully added");
         }
         catch
         {
-            Console.WriteLine("error");
+            ToastService.ShowError("Errors in form");
         }
-        ToastService.ShowError("Adding form");
+        
     }
 }

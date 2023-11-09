@@ -2,7 +2,7 @@
 
 namespace WebClient.Models;
 
-public sealed class SnippetModel
+public sealed class CodeSnippet
 {
     [Required]
     [StringLength(100)]
@@ -15,4 +15,6 @@ public sealed class SnippetModel
 
     [StringLength(32)]
     public string Password { get; set; }
+    
+    public List<CodeFile> Files { get; set; } = new();
 }

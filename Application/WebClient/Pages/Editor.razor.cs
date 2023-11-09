@@ -1,7 +1,9 @@
 using Codem.Api.Controllers;
+using Mapster;
 using Microsoft.AspNetCore.Components;
 using WebClient.Components.CodeEditor;
 using WebClient.Models;
+using Сodem.Shared.Dtos.File;
 using Сodem.Shared.Dtos.Snippet;
 
 namespace WebClient.Pages;
@@ -11,7 +13,7 @@ public sealed partial class Editor: ComponentBase
     [Inject] private SnippetController SnippetController { get; set; } = null!;
     [Parameter] public Guid Id { get; set; }
     
-    private CodeFileManager CodeFileManager { get; set; } = new();
+    private CodeFileManager CodeFileManager { get; } = new();
     private SnippetDto? SnippetDto { get; set; }
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -26,20 +28,11 @@ public sealed partial class Editor: ComponentBase
         StateHasChanged();
     }
     
-    private List<CodeFileModel> ConvertFileList(SnippetDto snippetDto)
+    private static List<CodeFile> ConvertFileList(SnippetDto snippetDto)
     {
-        return snippetDto.Files.Select(file => 
-            new CodeFileModel(file.Data, file.Name, "Markdown")).ToList();
+        List<FileDto> fileDtos = snippetDto.Files;
+        return fileDtos.Adapt<List<CodeFile>>();
     }
 
-    private SnippetModel ConvertModel(SnippetDto snippetDto)
-    {
-        return new()
-        {
-            Title = snippetDto.Title,
-            ExpireTime = TimeSpan.FromHours(1),
-            IsPrivate = snippetDto.IsPrivate,
-            Password = snippetDto.Password ?? string.Empty
-        };
-    }
+    private static CodeSnippet ConvertModel(SnippetDto snippetDto) => snippetDto.Adapt<CodeSnippet>();
 }

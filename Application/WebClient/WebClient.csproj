@@ -36,4 +36,7 @@
   <ItemGroup>
     <_JsFileModuleStaticWebAsset Include="Components\CodeEditor\SelectLanguage.razor.js" />
   </ItemGroup>
+
+  <Import Project="$(SolutionDir)Settings.targets" />
+  
 </Project>

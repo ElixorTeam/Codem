@@ -25,7 +25,7 @@ public class UIMapsterTests : IClassFixture<MapsterFixture>
         {
             Text = "Hello World",
             Title = "test_file",
-            Language = "Markdown"
+            Language = ProgrammingLanguage.Markdown
         };
         
         FileDto fileDto = codeFile.Adapt<FileDto>();
@@ -42,7 +42,7 @@ public class UIMapsterTests : IClassFixture<MapsterFixture>
         {
             Text = "Hello World",
             Title = "test_file",
-            Language = "Markdown"
+            Language = ProgrammingLanguage.Markdown
         };
 
         FileCreateDto fileCreateDto = codeFile.Adapt<FileCreateDto>();
@@ -66,7 +66,7 @@ public class UIMapsterTests : IClassFixture<MapsterFixture>
         Assert.Equal(fileDto.Id, codeFile.Id);
         Assert.Equal(fileDto.Name, codeFile.Title);
         Assert.Equal(fileDto.Data, codeFile.Text);
-        Assert.Equal("Markdown", codeFile.Language);
+        Assert.Equal(ProgrammingLanguage.Markdown, codeFile.Language);
     }
     
     [Fact]

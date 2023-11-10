@@ -1,8 +1,9 @@
 ﻿@page "/"
+@using WebClient.Models
 
 <PageTitle>Codem</PageTitle>
 
 <div class="flex h-fit w-full grid-cols-[1fr,300px] grid-rows-1 flex-col gap-2 px-2 pb-4 pt-2 sm:grid sm:flex-none lg:gap-4 lg:px-8">
-  <CodeEditor ActiveLanguage="@ActivateLanguage" IsOwner="false" />
+  <CodeEditor ActiveLanguage="ProgrammingLanguage.Markdown" IsOwner="false" />
   <CreateSnippetForm CodeFileManager="CodeFileManager" />
 </div>

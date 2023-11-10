@@ -22,8 +22,7 @@
           type="text"
           id="fileName"
           @bind="InputFileName"
-          pattern="\w+\.\w+"
-          class="h-8 w-full rounded-md border border-black/[.2] px-2 text-sm shadow-sm dark:bg-neutral-950 dark:border-white/[.15]"
+          class="h-8 w-full rounded-md border border-black/[.2] px-2 text-sm shadow-sm focus:ring-0 dark:bg-neutral-950 dark:border-white/[.15] dark:placeholder:text-neutral-600 @(IsErrorInput ? "inputError" : "")"
           placeholder="Enter new name..."
         />
       </div>

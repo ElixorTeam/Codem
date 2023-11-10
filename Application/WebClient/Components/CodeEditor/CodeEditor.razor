@@ -12,7 +12,6 @@
       {
         <SelectLanguage ActiveLanguage="@ActiveLanguage" ActiveLanguageChanged="HandleActiveLanguageChanged"/>
       }
-
       <CodeEditorContextMenu CodeFileManager="CodeFileManager" IsOwner="IsOwner" IsReadOnly="IsReadOnly"/>
     </div>
   </div>
@@ -21,7 +20,7 @@
       @bind-Text="CurrentCodeFile.Text"
       TabSize="4"
       ReadOnly="@IsReadOnly"
-      Language="@ActiveLanguage"
+      Language="@EnumHelper.GetEnumDescription(ActiveLanguage)"
     />
   </div>
 </div>

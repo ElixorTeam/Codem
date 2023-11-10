@@ -13,7 +13,7 @@ public class CodeFileManagerTests
         CodeFile result = codeFileManager.GetCurrentFile();
         
         Assert.NotNull(result);
-        Assert.Equal("new_file", result.Title);
+        Assert.Equal("new_file.txt", result.Title);
     }
     
     [Fact]
@@ -37,8 +37,8 @@ public class CodeFileManagerTests
 
         CodeFile addedFile = codeFileManager.GetAllFiles().Last();
         Assert.NotNull(addedFile);
-        Assert.Equal("new_file", addedFile.Title);
-        Assert.Equal("Markdown", addedFile.Language);
+        Assert.Equal("new_file.txt", addedFile.Title);
+        Assert.Equal(ProgrammingLanguage.Markdown, addedFile.Language);
     }
     
     [Fact]
@@ -125,7 +125,7 @@ public class CodeFileManagerTests
     public void ChangeLanguageOfCurrentFile_ModifiesLanguage()
     {
         CodeFileManager codeFileManager = new CodeFileManager();
-        const string newLanguage = "C#";
+        const ProgrammingLanguage newLanguage = ProgrammingLanguage.CSharp;
 
         codeFileManager.ChangeLanguageOfCurrentFile(newLanguage);
         CodeFile currentFile = codeFileManager.GetCurrentFile();

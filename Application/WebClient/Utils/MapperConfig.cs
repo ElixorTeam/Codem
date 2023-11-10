@@ -20,7 +20,7 @@ public class MapperConfig : IRegister
                 Id = dto.Id,
                 Title = dto.Name,
                 Text = dto.Data,
-                Language = "Markdown"
+                Language = ProgrammingLanguage.Markdown
             });
 
         config.ForType<CodeFile, FileCreateDto>()

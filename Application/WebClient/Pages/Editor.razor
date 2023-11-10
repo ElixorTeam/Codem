@@ -1,11 +1,21 @@
 @page "/e/{Id:guid}"
+@using WebClient.Models
 
 <PageTitle>Codem - Edit form</PageTitle>
 
 <div class="flex h-fit w-full grid-cols-[1fr,300px] grid-rows-1 flex-col gap-2 px-2 pb-4 pt-2 sm:grid sm:flex-none lg:gap-4 lg:px-8">
   @if(SnippetDto != null)
   {
-    <CodeEditor CodeFileManager="CodeFileManager" CodeFileList="ConvertFileList(SnippetDto)"  ActiveLanguage="Markdown" IsOwner="false" />
-    <EditSnippetForm CodeFileManager="CodeFileManager" SnippetId="Id" Model="ConvertModel(SnippetDto)" />
+    <CodeEditor
+      CodeFileManager="CodeFileManager"
+      CodeFileList="ConvertFileList(SnippetDto)"
+      ActiveLanguage="ProgrammingLanguage.Markdown"
+      IsOwner="false"
+    />
+    <EditSnippetForm
+      CodeFileManager="CodeFileManager"
+      SnippetId="Id"
+      Model="ConvertModel(SnippetDto)"
+    />
   }
 </div>

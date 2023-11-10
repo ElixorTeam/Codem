@@ -28,7 +28,10 @@ public class CodeFileManager
         OnFileChange?.Invoke();
     }
 
-    public void AddFile(string text = "", string title = "new_file", string lang = "Markdown")
+    public void AddFile(
+        string text = "",
+        string title = "new_file.txt",
+        ProgrammingLanguage lang = ProgrammingLanguage.Markdown)
     {
         if (Files.Count >= MaxFilesCount) 
             throw new InvalidOperationException("Cannot add more files, maximum count reached.");
@@ -63,9 +66,8 @@ public class CodeFileManager
         OnFileChange?.Invoke();
     }
 
-    public void ChangeLanguageOfCurrentFile(string lang)
+    public void ChangeLanguageOfCurrentFile(ProgrammingLanguage lang)
     {
-        if (string.IsNullOrEmpty(lang)) return;
         CodeFile file = GetCurrentFile();
         file.Language = lang;
         OnFileChange?.Invoke();

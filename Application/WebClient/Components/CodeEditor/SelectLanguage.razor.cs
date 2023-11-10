@@ -1,25 +1,21 @@
 using System.Linq;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using WebClient.Models;
 
 namespace WebClient.Components.CodeEditor;
 
 public sealed partial class SelectLanguage: ComponentBase
 {
-    [Parameter] public string ActiveLanguage { get; set; } = "Markdown";
-    [Parameter] public EventCallback<string> ActiveLanguageChanged { get; set; }
+    [Parameter] public ProgrammingLanguage ActiveLanguage { get; set; } = ProgrammingLanguage.Markdown;
+    [Parameter] public EventCallback<ProgrammingLanguage> ActiveLanguageChanged { get; set; }
 
     [Inject] private IJSRuntime JSRuntime { get; set; } = null!;
     private IJSObjectReference Module { get; set; } = null!;
     public string SearchString { get; set; } = string.Empty;
 
-    private static List<string> Languages { get; } = new() {
-        "C", "C++", "CSS", "HTML", "Java", "JavaScript", "JSON", "JSX", "MariaDB SQL", "Markdown", "MS SQL",
-        "MySQL", "PHP", "PostgreSQL", "Python", "Rust", "SQL", "SQLite", "TSX", "TypeScript", "XML", "C#", 
-        "CMake", "Cython", "Dart", "Dockerfile", "Erlang", "Fortran", "F#", "Go", "Groovy", "Haskell", "HTTP", 
-        "Jinja2", "Kotlin", "LESS", "Lua", "Nginx", "Objective-C", "Objective-C++", "Pascal", "Perl", "PowerShell", 
-        "Ruby", "Sass", "SCSS", "Shell", "Swift", "sTeX", "LaTeX", "TOML", "VB.NET", "YAML",
-    };
+    private static IEnumerable<ProgrammingLanguage> Languages { get; } =
+        Enum.GetValues(typeof(ProgrammingLanguage)).Cast<ProgrammingLanguage>();
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -28,6 +24,22 @@ public sealed partial class SelectLanguage: ComponentBase
             "import", "./Components/CodeEditor/SelectLanguage.razor.js");
         await Module.InvokeVoidAsync("initLangDropdown");
     }
+    
+    private IEnumerable<ProgrammingLanguage> FilteredLanguages()
+    {
+        if (string.IsNullOrEmpty(SearchString)) 
+            return Enum.GetValues(typeof(ProgrammingLanguage)).Cast<ProgrammingLanguage>();
+        
+        return Enum.GetValues(typeof(ProgrammingLanguage))
+            .Cast<ProgrammingLanguage>()
+            .Where(LanguageMatchesSearch);
+    }
+    
+    private bool LanguageMatchesSearch(ProgrammingLanguage language)
+    {
+        string description = EnumHelper.GetEnumDescription(language);
+        return description.Contains(SearchString, StringComparison.OrdinalIgnoreCase);
+    }
 
     private async Task HideDropdown() => await Module.InvokeVoidAsync("hideLangDropdown");
 
@@ -35,7 +47,7 @@ public sealed partial class SelectLanguage: ComponentBase
 
     private void UpdateSearchString(ChangeEventArgs e) => SearchString = e.Value?.ToString() ?? string.Empty;
     
-    private async void SwitchLanguage(string lang)
+    private async void SwitchLanguage(ProgrammingLanguage lang)
     {
         ActiveLanguage = lang;
         await ActiveLanguageChanged.InvokeAsync(lang);

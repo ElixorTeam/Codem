@@ -1,5 +1,6 @@
 using Codem.Api.Controllers;
 using Microsoft.AspNetCore.Components;
+using WebClient.Models;
 using Сodem.Shared.Dtos.Snippet;
 
 namespace WebClient.Components.Profile;
@@ -29,7 +30,7 @@ public sealed partial class AccountSnippetsTable: ComponentBase
 
     private SnippetTableModel ConvertModel(SnippetDto snippet)
     {
-        return new()
+        return new SnippetTableModel
         {
             Id=snippet.Id,
             Title=snippet.Title,
@@ -37,7 +38,7 @@ public sealed partial class AccountSnippetsTable: ComponentBase
             ExpireTime="1 week",
             Views=1400,
             Stars=100,
-            ProgramLanguage="Markdown"
+            ProgramLanguage=@EnumHelper.GetEnumDescription(ProgrammingLanguage.Markdown)
         };
     }
 }

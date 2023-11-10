@@ -1,4 +1,5 @@
 @using Blazor.Heroicons.Outline
+@using WebClient.Models
 
 <button
   id="langDropdownButton"
@@ -34,17 +35,15 @@
       aria-labelledby="langDropdownButton"
       class="h-full overflow-y-auto flex flex-col divide-y divide-black/[.1] dark:divide-white/[.15] scrollbar-thin scrollbar-thumb-slate-300 scrollbar-corner-transparent scrollbar-track-transparent dark:scrollbar-thumb-neutral-700"
     >
-      @foreach (string item in Languages.Where(item =>
-        string.IsNullOrWhiteSpace(SearchString) ||
-        item.Contains(SearchString, StringComparison.OrdinalIgnoreCase)))
+      @foreach(ProgrammingLanguage language in FilteredLanguages())
       {
         <li>
           <button
             type="button"
-            @onclick="() => SwitchLanguage(item)"
+            @onclick="() => SwitchLanguage(language)"
             class="w-full h-8 px-2 text-left hover:bg-white/[.4] dark:hover:bg-white/[.2]"
           >
-            <p class="text-sm text-ellipsis">@item</p>
+            <p class="text-sm text-ellipsis">@EnumHelper.GetEnumDescription(language)</p>
           </button>
         </li>
       }

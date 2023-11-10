@@ -18,6 +18,11 @@ public sealed partial class CodeEditorContextMenu: ComponentBase
     
     private List<ContextMenuModel> _contextMenuEntries = new();
     
+    public void ChangeFileName(string fileName) =>
+        CodeFileManager.ChangeFileName(CodeFileManager.GetCurrentFile().Id, fileName);
+
+    public void DeleteCurrentFile() => CodeFileManager.DeleteFile(CodeFileManager.GetCurrentFile().Id);
+    
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -55,9 +60,4 @@ public sealed partial class CodeEditorContextMenu: ComponentBase
     }
     
     private void CallChildFunction() => editModal.InvokeChildFunction();
-
-    public void ChangeFileName(string fileName) =>
-        CodeFileManager.ChangeFileName(CodeFileManager.GetCurrentFile().Id, fileName);
-
-    public void DeleteCurrentFile() => CodeFileManager.DeleteFile(CodeFileManager.GetCurrentFile().Id);
 }

@@ -1,4 +1,5 @@
 @page "/c/{Id:guid}"
+@using WebClient.Models
 
 <div
   class="flex w-full grid-cols-[1fr,300px] grid-rows-1 flex-col gap-2 px-4 pb-4 pt-2 sm:grid sm:flex-none lg:gap-4 lg:px-8"
@@ -7,7 +8,7 @@
   {
     <CodeEditor
       CodeFileList="@ConvertFileList()"
-      ActiveLanguage="Markdown"
+      ActiveLanguage="ProgrammingLanguage.Markdown"
       IsReadOnly="true"
       IsOwner="false"
     />
@@ -16,7 +17,7 @@
       Title="@SnippetDto.Title"
       Access="Public"
       Description="Cool turing machine"
-      ProgramLanguage="Markdown"
+      ProgramLanguage="@EnumHelper.GetEnumDescription(ProgrammingLanguage.Markdown)"
       Stars="140"
       Views="1400"
       CreateDate="DateOnly.FromDateTime(DateTime.Today)"

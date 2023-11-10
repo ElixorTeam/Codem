@@ -8,7 +8,7 @@ public sealed partial class CodeEditor : ComponentBase
 
     #region Parameters
 
-    [Parameter, EditorRequired] public string ActiveLanguage { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public ProgrammingLanguage ActiveLanguage { get; set; } = ProgrammingLanguage.Markdown;
     [Parameter] public CodeFileManager CodeFileManager { get; set; } = new();
     [Parameter] public List<CodeFile> CodeFileList { get; set; } = new();
     [Parameter] public bool IsReadOnly { get; set; }
@@ -37,7 +37,7 @@ public sealed partial class CodeEditor : ComponentBase
         ActiveLanguage = CurrentCodeFile.Language;
     }
     
-    private void HandleActiveLanguageChanged(string language)
+    private void HandleActiveLanguageChanged(ProgrammingLanguage language)
     {
         CodeFileManager.ChangeLanguageOfCurrentFile(language);
         ActiveLanguage = language;

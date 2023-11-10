@@ -26,7 +26,7 @@ public sealed partial class CodeEditor : ComponentBase
     private void InitFileManager()
     {
         CodeFileManager = new CodeFileManager(CodeFileList);
-        CodeFileManager.OnFileChange = () =>
+        CodeFileManager.OnFileChange += () =>
         {
             CodeFile file = CodeFileManager.GetCurrentFile();
             CurrentCodeFile = file;

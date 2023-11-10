@@ -21,6 +21,7 @@
         <input
           type="text"
           id="fileName"
+          @onkeyup="ChangeFileNameByEnter"
           @bind="InputFileName"
           class="h-8 w-full rounded-md border border-black/[.2] px-2 text-sm shadow-sm focus:ring-0 dark:bg-neutral-950 dark:border-white/[.15] dark:placeholder:text-neutral-600 @(IsErrorInput ? "inputError" : "")"
           placeholder="Enter new name..."

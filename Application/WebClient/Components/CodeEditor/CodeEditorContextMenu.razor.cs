@@ -35,13 +35,6 @@ public sealed partial class CodeEditorContextMenu: ComponentBase
                 ModalTarget = "deleteFileModal",
                 IsVisible = !IsReadOnly
             },
-            // new()
-            // {
-            //     Text="Rename file",
-            //     IconName = @HeroiconName.Pencil,
-            //     ModalTarget = "editFileNameModal",
-            //     IsVisible = !IsReadOnly
-            // },
             new()
             {
                 Text="Clone Project", 

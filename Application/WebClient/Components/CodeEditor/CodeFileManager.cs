@@ -34,7 +34,7 @@ public class CodeFileManager
             throw new InvalidOperationException("Cannot add more files, maximum count reached.");
         
         if (string.IsNullOrEmpty(title)) return;
-        CodeFile newFile = new(text, title, lang);
+        CodeFile newFile = new CodeFile { Text = text, Title = title, Language = lang };
         Files.Add(newFile);
         CurrentId = newFile.Id;
         OnFileChange?.Invoke();

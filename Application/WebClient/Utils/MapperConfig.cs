@@ -17,6 +17,7 @@ public class MapperConfig : IRegister
         config.ForType<FileDto, CodeFile>()
             .ConstructUsing(dto => new CodeFile
             {
+                Id = dto.Id,
                 Title = dto.Name,
                 Text = dto.Data,
                 Language = "Markdown"
@@ -48,21 +49,16 @@ public class MapperConfig : IRegister
             {
                 ExpireTime = new TimeSpan(1, 0, 0)
             });
-
     }
 
-    private List<FileDto> ConvertToFileDto(IList<CodeFile> fileModelList)
-    {
-        return fileModelList.Adapt<List<FileDto>>();
-    }
+    private static List<FileDto> ConvertToFileDto(IList<CodeFile> fileModelList) =>
+        fileModelList.Adapt<List<FileDto>>();
+    
 
-    private List<FileCreateDto> ConvertToFileCreateDto(IList<CodeFile> fileModelList)
-    {
-        return fileModelList.Adapt<List<FileCreateDto>>();
-    }
+    private static List<FileCreateDto> ConvertToFileCreateDto(IList<CodeFile> fileModelList) =>
+        fileModelList.Adapt<List<FileCreateDto>>();
+    
 
-    private List<CodeFile> ConvertToFileModel(List<FileDto> fileDtoList)
-    {
-        return fileDtoList.Adapt<List<CodeFile>>();
-    }
+    private static List<CodeFile> ConvertToFileModel(List<FileDto> fileDtoList) =>
+        fileDtoList.Adapt<List<CodeFile>>();
 }

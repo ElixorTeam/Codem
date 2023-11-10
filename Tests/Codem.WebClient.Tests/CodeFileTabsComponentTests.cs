@@ -1,4 +1,5 @@
 using AngleSharp.Dom;
+using Blazored.Toast;
 using Bunit;
 using WebClient.Components.CodeEditor;
 
@@ -6,7 +7,13 @@ namespace Codem.WebClient.Tests;
 
 public class CodeFileTabsComponentTests
 {
-    private readonly TestContext _ctx = new();
+    private readonly TestContext _ctx;
+    
+    public CodeFileTabsComponentTests()
+    {
+        _ctx = new TestContext();
+        _ctx.Services.AddBlazoredToast();
+    }
     
     [Fact]
     public void ShouldRenderCodeFileTabsComponent()

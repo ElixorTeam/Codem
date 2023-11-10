@@ -46,13 +46,11 @@ public class CodeFileManagerTests
     {
         CodeFileManager codeFileManager = new CodeFileManager();
         const int maxFilesCount = 10;
-        for (int i = 0; i < maxFilesCount; i++)
+        for (int i = 0; i < maxFilesCount - 1; i++)
             codeFileManager.AddFile();
-
         int initialCount = codeFileManager.GetAllFiles().Count;
 
-        codeFileManager.AddFile();
-
+        Assert.Throws<InvalidOperationException>(() => codeFileManager.AddFile());
         int updatedCount = codeFileManager.GetAllFiles().Count;
         Assert.Equal(initialCount, updatedCount);
     }

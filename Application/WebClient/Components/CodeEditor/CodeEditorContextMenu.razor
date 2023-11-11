@@ -6,7 +6,7 @@
   id="editorContextMenuButton"
   data-dropdown-offset-skidding="-60"
   data-dropdown-toggle="editorContextMenu"
-  class="w-6 h-full flex items-center justify-center hover:bg-slate-200 dark:hover:bg-neutral-800"
+  class="w-6 h-full flex items-center justify-center border-l border-l-black/[.1] dark:border-l-white/[.15] hover:bg-slate-200 dark:hover:bg-neutral-800"
 >
   <EllipsisVerticalIcon class="text-gray-700 h-4 w-4 dark:text-neutral-400" />
 </button>
@@ -14,7 +14,9 @@
   id="editorContextMenu"
   class="z-10 hidden py-1 bg-slate-100 border border-black/[.1] rounded-lg shadow w-fit dark:bg-neutral-950 dark:border-white/[.15]"
 >
-  <ul class="py-1 text-sm text-gray-700 dark:text-neutral-300" aria-labelledby="editorContextMenuButton">
+  <ul aria-labelledby="editorContextMenuButton"
+      class="py-1 text-sm text-gray-700 dark:text-neutral-300 border-r border-r-black/[.1] dark:border-r-white/[.15]"
+  >
     @foreach (ContextMenuModel entry in _contextMenuEntries.Where(entry => entry.IsVisible))
     {
       <li>

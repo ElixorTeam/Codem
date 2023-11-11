@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components;
 using WebClient.Components.CodeEditor;
 using Сodem.Shared.Models;
 using WebClient.Models;
+using WebClient.Utils;
 using Сodem.Shared.Dtos.File;
 using Сodem.Shared.Dtos.Snippet;
 
@@ -12,13 +13,16 @@ namespace WebClient.Components;
 
 public sealed partial class EditSnippetForm : ComponentBase
 {
+    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     [Inject] private IToastService ToastService { get; set; } = null!;
     [Inject] private SnippetController SnippetController { get; set; } = null!;
+    
     [Parameter, EditorRequired] public CodeSnippet Model { get; set; } = null!;
     [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
     [Parameter, EditorRequired] public Guid SnippetId { get; set; }
     
     [Parameter] public EventCallback<string> ActiveLanguageChanged { get; set; }
+    
     private List<ValueTypeModel<TimeSpan>> ExpireTimeList { get; } = new()
     {
         new ValueTypeModel<TimeSpan>("Never", TimeSpan.FromDays(365)),
@@ -27,11 +31,18 @@ public sealed partial class EditSnippetForm : ComponentBase
         new ValueTypeModel<TimeSpan>("1 week", TimeSpan.FromDays(7)),
         new ValueTypeModel<TimeSpan>("1 month", TimeSpan.FromDays(31))
     };
-    
-    private List<FileDto> ConvertToFileDto(IList<CodeFile> fileModelList)
+
+    private async void HandleDelete()
     {
-        return fileModelList.Select(file => 
-            new FileDto { Data = file.Text, Name = file.Title }).ToList();
+        try
+        {
+            await SnippetController.DeleteSnippet(SnippetId);
+            NavigationManager.NavigateTo(RouteUtils.Profile);
+        }
+        catch
+        {
+            ToastService.ShowError("Can not delete snippet");
+        }
     }
 
     private async void HandleSubmit()
@@ -51,6 +62,7 @@ public sealed partial class EditSnippetForm : ComponentBase
         try
         {
             await SnippetController.UpdateSnippet(snippetDto);
+            NavigationManager.NavigateTo($"{RouteUtils.Profile}/{SnippetId}");
             ToastService.ShowSuccess("Successfully edited");
         }
         catch

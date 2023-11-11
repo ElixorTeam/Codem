@@ -27,7 +27,7 @@
 }
 
 .modalBackground {
-  @apply bg-black/[.3] dark:bg-black/[.5] absolute inset-0 z-40;
+  @apply bg-gray-900/[.3] dark:bg-black/[.6] absolute inset-0 z-40;
 }
 
 .cm-editor.cm-focused {
@@ -100,4 +100,12 @@
 
 .blazored-toast-error .blazored-toast-icon svg {
   filter: invert(37%) sepia(76%) saturate(6690%) hue-rotate(344deg) brightness(90%) contrast(93%);
+}
+
+.blazored-toast-progressbar {
+  @apply absolute bottom-0 left-0 right-0 h-1 rounded-b-md overflow-hidden;
+}
+
+.blazored-toast-progressbar span {
+  @apply relative flex flex-row transition-all h-full bg-gray-200 dark:bg-white/[.2];
 }

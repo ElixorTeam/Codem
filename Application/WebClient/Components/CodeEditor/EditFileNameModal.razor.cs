@@ -7,7 +7,7 @@ using Microsoft.JSInterop;
 
 namespace WebClient.Components.CodeEditor;
 
-public sealed partial class EditFileNameModal: IModalInvoke
+public sealed partial class EditFileNameModal: ComponentBase, IModalInvoke
 {
     [Inject] private IToastService ToastService { get; set; } = null!;
     [Inject] private IJSRuntime JSRuntime { get; set; } = null!;

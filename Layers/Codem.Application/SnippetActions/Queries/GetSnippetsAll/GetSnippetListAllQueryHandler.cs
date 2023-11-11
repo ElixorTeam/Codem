@@ -1,24 +1,22 @@
-﻿using AutoMapper;
-using Codem.Domain.Aggregates.SnippetAggregate;
+﻿using Codem.Domain.Aggregates.SnippetAggregate;
+using Mapster;
 
 namespace Codem.Application.SnippetActions.Queries.GetSnippetsAll;
 
 public class GetSnippetListAllQueryHandler : IRequestHandler<GetSnippetListAllQuery, List<SnippetDto>>
 {
-    private readonly IMapper _mapper;
     private readonly ISnippetRepository _snippetRepository;
 
-    public GetSnippetListAllQueryHandler(ISnippetRepository snippetRepository, IMapper mapper)
+    public GetSnippetListAllQueryHandler(ISnippetRepository snippetRepository)
     {
         _snippetRepository = snippetRepository;
-        _mapper = mapper;
     }
 
     public Task<List<SnippetDto>> Handle(GetSnippetListAllQuery request, CancellationToken cancellationToken)
     {
         List<Snippet> list = _snippetRepository.GetAll().ToList();
-        List<SnippetDto> listDto = _mapper.Map<List<SnippetDto>>(list);
+        List<SnippetDto> listDto = list.Adapt<List<SnippetDto>>();
+        ;
         return Task.FromResult(listDto);
     }
-    
 }

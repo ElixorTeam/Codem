@@ -2,7 +2,6 @@ using System.Reflection;
 using Blazored.LocalStorage;
 using Blazored.Toast;
 using Codem.Api;
-using Codem.Application.AutoMapper;
 using Codem.Infrastructure;
 using CodeMirror6;
 using Mapster;
@@ -28,7 +27,7 @@ public class Program
         builder.Services.AddScoped<CodeMirrorJsInterop>();
         builder.Services.AddNhibernate();
         builder.Services.AddApi();
-        builder.Services.AddAutoMapper(typeof(ApplicationMappings));
+        // builder.Services.AddAutoMapper(typeof(ApplicationMappings));
         
         #endregion
         

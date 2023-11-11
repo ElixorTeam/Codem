@@ -15,7 +15,6 @@ public class MapsterFixture
     }
 }
 
-
 public class UIMapsterTests : IClassFixture<MapsterFixture>
 {
     [Fact]

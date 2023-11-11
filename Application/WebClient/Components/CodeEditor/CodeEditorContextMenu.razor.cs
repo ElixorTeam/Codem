@@ -14,43 +14,48 @@ public sealed partial class CodeEditorContextMenu: ComponentBase
     
     # endregion
     
-    private EditFileNameModal editModal;
+    private EditFileNameModal _editModal;
+    private DeleteFileModal _deleteModal;
     
     private List<ContextMenuModel> _contextMenuEntries = new();
-    
-    public void ChangeFileName(string fileName) =>
-        CodeFileManager.ChangeFileName(CodeFileManager.GetCurrentFile().Id, fileName);
 
-    public void DeleteCurrentFile() => CodeFileManager.DeleteFile(CodeFileManager.GetCurrentFile().Id);
-    
-    protected override void OnInitialized()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        base.OnInitialized();
+        if (!firstRender) return;
         _contextMenuEntries = new List<ContextMenuModel>
         {
             new()
             {
+                Text="Edit name",
+                IconName = @HeroiconName.Pencil,
+                ModalTarget = _editModal,
+                IsVisible = !IsReadOnly
+            },
+            new()
+            {
                 Text="Delete file",
                 IconName = @HeroiconName.Trash,
-                ModalTarget = "deleteFileModal",
+                ModalTarget = _deleteModal,
                 IsVisible = !IsReadOnly
             },
             new()
             {
                 Text="Clone Project", 
                 IconName = @HeroiconName.DocumentDuplicate,
-                ModalTarget = "editFileNameModal",
+                ModalTarget = _deleteModal,
                 IsVisible = !IsOwner
             },
             new()
             {
                 Text="Remove Project",
                 IconName = @HeroiconName.Trash,
-                ModalTarget = "editFileNameModal",
+                ModalTarget = _deleteModal,
                 IsVisible = IsOwner
             }
         };
+        StateHasChanged();
     }
     
-    private void CallChildFunction() => editModal.InvokeChildFunction();
+    private static void CallChildFunction(IModalInvoke modal) => modal.InvokeChildFunction();
+    
 }

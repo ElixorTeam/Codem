@@ -2727,10 +2727,6 @@ body {
   color: rgb(56 189 248 / var(--tw-text-opacity));
 }
 
-.focus\:border-none:focus {
-  border-style: none;
-}
-
 .focus\:border-black:focus {
   --tw-border-opacity: 1;
   border-color: rgb(0 0 0 / var(--tw-border-opacity));

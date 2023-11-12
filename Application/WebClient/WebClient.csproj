@@ -17,6 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Auth0.AspNetCore.Authentication" Version="1.3.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Blazor.Heroicons" Version="1.2.3" />
     <PackageReference Include="Blazored.LocalStorage" Version="4.4.0" />
@@ -39,6 +40,11 @@
 
   <ItemGroup>
     <_JsFileModuleStaticWebAsset Include="Components\CodeEditor\SelectLanguage.razor.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Account\Login.razor" />
+    <_ContentIncludedByDefault Remove="Pages\Account\Logout.razor" />
   </ItemGroup>
 
   <Import Project="$(SolutionDir)Settings.targets" />

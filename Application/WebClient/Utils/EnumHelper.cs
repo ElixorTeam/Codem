@@ -1,6 +1,8 @@
 using System.ComponentModel;
 using System.Reflection;
 
+namespace WebClient.Utils;
+
 public static class EnumHelper
 {
     public static string GetEnumDescription(Enum value)

@@ -2,6 +2,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using WebClient.Models;
+using WebClient.Utils;
 
 namespace WebClient.Components.CodeEditor;
 

@@ -22,6 +22,10 @@
   }
 }
 
+.loadingContainer {
+  @apply w-full h-[26px] animate-pulse bg-slate-100 dark:bg-neutral-900;
+}
+
 .inputError {
   @apply !border-red-500;
 }

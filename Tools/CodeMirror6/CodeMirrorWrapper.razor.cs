@@ -8,7 +8,7 @@ public partial class CodeMirrorWrapper : ComponentBase
     private int _prevTabSize;
     
     private bool _hasFocus;
-    private bool _shouldRender = true;
+    private bool _shouldRender;
     
     private string _text;
     private string _prevText;
@@ -33,6 +33,7 @@ public partial class CodeMirrorWrapper : ComponentBase
     [Parameter] public string Language { get; set; }
     [Parameter] public EventCallback<string> TextChanged { get; set; }
     [Parameter] public EventCallback<bool> FocusChanged { get; set; }
+    private bool IsLoading { get; set; } = true;
 
     #endregion
     
@@ -101,6 +102,14 @@ public partial class CodeMirrorWrapper : ComponentBase
     {
         await FocusChanged.InvokeAsync(_hasFocus);
         await InvokeAsync(StateHasChanged);
+    }
+    
+    [JSInvokable]
+    public void CodeMirrorInitialized()
+    {
+        IsLoading = false;
+        _shouldRender = true;
+        StateHasChanged();
     }
 
     #endregion

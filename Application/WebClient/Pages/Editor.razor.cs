@@ -15,11 +15,14 @@ public sealed partial class Editor: ComponentBase
     
     private CodeFileManager CodeFileManager { get; } = new();
     private SnippetDto? SnippetDto { get; set; }
+    private bool IsLoading { get; set; } = true;
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
         GetEditSnippet();
+        IsLoading = false;
+        StateHasChanged();
     }
 
     private async void GetEditSnippet()

@@ -15,11 +15,13 @@ public sealed partial class Viewer : ComponentBase
     [Inject] private SnippetController SnippetController { get; set; } = null!;
     [Parameter] public Guid Id { get; set; }
     private SnippetDto? SnippetDto { get; set; }
+    private bool IsLoading { get; set; } = true;
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
         GetSnippet();
+        IsLoading = false;
         StateHasChanged();
     }
 

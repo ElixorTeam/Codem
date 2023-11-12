@@ -4,7 +4,11 @@
 <div
   class="flex w-full grid-cols-[1fr,300px] grid-rows-1 flex-col gap-2 px-4 pb-4 pt-2 sm:grid sm:flex-none lg:gap-4 lg:px-8"
 >
-  @if(SnippetDto != null)
+  @if (IsLoading || SnippetDto == null)
+  {
+    <CodeEditorStub />
+  }
+  else
   {
     <CodeEditor
       CodeFileList="@ConvertFileList()"
@@ -24,21 +28,26 @@
     />
   }
 </div>
-<div class="mx-auto w-full max-w-5xl px-4 pb-4 pt-2">
-  <p class="mb-4 text-2xl font-semibold text-slate-800 dark:text-neutral-200">
-    Comments
-  </p>
-  <div class="mb-8 mt-4 flex max-w-2xl">
-    <CreateCommentForm />
+
+@if (!IsLoading)
+{
+  <div class="mx-auto w-full max-w-5xl px-4 pb-4 pt-2">
+    <p class="mb-4 text-2xl font-semibold text-slate-800 dark:text-neutral-200">
+      Comments
+    </p>
+    <div class="mb-8 mt-4 flex max-w-2xl">
+      <CreateCommentForm />
+    </div>
+    <ul class="flex flex-col gap-6">
+      <li>
+        <Comment
+          Author="Ap73MKa"
+          AvatarSrc="assets/avatar.jpg"
+          CreateDate="DateOnly.FromDateTime(DateTime.Today)"
+          CommentText="Nice code!"
+        />
+      </li>
+    </ul>
   </div>
-  <ul class="flex flex-col gap-6">
-    <li>
-      <Comment
-        Author="Ap73MKa"
-        AvatarSrc="assets/avatar.jpg"
-        CreateDate="DateOnly.FromDateTime(DateTime.Today)"
-        CommentText="Nice code!"
-      />
-    </li>
-  </ul>
-</div>
+}
+

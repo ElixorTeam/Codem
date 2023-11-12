@@ -90,6 +90,7 @@ export async function initCodeMirror(
     readOnly: readOnlyComp,
   })
   codeMirrorInstance.set(id, instance)
+  await dotNetHelper.invokeMethodAsync('CodeMirrorInitialized')
 }
 
 export const setText = (id: string, text: string) => {

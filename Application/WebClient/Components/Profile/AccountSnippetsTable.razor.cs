@@ -9,11 +9,14 @@ public sealed partial class AccountSnippetsTable: ComponentBase
 {
     [Inject] private SnippetController SnippetController { get; set; } = null!;
     private List<SnippetDto> SnippetsList { get; set; } = new();
+    private bool IsLoading { get; set; } = true;
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
         GetAllUserSnippets();
+        IsLoading = false;
+        StateHasChanged();
     }
 
     public void TableInvokeAction(int fileIndex)

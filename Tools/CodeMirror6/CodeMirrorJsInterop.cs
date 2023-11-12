@@ -56,12 +56,10 @@ public class CodeMirrorJsInterop : IAsyncDisposable
     {
         try
         {
-            if (_moduleTask.IsValueCreated)
-            {
-                IJSObjectReference module = await _moduleTask.Value;
-                await module.InvokeVoidAsync("dispose");
-                await module.DisposeAsync();
-            }
+            if (!_moduleTask.IsValueCreated) return;
+            IJSObjectReference module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("dispose");
+            await module.DisposeAsync();
         }
         catch (JSDisconnectedException e)
         {

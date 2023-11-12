@@ -47,16 +47,7 @@
       }
       else
       {
-        <a href="@RouteUtils.Profile">
-          <button type="button" class="flex h-full cursor-pointer items-center gap-2">
-            <div class="h-6 w-6 overflow-hidden rounded-full">
-              <img src="@User.Avatar" alt=""/>
-            </div>
-            <div class="hidden sm:block">
-              <p class="text-sm font-semibold text-slate-800 dark:text-neutral-200">@User.Name</p>
-            </div>
-          </button>
-        </a>
+        <ProfileMenu UserName="@User.Name" ImageUrl="@User.Avatar" />
       }
     </div>
   </div>

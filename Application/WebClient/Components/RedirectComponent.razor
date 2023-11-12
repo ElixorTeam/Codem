@@ -1,0 +1,7 @@
+@inherits ComponentBase
+@inject NavigationManager Navigation
+
+@code {
+  [Parameter] public string RedirectUrl { get; set; } = RouteUtils.Home;
+  protected override void OnInitialized() => Navigation.NavigateTo(RedirectUrl);
+}

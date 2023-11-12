@@ -14,6 +14,7 @@ public sealed partial class SelectLanguage: ComponentBase
     [Inject] private IJSRuntime JSRuntime { get; set; } = null!;
     private IJSObjectReference Module { get; set; } = null!;
     public string SearchString { get; set; } = string.Empty;
+    private string _dropdownUniqueId = Guid.NewGuid().ToString();
 
     private static IEnumerable<ProgrammingLanguage> Languages { get; } =
         Enum.GetValues(typeof(ProgrammingLanguage)).Cast<ProgrammingLanguage>();
@@ -22,8 +23,18 @@ public sealed partial class SelectLanguage: ComponentBase
     {
         if (!firstRender) return;
         Module = await JSRuntime.InvokeAsync<IJSObjectReference>(
-            "import", "./Components/CodeEditor/SelectLanguage.razor.js");
-        await Module.InvokeVoidAsync("initLangDropdown");
+            "import", "./js/dropdownInterface.js");
+        await Module.InvokeVoidAsync("initDropdown", "langDropdown",
+            "langDropdownButton", _dropdownUniqueId);
+    }
+
+    private async void InitDropdown()
+    {
+        Module = await JSRuntime.InvokeAsync<IJSObjectReference>(
+            "import", "./js/dropdownInterface.js");
+        var options = new { offsetSkidding = -40 };
+        await Module.InvokeVoidAsync("initDropdown", "langDropdown",
+            "langDropdownButton", _dropdownUniqueId, options);
     }
     
     private IEnumerable<ProgrammingLanguage> FilteredLanguages()
@@ -42,7 +53,7 @@ public sealed partial class SelectLanguage: ComponentBase
         return description.Contains(SearchString, StringComparison.OrdinalIgnoreCase);
     }
 
-    private async Task HideDropdown() => await Module.InvokeVoidAsync("hideLangDropdown");
+    private async Task HideDropdown() => await Module.InvokeVoidAsync("hideLangDropdown", _dropdownUniqueId);
 
     private void ClearSearch() => SearchString = string.Empty;
 

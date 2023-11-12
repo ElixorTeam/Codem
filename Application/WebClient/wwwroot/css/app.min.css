@@ -1275,12 +1275,24 @@ body {
   display: none;
 }
 
+.h-1\/2 {
+  height: 50%;
+}
+
 .h-10 {
   height: 2.5rem;
 }
 
 .h-12 {
   height: 3rem;
+}
+
+.h-14 {
+  height: 3.5rem;
+}
+
+.h-16 {
+  height: 4rem;
 }
 
 .h-24 {
@@ -1301,6 +1313,10 @@ body {
 
 .h-6 {
   height: 1.5rem;
+}
+
+.h-64 {
+  height: 16rem;
 }
 
 .h-8 {
@@ -1326,26 +1342,6 @@ body {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-14 {
-  height: 3.5rem;
-}
-
-.h-16 {
-  height: 4rem;
-}
-
-.h-56 {
-  height: 14rem;
-}
-
-.h-64 {
-  height: 16rem;
-}
-
-.h-1\/2 {
-  height: 50%;
 }
 
 .max-h-56 {
@@ -1405,6 +1401,14 @@ body {
   width: 100%;
 }
 
+.w-32 {
+  width: 8rem;
+}
+
+.w-36 {
+  width: 9rem;
+}
+
 .min-w-full {
   min-width: 100%;
 }
@@ -1457,6 +1461,10 @@ body {
   max-width: 20rem;
 }
 
+.max-w-\[9rem\] {
+  max-width: 9rem;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -1471,10 +1479,6 @@ body {
 
 .grow {
   flex-grow: 1;
-}
-
-.table-fixed {
-  table-layout: fixed;
 }
 
 .-translate-x-full {
@@ -1575,10 +1579,6 @@ body {
 
 .flex-col {
   flex-direction: column;
-}
-
-.flex-nowrap {
-  flex-wrap: nowrap;
 }
 
 .items-start {
@@ -1888,11 +1888,6 @@ body {
 
 .bg-white\/\[\.7\] {
   background-color: rgb(255 255 255 / .7);
-}
-
-.bg-red-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(249 128 128 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-50 {
@@ -2740,6 +2735,11 @@ body {
   color: rgb(31 41 55 / var(--tw-text-opacity));
 }
 
+.group:hover .group-hover\:text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
 .group\/del:active .group-active\/del\:text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -3100,6 +3100,11 @@ body {
   color: rgb(82 82 82 / var(--tw-text-opacity));
 }
 
+:is(.dark .group:hover .dark\:group-hover\:text-white) {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
 :is(.dark .dark\:hover\:bg-blue-700:hover) {
   --tw-bg-opacity: 1;
   background-color: rgb(26 86 219 / var(--tw-bg-opacity));
@@ -3316,5 +3321,11 @@ body {
   .lg\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:max-w-\[12rem\] {
+    max-width: 12rem;
   }
 }

@@ -27,7 +27,8 @@ public class UserService : IUserService
 
         string id = GetUserClaim(ClaimTypes.NameIdentifier);
         string name = _user.Identity?.Name ?? string.Empty;
-        
-        return new(id, name, UserAvatar);
+
+        if (string.IsNullOrEmpty(id)) return null;
+        return new UserModel(id, name, UserAvatar);
     }
 }

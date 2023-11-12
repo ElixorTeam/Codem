@@ -1,6 +1,7 @@
 using Blazor.Heroicons;
 using Microsoft.AspNetCore.Components;
 using WebClient.Common;
+using WebClient.Utils;
 using Сodem.Shared.Models;
 
 namespace WebClient.Components.Profile;
@@ -8,15 +9,15 @@ namespace WebClient.Components.Profile;
 public sealed partial class AccountInfo: ComponentBase
 {
     [Inject] private IUserService UserService { get; set; } = null!;
+    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     
-    private UserModel User { get; set; }
+    private UserModel? User { get; set; }
     private List<StatModel> StatList { get; set; } = new();
     
     protected override void OnInitialized()
     {
-        base.OnInitialized();
-        User = UserService.GetUser() ?? new (string.Empty, string.Empty, string.Empty);
-        StatList = new()
+        User = UserService.GetUser();
+        StatList = new List<StatModel>
         {
             new() { IconName = @HeroiconName.CodeBracket, Value = "Python, C#, Java" },
             new() { IconName = @HeroiconName.Eye, Value = "1.4k" },

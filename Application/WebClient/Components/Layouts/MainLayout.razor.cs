@@ -26,13 +26,7 @@ public sealed partial class MainLayout : LayoutComponentBase
     
     private ThemesEnum _currentTheme;
     private IJSObjectReference Module { get; set; } = null!;
-    
-    private void OnCurrentThemeChanged()
-    {
-        SetThemeInHtml();
-        UpdateLocalStorage();
-    }
-    
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await JSRuntime.InvokeVoidAsync("initFlowbite");
@@ -48,6 +42,12 @@ public sealed partial class MainLayout : LayoutComponentBase
             await LocalStorage.GetItemAsStringAsync("theme") :
             await Module.InvokeAsync<string>("getPreferredTheme");
         CurrentTheme = (ThemesEnum)Enum.Parse(typeof(ThemesEnum), theme, true);
+    }
+    
+    private void OnCurrentThemeChanged()
+    {
+        SetThemeInHtml();
+        UpdateLocalStorage();
     }
     
     private string ThemeName => CurrentTheme.ToString().ToLower();

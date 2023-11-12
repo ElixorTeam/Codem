@@ -6,7 +6,7 @@
   id="editorContextMenuButton"
   data-dropdown-offset-skidding="-60"
   data-dropdown-toggle="editorContextMenu"
-  class="w-6 h-full flex items-center justify-center hover:bg-slate-200 dark:hover:bg-neutral-800"
+  class="w-6 h-full flex items-center justify-center border-l border-l-black/[.1] dark:border-l-white/[.15] hover:bg-slate-200 dark:hover:bg-neutral-800"
 >
   <EllipsisVerticalIcon class="text-gray-700 h-4 w-4 dark:text-neutral-400" />
 </button>
@@ -14,23 +14,15 @@
   id="editorContextMenu"
   class="z-10 hidden py-1 bg-slate-100 border border-black/[.1] rounded-lg shadow w-fit dark:bg-neutral-950 dark:border-white/[.15]"
 >
-  <ul class="py-1 text-sm text-gray-700 dark:text-neutral-300" aria-labelledby="editorContextMenuButton">
-    <li>
-      <button
-        type="button"
-        @onclick="CallChildFunction"
-        class="px-3 py-1 flex w-full hover:bg-white/[.4] items-center gap-2 dark:hover:bg-white/[.2]">
-        <PencilIcon class="h-3 w-3"/>
-        <p>Edit name</p>
-      </button>
-    </li>
+  <ul aria-labelledby="editorContextMenuButton"
+      class="py-1 text-sm text-gray-700 dark:text-neutral-300 border-r border-r-black/[.1] dark:border-r-white/[.15]"
+  >
     @foreach (ContextMenuModel entry in _contextMenuEntries.Where(entry => entry.IsVisible))
     {
       <li>
         <button
           type="button"
-          data-modal-target="@entry.ModalTarget"
-          data-modal-toggle="@entry.ModalTarget"
+          @onclick="() => CallChildFunction(entry.ModalTarget)"
           class="px-3 py-1 flex w-full hover:bg-white/[.4] items-center gap-2 dark:hover:bg-white/[.2]">
           <Heroicon Name="@entry.IconName" Type="@HeroiconType.Outline" class="h-3 w-3"/>
           <p>@entry.Text</p>
@@ -40,5 +32,5 @@
   </ul>
 </div>
 
-<EditFileNameModal @ref="editModal" ChangeFileNameAction="ChangeFileName" />
-<DeleteFileModal DeleteFileAction="DeleteCurrentFile" />
+<EditFileNameModal @ref="_editModal" CodeFileManager="CodeFileManager" />
+<DeleteFileModal @ref="_deleteModal" CodeFileManager="CodeFileManager" />

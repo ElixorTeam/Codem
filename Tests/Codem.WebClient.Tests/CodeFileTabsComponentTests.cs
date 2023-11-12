@@ -1,11 +1,19 @@
 using AngleSharp.Dom;
+using Blazored.Toast;
 using Bunit;
 using WebClient.Components.CodeEditor;
+
 namespace Codem.WebClient.Tests;
 
 public class CodeFileTabsComponentTests
 {
-    private readonly TestContext _ctx = new();
+    private readonly TestContext _ctx;
+    
+    public CodeFileTabsComponentTests()
+    {
+        _ctx = new TestContext();
+        _ctx.Services.AddBlazoredToast();
+    }
     
     [Fact]
     public void ShouldRenderCodeFileTabsComponent()
@@ -22,7 +30,7 @@ public class CodeFileTabsComponentTests
     [Fact]
     public void ShouldAddNewFileOnClick()
     {
-        CodeFileManager codeFileManager = new CodeFileManager();
+        CodeFileManager codeFileManager = new();
         IRenderedComponent<CodeFileTabs> cut = _ctx.RenderComponent<CodeFileTabs>(
             ("CodeFileManager", codeFileManager),
             ("IsReadOnly", false)
@@ -37,7 +45,7 @@ public class CodeFileTabsComponentTests
     [Fact]
     public void ShouldSwitchFileOnClick()
     {
-        CodeFileManager codeFileManager = new CodeFileManager();
+        CodeFileManager codeFileManager = new();
         Guid firstFileId = codeFileManager.GetCurrentFile().Id;
         codeFileManager.AddFile();
         IRenderedComponent<CodeFileTabs> cut = _ctx.RenderComponent<CodeFileTabs>(
@@ -53,7 +61,7 @@ public class CodeFileTabsComponentTests
     [Fact]
     public void ShouldDeleteFileOnClick()
     {
-        CodeFileManager codeFileManager = new CodeFileManager();
+        CodeFileManager codeFileManager = new();
         codeFileManager.AddFile();
         IRenderedComponent<CodeFileTabs> cut = _ctx.RenderComponent<CodeFileTabs>(
             ("CodeFileManager", codeFileManager),

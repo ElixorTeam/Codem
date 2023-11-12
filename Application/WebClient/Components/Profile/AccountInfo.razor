@@ -14,18 +14,18 @@
       <div class="flex flex-col items-center gap-1 sm:mx-auto sm:gap-2">
         <div class="h-24 w-24 overflow-hidden rounded-full sm:h-40 sm:w-40">
           <img
-            src="assets/avatar.jpg"
+            src="@User?.Avatar"
             alt=""
             class="h-full w-full"
           />
         </div>
-        <p class="hidden text-lg sm:block sm:text-3xl">Ap73MKa</p>
+        <p class="hidden text-lg sm:block sm:text-3xl">@User?.Name</p>
       </div>
       <div class="flex items-start sm:w-full sm:px-12">
 
         <ul class="flex flex-col gap-1">
           <li class="sm:hidden">
-            <p>Ap73MKa</p>
+            <p>@User?.Name</p>
           </li>
           @foreach (StatModel stat in StatList)
           {

@@ -2,5 +2,5 @@ namespace Codem.Domain.Common;
 
 public interface IEntity
 {
-    Guid Id { get; }
+    Guid Id { get; set; }
 }

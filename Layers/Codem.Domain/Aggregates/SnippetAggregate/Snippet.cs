@@ -7,15 +7,15 @@ namespace Codem.Domain.Aggregates.SnippetAggregate;
 
 public class Snippet : IEntity
 {
-    public Guid Id { get; }
-    public string Name { get; set; }
+    public Guid Id { get; set; }
+    public string Title { get; set; }
     public Password? Password { get; private set; }
     public SnippetVisibilityEnum Visibility { get; private set; }
     public IEnumerable<File> Files { get; private set; }
 
     public Snippet()
     {
-        Name = string.Empty;
+        Title = string.Empty;
         Visibility = SnippetVisibilityEnum.Public;
         Files = new List<File>();
     }

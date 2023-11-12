@@ -4,7 +4,7 @@ namespace Codem.Domain.Aggregates.SnippetAggregate;
 
 public class File : IEntity
 {
-    public Guid Id { get; }
+    public Guid Id { get; set; }
     public string Name { get; private set; }
     public string Data { get; private set; }
 

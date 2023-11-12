@@ -37,14 +37,18 @@
           class="h-5 w-5 text-gray-800 dark:text-neutral-200"
         />
       </button>
-      <a href="@RouteUtils.Profile" class="flex h-full cursor-pointer items-center gap-2">
-        <div class="h-6 w-6 overflow-hidden rounded-full">
-          <img src="assets/avatar.jpg" alt=""/>
-        </div>
-        <div class="hidden sm:block">
-          <p class="text-sm font-semibold text-slate-800 dark:text-neutral-200">Ap73MKa</p>
-        </div>
-      </a>
+      @if (User == null)
+      {
+        <a href="@RouteUtils.Login">
+          <button type="button" class="h-full">
+            <p class="text-sm">Log in</p>
+          </button>
+        </a>
+      }
+      else
+      {
+        <ProfileMenu UserName="@User.Name" ImageUrl="@User.Avatar" />
+      }
     </div>
   </div>
 </header>

@@ -1,12 +1,13 @@
+@using Сodem.Shared.Dtos.Snippet
 <div class="h-fit overflow-hidden rounded-md border border-black/[.1] bg-slate-100 dark:bg-neutral-950 dark:border-white/[.15]">
   <div class="-mx-2 overflow-hidden sm:-mx-4 md:mx-0">
     <table class="min-w-full divide-y divide-gray-300 dark:divide-white/[.15]">
-      <thead class="h-8 bg-white/[.7] dark:bg-neutral-900">
+      <thead class="h-8 flex-shrink-0 bg-white/[.7] dark:bg-neutral-900">
       <tr class="text-sm text-gray-900 dark:text-neutral-200 text-left">
         <th
           scope="col"
           class="max-w-[100px] overflow-hidden text-ellipsis pl-4 pr-3 sm:pl-6">
-          Title
+          Name
         </th>
         <th
           scope="col"
@@ -39,11 +40,24 @@
       </tr>
       </thead>
       <tbody class="divide-y divide-gray-200 dark:divide-white/[.15]">
-      @foreach (SnippetTableModel snippet in SnippetsList)
+      @foreach (SnippetDto snippet in SnippetsList)
       {
-          <SnippetsTableEntry Snippet="snippet" />
+        <SnippetsTableEntry
+          TableInvokeAction="() => TableInvokeAction(SnippetsList.IndexOf(snippet))"
+          Snippet="@ConvertModel(snippet)"
+        />
       }
       </tbody>
     </table>
+    @if (IsLoading)
+    {
+      <div class="w-full h-14 border-t border-t-black/[.1] animate-pulse bg-slate-100 dark:bg-neutral-900 dark:border-t-white/[.15]" />
+    }
+    else if (!SnippetsList.Any())
+    {
+      <div class="flex items-center justify-center w-full h-14 border-t border-t-black/[.1] dark:border-t-white/[.15]">
+        <p>No results</p>
+      </div>
+    }
   </div>
 </div>

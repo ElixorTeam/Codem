@@ -1,4 +1,5 @@
 using Codem.Domain.Common;
+
 namespace Codem.Domain.ValueTypes;
 
 public class Password : IValueType<Password>

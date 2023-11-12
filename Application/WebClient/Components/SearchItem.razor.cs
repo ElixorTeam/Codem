@@ -4,7 +4,7 @@ namespace WebClient.Components;
 
 public sealed partial class SearchItem : ComponentBase
 {
-    [Parameter] public int Id { get; init; } = int.MinValue;
+    [Parameter] public Guid Id { get; init; }
     [Parameter] public DateOnly PublicDate { get; init; } = DateOnly.FromDateTime(DateTime.Now);
     [Parameter] public string Title { get; init; } = string.Empty;
     [Parameter] public string Syntax { get; init; } = string.Empty;

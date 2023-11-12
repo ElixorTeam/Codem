@@ -10,7 +10,7 @@ public class CodeMirrorJsInterop : IAsyncDisposable
     
     public CodeMirrorJsInterop(IJSRuntime jsRuntime)
     {
-        _moduleTask = new (() => jsRuntime.InvokeAsync<IJSObjectReference>(
+        _moduleTask = new Lazy<Task<IJSObjectReference>>(() => jsRuntime.InvokeAsync<IJSObjectReference>(
             "import", "./_content/CodeMirror6/index.js").AsTask());
     }
     
@@ -56,12 +56,10 @@ public class CodeMirrorJsInterop : IAsyncDisposable
     {
         try
         {
-            if (_moduleTask.IsValueCreated)
-            {
-                IJSObjectReference module = await _moduleTask.Value;
-                await module.InvokeVoidAsync("dispose");
-                await module.DisposeAsync();
-            }
+            if (!_moduleTask.IsValueCreated) return;
+            IJSObjectReference module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("dispose");
+            await module.DisposeAsync();
         }
         catch (JSDisconnectedException e)
         {

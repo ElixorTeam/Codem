@@ -22,8 +22,16 @@
   }
 }
 
+.loadingContainer {
+  @apply w-full h-[26px] animate-pulse bg-slate-100 dark:bg-neutral-900;
+}
+
+.inputError {
+  @apply !border-red-500;
+}
+
 .modalBackground {
-  @apply bg-black/[.3] dark:bg-black/[.5] absolute inset-0 z-40;
+  @apply bg-gray-900/[.3] dark:bg-black/[.6] absolute inset-0 z-40;
 }
 
 .cm-editor.cm-focused {
@@ -60,4 +68,48 @@
 
 .thin-scroll {
   @apply scrollbar-thin scrollbar-thumb-slate-300 scrollbar-corner-transparent scrollbar-track-transparent dark:scrollbar-thumb-neutral-700
+}
+
+.blazored-toast {
+  @apply bg-slate-50 flex p-3 shadow-xl border-t-0 rounded-lg items-center transition-all w-fit max-w-[20rem] transform scale-95 opacity-0 translate-y-4 dark:bg-neutral-900;
+  animation: fadeInScale 0.3s ease-in-out forwards;
+}
+
+.blazored-toast-icon {
+  @apply w-10;
+}
+
+.blazored-toast-close {
+  @apply flex justify-end mt-[1px] w-8 scale-75 contrast-0;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: translateY(4rem) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.blazored-toast-container {
+  @apply flex flex-col fixed z-50 bottom-4 left-4 gap-2;
+}
+
+.blazored-toast-success .blazored-toast-icon svg {
+  filter: invert(52%) sepia(89%) saturate(1624%) hue-rotate(85deg) brightness(100%) contrast(80%);
+}
+
+.blazored-toast-error .blazored-toast-icon svg {
+  filter: invert(37%) sepia(76%) saturate(6690%) hue-rotate(344deg) brightness(90%) contrast(93%);
+}
+
+.blazored-toast-progressbar {
+  @apply absolute bottom-0 left-0 right-0 h-1 rounded-b-md overflow-hidden;
+}
+
+.blazored-toast-progressbar span {
+  @apply relative flex flex-row transition-all h-full bg-gray-200 dark:bg-white/[.2];
 }

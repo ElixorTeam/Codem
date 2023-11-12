@@ -1,7 +1,32 @@
 @page "/profile"
+@attribute [Authorize]
 
 <div
   class="mx-auto mt-16 flex w-full max-w-7xl grid-cols-[240px,1fr] grid-rows-1 flex-col gap-4 px-4 sm:grid md:grid-cols-[300px,1fr]">
   <AccountInfo />
   <AccountSnippetsTable />
 </div>
+
+
+@* <AuthorizeView> *@
+@*     <Authorized> *@
+@*         <div *@
+@*           class="mx-auto mt-16 flex w-full max-w-7xl grid-cols-[240px,1fr] grid-rows-1 flex-col gap-4 px-4 sm:grid md:grid-cols-[300px,1fr]"> *@
+@*           <AccountInfo /> *@
+@*           <AccountSnippetsTable /> *@
+@*         </div> *@
+@*     </Authorized> *@
+@*     <NotAuthorized> *@
+@*       <div>Пустота</div> *@
+@*     </NotAuthorized> *@
+@* </AuthorizeView> *@
+
+
+@* <AuthorizedView> *@
+@*   <h3>Welcome, @context.User.Identity.Name!</h3> *@
+@* </AuthorizedView> *@
+@* *@
+@* <NotAuthorizedView> *@
+@*   <p>Please log in to access the secure content.</p> *@
+@*   <a href="/login">Login</a> *@
+@* </NotAuthorizedView> *@

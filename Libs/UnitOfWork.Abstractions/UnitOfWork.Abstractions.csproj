@@ -4,7 +4,7 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Configurations>Release;Develop</Configurations>
+        <Configurations>Release;Develop;Local</Configurations>
         <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 

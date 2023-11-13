@@ -4,17 +4,16 @@ namespace WebClient.Models;
 
 public sealed class CodeSnippet
 {
-    [Required]
-    [StringLength(100)]
-    public string Title { get; set; }
+    [MaxLength(64, ErrorMessage = "Title length can not exceed 64 characters")]
+    public string Title { get; set; } = string.Empty;
 
-    [Required]
-    public TimeSpan ExpireTime { get; set; }
+    [Required] 
+    public SnippetExpiration ExpireTime { get; set; } = SnippetExpiration.OneWeek;
 
     public bool IsPrivate { get; set; }
 
-    [StringLength(32)]
-    public string Password { get; set; }
+    [RegularExpression(@"^.{4,32}$", ErrorMessage = "Password must be between 4 and 32 characters")]
+    public string Password { get; set; } = string.Empty;
     
     public List<CodeFile> Files { get; set; } = new();
 }

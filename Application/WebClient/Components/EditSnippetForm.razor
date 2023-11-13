@@ -1,4 +1,5 @@
 @using Сodem.Shared.Models
+@using WebClient.Models
 
 <div class="w-full pt-14 sm:border-box sm:sticky sm:top-0 sm:h-fit">
   <div class="h-fit w-full overflow-hidden rounded-lg border border-black/[.15] bg-slate-100 dark:bg-neutral-950 dark:border-white/[.15]">
@@ -26,9 +27,9 @@
             id="expiration"
             @bind="Model.ExpireTime"
             class="mt-1 p-0 h-8 w-full rounded-md border bg-white border-black/[.2] px-2 pr-10 text-sm focus:ring-0 focus:border-black/[.2] dark:bg-neutral-950 dark:border-white/[.15] dark:focus:border-white/[.15] dark:placeholder-neutral-950">
-            @foreach (ValueTypeModel<TimeSpan> item in ExpireTimeList)
+            @foreach (SnippetExpiration expiration in ExpireTimeList)
             {
-              <option value="@item.Value">@item.Name</option>
+              <option value="@expiration">@EnumHelper.GetEnumDescription(expiration)</option>
             }
           </select>
         </div>

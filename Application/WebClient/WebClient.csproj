@@ -47,6 +47,4 @@
     <_ContentIncludedByDefault Remove="Pages\Account\Logout.razor" />
   </ItemGroup>
 
-  <Import Project="$(SolutionDir)Settings.targets" />
-
 </Project>

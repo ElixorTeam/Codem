@@ -35,7 +35,6 @@ public static class DependencyInjection
     private static SqlSettings LoadJsonConfig()
     {
         IConfigurationRoot sqlConfiguration = new ConfigurationBuilder()
-            .SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location) ?? string.Empty)
             .AddJsonFile("sqlconfig.json", optional: false, reloadOnChange: false)
             .Build();
         

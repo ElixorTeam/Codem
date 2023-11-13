@@ -27,6 +27,7 @@
       <ProjectReference Include="..\..\Libs\UnitOfWork.Abstractions\UnitOfWork.Abstractions.csproj" />
       <ProjectReference Include="..\..\Libs\Сodem.Shared\Сodem.Shared.csproj" />
       <ProjectReference Include="..\Codem.Domain\Codem.Domain.csproj" />
-
     </ItemGroup>
+
+    <Import Project="$(SolutionDir)\Targets\SqlSettings.targets" />
 </Project>

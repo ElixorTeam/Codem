@@ -17,7 +17,7 @@
   <ul aria-labelledby="editorContextMenuButton"
       class="py-1 text-sm text-gray-700 dark:text-neutral-300 border-r border-r-black/[.1] dark:border-r-white/[.15]"
   >
-    @foreach (ContextMenuModel entry in _contextMenuEntries.Where(entry => entry.IsVisible))
+    @foreach (ContextMenuEntry entry in ContextMenuEntries.Where(entry => entry.IsVisible))
     {
       <li>
         <button
@@ -32,5 +32,5 @@
   </ul>
 </div>
 
-<EditFileNameModal @ref="_editModal" CodeFileManager="CodeFileManager" />
-<DeleteFileModal @ref="_deleteModal" CodeFileManager="CodeFileManager" />
+<EditFileNameModal @ref="EditModal" CodeFileManager="CodeFileManager" />
+<DeleteFileModal @ref="DeleteModal" CodeFileManager="CodeFileManager" />

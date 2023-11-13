@@ -14,48 +14,46 @@ public sealed partial class CodeEditorContextMenu: ComponentBase
     
     # endregion
     
-    private EditFileNameModal _editModal;
-    private DeleteFileModal _deleteModal;
+    # region Variables
     
-    private List<ContextMenuModel> _contextMenuEntries = new();
+    private EditFileNameModal EditModal { get; set; } = null!;
+    private DeleteFileModal DeleteModal { get; set; } = null!;
+    private List<ContextMenuEntry> ContextMenuEntries { get; set; } = new();
+    
+    # endregion
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnAfterRender(bool firstRender)
     {
         if (!firstRender) return;
-        _contextMenuEntries = new List<ContextMenuModel>
-        {
-            new()
-            {
-                Text="Edit name",
-                IconName = @HeroiconName.Pencil,
-                ModalTarget = _editModal,
-                IsVisible = !IsReadOnly
-            },
-            new()
-            {
-                Text="Delete file",
-                IconName = @HeroiconName.Trash,
-                ModalTarget = _deleteModal,
-                IsVisible = !IsReadOnly
-            },
-            new()
-            {
-                Text="Clone Project", 
-                IconName = @HeroiconName.DocumentDuplicate,
-                ModalTarget = _deleteModal,
-                IsVisible = !IsOwner
-            },
-            new()
-            {
-                Text="Remove Project",
-                IconName = @HeroiconName.Trash,
-                ModalTarget = _deleteModal,
-                IsVisible = IsOwner
-            }
-        };
+        InitializeContextMenu();
         StateHasChanged();
     }
+
+    private void InitializeContextMenu()
+    {
+        ContextMenuEntries = new List<ContextMenuEntry>
+        {
+            new("Edit name", HeroiconName.Pencil, EditModal, !IsReadOnly),
+            new("Delete file", HeroiconName.Trash, DeleteModal, !IsReadOnly),
+            new("Clone Project", HeroiconName.DocumentDuplicate, DeleteModal, !IsOwner)
+        };
+    }
     
-    private static void CallChildFunction(IModalInvoke modal) => modal.InvokeChildFunction();
+    private static async Task CallChildFunction(IModalInvoke modal) => await modal.InvokeChildFunction();
+}
+
+internal class ContextMenuEntry
+{
+    public string Text { get; }
+    public string IconName { get; }
+    public IModalInvoke ModalTarget { get; }
+    public bool IsVisible { get; }
     
+    public ContextMenuEntry(string text, string iconName, IModalInvoke modalTarget, bool isVisible)
+    {
+        Text = text;
+        IconName = iconName;
+        ModalTarget = modalTarget;
+        IsVisible = isVisible;
+    }
 }

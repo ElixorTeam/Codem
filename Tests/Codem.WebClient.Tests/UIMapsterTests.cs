@@ -142,7 +142,7 @@ public class UIMapsterTests : IClassFixture<MapsterFixture>
         Assert.Equal(snippetDto.Title, codeSnippet.Title);
         Assert.Equal(snippetDto.IsPrivate, codeSnippet.IsPrivate);
         Assert.Equal(snippetDto.Password, codeSnippet.Password);
-        Assert.Equal(new TimeSpan(1, 0, 0), codeSnippet.ExpireTime);
+        Assert.Equal(SnippetExpiration.OneWeek, codeSnippet.ExpireTime);
         Assert.Single(codeSnippet.Files);
     }
 }

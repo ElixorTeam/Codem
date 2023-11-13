@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Blazored.Toast.Services;
 using Codem.Api.Controllers;
 using Mapster;
@@ -13,52 +14,68 @@ namespace WebClient.Components;
 
 public sealed partial class EditSnippetForm : ComponentBase
 {
+    # region Inject
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     [Inject] private IToastService ToastService { get; set; } = null!;
     [Inject] private SnippetController SnippetController { get; set; } = null!;
     
+    # endregion
+    
+    # region Parameters
+    
     [Parameter, EditorRequired] public CodeSnippet Model { get; set; } = null!;
     [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
     [Parameter, EditorRequired] public Guid SnippetId { get; set; }
-    
     [Parameter] public EventCallback<string> ActiveLanguageChanged { get; set; }
     
-    private List<ValueTypeModel<TimeSpan>> ExpireTimeList { get; } = new()
+    # endregion
+    
+    private static Array ExpireTimeList { get; } = Enum.GetValues(typeof(SnippetExpiration));
+    
+    private async Task HandleSubmit()
     {
-        new ValueTypeModel<TimeSpan>("Never", TimeSpan.FromDays(365)),
-        new ValueTypeModel<TimeSpan>("1 hour", TimeSpan.FromHours(1)),
-        new ValueTypeModel<TimeSpan>("1 day", TimeSpan.FromDays(1)),
-        new ValueTypeModel<TimeSpan>("1 week", TimeSpan.FromDays(7)),
-        new ValueTypeModel<TimeSpan>("1 month", TimeSpan.FromDays(31))
-    };
+        List<ValidationResult> validationResults = PerformModelValidation();
+        if (validationResults.Any())
+        {
+            ShowValidationErrors(validationResults);
+            return;
+        }
 
-    private async void HandleDelete()
-    {
-        try
-        {
-            await SnippetController.DeleteSnippet(SnippetId);
-            NavigationManager.NavigateTo(RouteUtils.Profile);
-        }
-        catch
-        {
-            ToastService.ShowError("Can not delete snippet");
-        }
+        SnippetDto snippetDto = CreateSnippetDto();
+        await UpdateAndHandleSnippet(snippetDto);
     }
-
-    private async void HandleSubmit()
+    
+    private List<ValidationResult> PerformModelValidation()
     {
-        DateTime finalDate = DateTime.Now.Add(Model.ExpireTime);
-        IList<CodeFile> files = CodeFileManager.GetAllFiles();
-        List<FileDto> fileDtos = files.Adapt<List<FileDto>>();
-        SnippetDto snippetDto = new()
+        ValidationContext validationContext = new ValidationContext(Model, null, null);
+        List<ValidationResult> validationResults = new();
+        Validator.TryValidateObject(Model, validationContext, validationResults, true);
+        return validationResults;
+    }
+    
+    private void ShowValidationErrors(List<ValidationResult> validationResults)
+    {
+        foreach (ValidationResult validationResult in validationResults)
+            ToastService.ShowError(validationResult.ErrorMessage ?? string.Empty);
+    }
+    
+    private SnippetDto CreateSnippetDto()
+    {
+        // DateTime finalDate = DateTime.Now.Add(Model.ExpireTime.ToTimeSpan());
+        string title = string.IsNullOrEmpty(Model.Title) ? "Untitled snippet" : Model.Title;
+        List<FileDto> codeFiles = CodeFileManager.GetAllFiles().Adapt<List<FileDto>>();
+        
+        return new SnippetDto
         {
-            Id = SnippetId,
-            Title = Model.Title,
+            Title = title,
             IsPrivate = Model.IsPrivate,
             Password = Model.Password,
-            Files = fileDtos,
+            Files = codeFiles,
         };
-        
+    }
+
+    private async Task UpdateAndHandleSnippet(SnippetDto snippetDto)
+    {
         try
         {
             await SnippetController.UpdateSnippet(snippetDto);
@@ -68,6 +85,19 @@ public sealed partial class EditSnippetForm : ComponentBase
         catch
         {
             ToastService.ShowError("Errors in form");
+        }
+    }
+    
+    private async Task HandleDelete()
+    {
+        try
+        {
+            await SnippetController.DeleteSnippet(SnippetId);
+            NavigationManager.NavigateTo(RouteUtils.Profile);
+        }
+        catch
+        {
+            ToastService.ShowError("Can not delete snippet");
         }
     }
 }

@@ -9,30 +9,44 @@ namespace WebClient.Components.CodeEditor;
 
 public sealed partial class EditFileNameModal: ComponentBase, IModalInvoke
 {
+    
+    # region Injects
+    
     [Inject] private IToastService ToastService { get; set; } = null!;
     [Inject] private IJSRuntime JSRuntime { get; set; } = null!;
     
+    # endregion
+    
     [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
     
+    # region Variables
+    
     private IJSObjectReference Module { get; set; } = null!;
-    private string _fileNamePattern = @"^(?=.{1,48}$)(\.?[\w\-.]+)(\.\w+)?$";
-    private bool IsErrorInput { get; set; } = false; 
+    private bool IsErrorInput { get; set; } = false;
     private string InputFileName { get; set; } = string.Empty;
-    private string _modalUniqueId = Guid.NewGuid().ToString();
+    private string ModalUniqueId { get; init; } = Guid.NewGuid().ToString();
+    private string FileNamePattern { get; init; } = @"^(?=.{1,48}$)(\.?[\w\-.]+)(\.\w+)?$";
+    
+    # endregion
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
         CodeFileManager.OnFileChange += UpdateFileNameOnCurrentFileChange;
         UpdateFileNameOnCurrentFileChange();
-        Module = await JSRuntime.InvokeAsync<IJSObjectReference>(
-            "import", "./js/modalInterface.js");
-        await Module.InvokeVoidAsync("initModal", "editFileNameModal", _modalUniqueId);
+        await InitializeModal();
     }
 
-    public async void InvokeChildFunction() => await ToggleDropdown();
+    public async Task InvokeChildFunction() => await ToggleDropdown();
     
-    private void ChangeFileNameByEnter(KeyboardEventArgs e)
+    private async Task InitializeModal()
+    {
+        Module = await JSRuntime.InvokeAsync<IJSObjectReference>(
+            "import", "./js/modalInterface.js");
+        await Module.InvokeVoidAsync("initModal", "editFileNameModal", ModalUniqueId);
+    }
+    
+    private void HandleChangeFileNameByEnter(KeyboardEventArgs e)
     {
         if (e.Code is "Enter" or "NumpadEnter")
             ChangeFileName();
@@ -47,6 +61,7 @@ public sealed partial class EditFileNameModal: ComponentBase, IModalInvoke
     private async void ChangeFileName()
     {
         string processedFileName = ProcessFileName(InputFileName);
+        
         if (!CheckIsCorrectFileName(processedFileName))
         {
             IsErrorInput = true;
@@ -54,7 +69,7 @@ public sealed partial class EditFileNameModal: ComponentBase, IModalInvoke
             return;
         }
         
-        CodeFileManager.ChangeFileName(CodeFileManager.GetCurrentFile().Id, processedFileName);
+        ApplyNewFileName(processedFileName);
         await ToggleDropdown();
     }
     
@@ -68,12 +83,16 @@ public sealed partial class EditFileNameModal: ComponentBase, IModalInvoke
 
     private async Task ToggleDropdown()
     {
-        await Module.InvokeVoidAsync("toggleModal", _modalUniqueId);
+        await Module.InvokeVoidAsync("toggleModal", ModalUniqueId);
         InputFileName = CodeFileManager.GetCurrentFile().Title;
         IsErrorInput = false;
     }
+    
+    private void ApplyNewFileName(string fileName) =>
+        CodeFileManager.ChangeFileName(CodeFileManager.GetCurrentFile().Id, fileName);
 
-    private bool CheckIsCorrectFileName(string fileName) => Regex.IsMatch(fileName, _fileNamePattern);
+    private bool CheckIsCorrectFileName(string fileName) => 
+        Regex.IsMatch(fileName, FileNamePattern);
     
     public void Dispose() => CodeFileManager.OnFileChange -= UpdateFileNameOnCurrentFileChange;
 }

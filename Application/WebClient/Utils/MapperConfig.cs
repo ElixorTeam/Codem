@@ -44,11 +44,7 @@ public class MapperConfig : IRegister
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.IsPrivate, src => src.IsPrivate)
             .Map(dest => dest.Password, src => src.Password)
-            .Map(dest => dest.Files, src => ConvertToFileModel(src.Files))
-            .ConstructUsing((dto, context) => new CodeSnippet
-            {
-                ExpireTime = new TimeSpan(1, 0, 0)
-            });
+            .Map(dest => dest.Files, src => ConvertToFileModel(src.Files));
     }
 
     private static List<FileDto> ConvertToFileDto(IList<CodeFile> fileModelList) =>

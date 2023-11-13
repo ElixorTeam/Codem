@@ -65,6 +65,6 @@ public class SelectLanguageComponentTests
         await searchInput.TriggerEventAsync("oninput", changeEventArgs);
         IElement clearSearchButton = cut.Find("button[type='button']");
         clearSearchButton.Click();
-        Assert.Equal(string.Empty, cut.Instance.SearchString);
+        Assert.Equal(string.Empty, searchInput.GetAttribute("value"));
     }
 }

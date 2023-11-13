@@ -39,10 +39,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <_JsFileModuleStaticWebAsset Include="Components\CodeEditor\SelectLanguage.razor.js" />
-  </ItemGroup>
-
-  <ItemGroup>
     <_ContentIncludedByDefault Remove="Pages\Account\Login.razor" />
     <_ContentIncludedByDefault Remove="Pages\Account\Logout.razor" />
   </ItemGroup>

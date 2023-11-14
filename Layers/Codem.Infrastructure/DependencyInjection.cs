@@ -1,13 +1,12 @@
-﻿using System.Reflection;
-using Codem.Infrastructure.Common;
+﻿using Codem.Infrastructure.Common;
 using Codem.Infrastructure.Models;
-using Codem.Infrastructure.UnitOfWork;
+using Codem.Infrastructure.Uow;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
 using NHibernate.Driver;
-using UnitOfWork.Abstractions;
+using UOW.Abstractions;
 using Сodem.Shared.Utils;
 
 namespace Codem.Infrastructure;
@@ -27,7 +26,7 @@ public static class DependencyInjection
         
         ISessionFactory sessionFactory = configuration.BuildSessionFactory();
         services.AddScoped<ISession>(_ => sessionFactory.OpenSession());
-        services.AddScoped<IUnitOfWork, SqlUnitOfWork>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
     
     #region Private

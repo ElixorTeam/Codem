@@ -16,7 +16,6 @@ public class GetSnippetListAllQueryHandler : IRequestHandler<GetSnippetListAllQu
     {
         List<Snippet> list = _snippetRepository.GetAll().ToList();
         List<SnippetDto> listDto = list.Adapt<List<SnippetDto>>();
-        ;
         return Task.FromResult(listDto);
     }
 }

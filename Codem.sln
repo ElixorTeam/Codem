@@ -33,7 +33,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codem.Api", "Layers\Codem.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codem.Api.Tests", "Tests\Codem.Api.Tests\Codem.Api.Tests.csproj", "{59537C4B-FEFA-4261-94DD-C014F103B8C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitOfWork.Abstractions", "Libs\UnitOfWork.Abstractions\UnitOfWork.Abstractions.csproj", "{301D9E41-5B78-4B5C-9799-AA2F954351CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UOW.Abstractions", "Libs\UOW.Abstractions\UOW.Abstractions.csproj", "{301D9E41-5B78-4B5C-9799-AA2F954351CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

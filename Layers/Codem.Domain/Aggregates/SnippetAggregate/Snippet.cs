@@ -12,7 +12,7 @@ public class Snippet : IEntity
     public Password? Password { get; private set; }
     public SnippetVisibilityEnum Visibility { get; private set; }
     public IEnumerable<File> Files { get; private set; }
-
+    
     public Snippet()
     {
         Title = string.Empty;

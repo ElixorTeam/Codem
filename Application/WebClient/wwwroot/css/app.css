@@ -7,6 +7,10 @@
     @apply flex min-h-screen flex-col w-full h-full;
   }
 
+  html {
+    @apply mr-[calc(-1*(100vw_-_100%))] overflow-x-hidden;
+  }
+
   .dark {
     color-scheme: dark;
   }
@@ -31,7 +35,7 @@
 }
 
 .modalBackground {
-  @apply bg-gray-900/[.3] dark:bg-black/[.6] absolute inset-0 z-40;
+  @apply z-40 fixed inset-0 h-screen overflow-hidden bg-gray-900/[.3] dark:bg-black/[.6];
 }
 
 .cm-editor.cm-focused {

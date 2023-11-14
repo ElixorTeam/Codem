@@ -25,3 +25,9 @@ public sealed partial class AccountInfo: ComponentBase
         };
     }
 }
+
+internal class StatModel
+{
+    public string IconName { get; init; } = string.Empty;
+    public string Value { get; init; } = string.Empty;
+}

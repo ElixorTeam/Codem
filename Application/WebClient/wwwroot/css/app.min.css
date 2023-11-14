@@ -899,6 +899,11 @@ body {
   flex-direction: column;
 }
 
+html {
+  margin-right: calc(-1 * (100vw - 100%));
+  overflow-x: hidden;
+}
+
 .dark {
   color-scheme: dark;
 }
@@ -1123,6 +1128,18 @@ body {
   top: 0px;
 }
 
+.top-1\/2 {
+  top: 50%;
+}
+
+.top-1\/4 {
+  top: 25%;
+}
+
+.right-2 {
+  right: 0.5rem;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -1216,6 +1233,10 @@ body {
 
 .mt-\[2px\] {
   margin-top: 2px;
+}
+
+.mr-1 {
+  margin-right: 0.25rem;
 }
 
 .line-clamp-1 {
@@ -1637,6 +1658,10 @@ body {
   gap: 1.5rem;
 }
 
+.gap-5 {
+  gap: 1.25rem;
+}
+
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.5rem * var(--tw-space-x-reverse));
@@ -1767,10 +1792,6 @@ body {
   border-style: none;
 }
 
-.border-black\/\[\.15\] {
-  border-color: rgb(0 0 0 / .15);
-}
-
 .border-black\/\[\.1\] {
   border-color: rgb(0 0 0 / .1);
 }
@@ -1806,10 +1827,6 @@ body {
 
 .border-transparent {
   border-color: transparent;
-}
-
-.border-b-black\/\[\.15\] {
-  border-bottom-color: rgb(0 0 0 / .15);
 }
 
 .border-b-black\/\[\.1\] {
@@ -2432,9 +2449,11 @@ body {
 }
 
 .modalBackground {
-  position: absolute;
+  position: fixed;
   inset: 0px;
   z-index: 40;
+  height: 100vh;
+  overflow: hidden;
   background-color: rgb(17 24 39 / .3);
 }
 
@@ -2808,6 +2827,11 @@ body {
   color: rgb(17 24 39 / var(--tw-text-opacity));
 }
 
+.hover\:text-red-700:hover {
+  --tw-text-opacity: 1;
+  color: rgb(200 30 30 / var(--tw-text-opacity));
+}
+
 .hover\:text-sky-400:hover {
   --tw-text-opacity: 1;
   color: rgb(56 189 248 / var(--tw-text-opacity));
@@ -3153,6 +3177,11 @@ body {
   color: rgb(229 229 229 / var(--tw-text-opacity));
 }
 
+:is(.dark .dark\:hover\:text-red-400:hover) {
+  --tw-text-opacity: 1;
+  color: rgb(249 128 128 / var(--tw-text-opacity));
+}
+
 :is(.dark .dark\:hover\:text-white:hover) {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -3202,17 +3231,9 @@ body {
     display: none;
   }
 
-  .sm\:h-28 {
-    height: 7rem;
-  }
-
   .sm\:h-fit {
     height: -moz-fit-content;
     height: fit-content;
-  }
-
-  .sm\:w-28 {
-    width: 7rem;
   }
 
   .sm\:w-full {
@@ -3252,13 +3273,12 @@ body {
     padding-right: 1.5rem;
   }
 
-  .sm\:pt-14 {
-    padding-top: 3.5rem;
+  .sm\:pr-\[calc\(20px_-_\(100vw_-_100\%\)\)\] {
+    padding-right: calc(20px - (100vw - 100%));
   }
 
-  .sm\:text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
+  .sm\:pt-14 {
+    padding-top: 3.5rem;
   }
 
   .sm\:text-2xl {
@@ -3311,6 +3331,10 @@ body {
 
   .md\:justify-between {
     justify-content: space-between;
+  }
+
+  .md\:gap-6 {
+    gap: 1.5rem;
   }
 }
 

@@ -1,30 +1,33 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using Blazored.Toast.Services;
 using Codem.Api.Controllers;
 using Mapster;
-using Mapster.Utils;
 using Microsoft.AspNetCore.Components;
 using WebClient.Components.CodeEditor;
-using Сodem.Shared.Models;
 using WebClient.Models;
 using WebClient.Utils;
 using Сodem.Shared.Dtos.File;
 using Сodem.Shared.Dtos.Snippet;
 
-namespace WebClient.Components;
+namespace WebClient.Components.Forms;
 
-public sealed partial class CreateSnippetForm : ComponentBase
+public sealed partial class EditSnippetForm : ComponentBase
 {
+    # region Inject
+    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     [Inject] private IToastService ToastService { get; set; } = null!;
     [Inject] private SnippetController SnippetController { get; set; } = null!;
     
-    [Parameter] public EventCallback<string> ActiveLanguageChanged { get; set; }
-    [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
+    # endregion
     
-    private CodeSnippet Model { get; set; } = new();
-
-    private static Array ExpireTimeList { get; } = Enum.GetValues(typeof(SnippetExpiration));
-
+    # region Parameters
+    
+    [Parameter, EditorRequired] public CodeSnippet Model { get; set; } = null!;
+    [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
+    [Parameter, EditorRequired] public Guid SnippetId { get; set; }
+    
+    # endregion
+    
     private async Task HandleSubmit()
     {
         List<ValidationResult> validationResults = PerformModelValidation();
@@ -34,8 +37,8 @@ public sealed partial class CreateSnippetForm : ComponentBase
             return;
         }
 
-        SnippetCreateDto snippetDto = CreateSnippetDto();
-        await CreateAndHandleSnippet(snippetDto);
+        SnippetDto snippetDto = CreateSnippetDto();
+        await UpdateAndHandleSnippet(snippetDto);
     }
     
     private List<ValidationResult> PerformModelValidation()
@@ -52,31 +55,46 @@ public sealed partial class CreateSnippetForm : ComponentBase
             ToastService.ShowError(validationResult.ErrorMessage ?? string.Empty);
     }
     
-    private SnippetCreateDto CreateSnippetDto()
+    private SnippetDto CreateSnippetDto()
     {
         // DateTime finalDate = DateTime.Now.Add(Model.ExpireTime.ToTimeSpan());
         string title = string.IsNullOrEmpty(Model.Title) ? "Untitled snippet" : Model.Title;
-        List<FileCreateDto> codeFiles = CodeFileManager.GetAllFiles().Adapt<List<FileCreateDto>>();
+        string password = Model.IsPrivate ? Model.Password : string.Empty;
+        List<FileDto> codeFiles = CodeFileManager.GetAllFiles().Adapt<List<FileDto>>();
         
-        return new SnippetCreateDto
+        return new SnippetDto
         {
             Title = title,
             IsPrivate = Model.IsPrivate,
-            Password = Model.Password,
+            Password = password,
             Files = codeFiles,
         };
     }
-    
-    private async Task CreateAndHandleSnippet(SnippetCreateDto snippetDto)
+
+    private async Task UpdateAndHandleSnippet(SnippetDto snippetDto)
     {
         try
         {
-            await SnippetController.CreateSnippet(snippetDto);
-            ToastService.ShowSuccess("Successfully added");
+            await SnippetController.UpdateSnippet(snippetDto);
+            NavigationManager.NavigateTo($"{RouteUtils.Profile}/{SnippetId}");
+            ToastService.ShowSuccess("Successfully edited");
         }
         catch
         {
-            ToastService.ShowError("An error occurred. Try again.");
+            ToastService.ShowError("Errors in form");
+        }
+    }
+    
+    private async Task HandleDelete()
+    {
+        try
+        {
+            await SnippetController.DeleteSnippet(SnippetId);
+            NavigationManager.NavigateTo(RouteUtils.Profile);
+        }
+        catch
+        {
+            ToastService.ShowError("Can not delete snippet");
         }
     }
 }

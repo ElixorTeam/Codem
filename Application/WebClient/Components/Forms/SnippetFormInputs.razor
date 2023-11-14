@@ -1,0 +1,67 @@
+@using WebClient.Models
+@using Blazor.Heroicons
+
+<div>
+  <label for="title" class="text-sm">Name</label>
+  <div class="mt-1">
+    <input
+      type="text"
+      id="title"
+      @bind="Model.Title"
+      class="h-8 w-full rounded-md border bg-white border-black/[.2] px-2 text-sm focus:ring-0 focus:border-black/[.2] dark:bg-transparent dark:border-white/[.15] dark:focus:border-white/[.15] dark:placeholder:text-neutral-500"
+      placeholder="Untitled snippet..."/>
+  </div>
+</div>
+<div>
+  <label for="expiration" class="text-sm">Expiration time</label>
+  <select
+    id="expiration"
+    @bind="Model.ExpireTime"
+    class="mt-1 p-0 h-8 w-full rounded-md border bg-white border-black/[.2] px-2 pr-10 text-sm focus:ring-0 focus:border-black/[.2] dark:bg-neutral-950 dark:border-white/[.15] dark:focus:border-white/[.15] dark:placeholder-neutral-950">
+    @foreach (SnippetExpiration expiration in ExpireTimeList)
+    {
+      <option value="@expiration">@EnumHelper.GetEnumDescription(expiration)</option>
+    }
+  </select>
+</div>
+<div>
+  <label for="password" class="text-sm">Password</label>
+  <div class="relative mt-1 w-full">
+    <input
+      type="@(IsPasswordVisible ? "text" : "password")"
+      id="password"
+      disabled="@(!Model.IsPrivate)"
+      @bind="Model.Password"
+      class="h-8 w-full rounded-md border bg-white border-black/[.2] pl-2 pr-8 text-sm disabled:bg-slate-100 focus:ring-0 focus:border-black/[.2] dark:bg-transparent dark:border-white/[.15] dark:focus:border-white/[.15] dark:disabled:bg-neutral-900 dark:placeholder:text-neutral-500"
+      placeholder="Password..."
+    />
+    <button
+      type="button"
+      @onclick="SwitchPasswordVisibility"
+      class="absolute right-2 top-1/4"
+    >
+      <Heroicon
+        Name="@(IsPasswordVisible ? @HeroiconName.Eye : @HeroiconName.EyeSlash)"
+        Type="HeroiconType.Outline"
+        class="h-4 w-4 mr-1"
+      />
+    </button>
+  </div>
+</div>
+<div class="mt-2 flex items-start">
+  <div class="flex h-5 items-center">
+    <input
+      id="is-private"
+      aria-describedby="comments-description"
+      name="is-private"
+      type="checkbox"
+      @bind="Model.IsPrivate"
+      @oninput="HandleIsPrivateChange"
+      class="h-4 w-4 rounded border-black/[.2] bg-white border text-sky-400 focus:ring-0 focus:ring-offset-0 dark:bg-transparent dark:border-white/[.15]"/>
+  </div>
+  <div class="ml-2 text-sm">
+    <label for="is-private" class="font-medium text-gray-700 dark:text-neutral-300">
+      Private
+    </label>
+  </div>
+</div>

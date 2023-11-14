@@ -1,37 +1,23 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Blazored.Toast.Services;
 using Codem.Api.Controllers;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using WebClient.Components.CodeEditor;
-using Сodem.Shared.Models;
 using WebClient.Models;
-using WebClient.Utils;
 using Сodem.Shared.Dtos.File;
 using Сodem.Shared.Dtos.Snippet;
 
-namespace WebClient.Components;
+namespace WebClient.Components.Forms;
 
-public sealed partial class EditSnippetForm : ComponentBase
+public sealed partial class CreateSnippetForm : ComponentBase
 {
-    # region Inject
-    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     [Inject] private IToastService ToastService { get; set; } = null!;
     [Inject] private SnippetController SnippetController { get; set; } = null!;
     
-    # endregion
-    
-    # region Parameters
-    
-    [Parameter, EditorRequired] public CodeSnippet Model { get; set; } = null!;
     [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
-    [Parameter, EditorRequired] public Guid SnippetId { get; set; }
-    [Parameter] public EventCallback<string> ActiveLanguageChanged { get; set; }
-    
-    # endregion
-    
-    private static Array ExpireTimeList { get; } = Enum.GetValues(typeof(SnippetExpiration));
-    
+    private CodeSnippet Model { get; set; } = new();
+
     private async Task HandleSubmit()
     {
         List<ValidationResult> validationResults = PerformModelValidation();
@@ -41,8 +27,8 @@ public sealed partial class EditSnippetForm : ComponentBase
             return;
         }
 
-        SnippetDto snippetDto = CreateSnippetDto();
-        await UpdateAndHandleSnippet(snippetDto);
+        SnippetCreateDto snippetDto = CreateSnippetDto();
+        await CreateAndHandleSnippet(snippetDto);
     }
     
     private List<ValidationResult> PerformModelValidation()
@@ -59,45 +45,32 @@ public sealed partial class EditSnippetForm : ComponentBase
             ToastService.ShowError(validationResult.ErrorMessage ?? string.Empty);
     }
     
-    private SnippetDto CreateSnippetDto()
+    private SnippetCreateDto CreateSnippetDto()
     {
         // DateTime finalDate = DateTime.Now.Add(Model.ExpireTime.ToTimeSpan());
         string title = string.IsNullOrEmpty(Model.Title) ? "Untitled snippet" : Model.Title;
-        List<FileDto> codeFiles = CodeFileManager.GetAllFiles().Adapt<List<FileDto>>();
+        string password = Model.IsPrivate ? Model.Password : string.Empty;
+        List<FileCreateDto> codeFiles = CodeFileManager.GetAllFiles().Adapt<List<FileCreateDto>>();
         
-        return new SnippetDto
+        return new SnippetCreateDto
         {
             Title = title,
             IsPrivate = Model.IsPrivate,
-            Password = Model.Password,
+            Password = password,
             Files = codeFiles,
         };
     }
-
-    private async Task UpdateAndHandleSnippet(SnippetDto snippetDto)
-    {
-        try
-        {
-            await SnippetController.UpdateSnippet(snippetDto);
-            NavigationManager.NavigateTo($"{RouteUtils.Profile}/{SnippetId}");
-            ToastService.ShowSuccess("Successfully edited");
-        }
-        catch
-        {
-            ToastService.ShowError("Errors in form");
-        }
-    }
     
-    private async Task HandleDelete()
+    private async Task CreateAndHandleSnippet(SnippetCreateDto snippetDto)
     {
         try
         {
-            await SnippetController.DeleteSnippet(SnippetId);
-            NavigationManager.NavigateTo(RouteUtils.Profile);
+            await SnippetController.CreateSnippet(snippetDto);
+            ToastService.ShowSuccess("Successfully added");
         }
         catch
         {
-            ToastService.ShowError("Can not delete snippet");
+            ToastService.ShowError("An error occurred. Try again.");
         }
     }
 }

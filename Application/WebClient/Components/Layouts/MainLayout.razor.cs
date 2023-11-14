@@ -29,7 +29,6 @@ public sealed partial class MainLayout : LayoutComponentBase
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await JSRuntime.InvokeVoidAsync("initFlowbite");
         if (!firstRender) return;
         Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./js/themeUtils.js");
         await InitializeTheme();

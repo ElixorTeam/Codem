@@ -15,7 +15,7 @@ public sealed partial class AccountSnippetsTable: ComponentBase
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        GetAllUserSnippets();
+        await GetAllUserSnippets();
         IsLoading = false;
         StateHasChanged();
     }
@@ -26,13 +26,13 @@ public sealed partial class AccountSnippetsTable: ComponentBase
         StateHasChanged();
     }
 
-    private async void GetAllUserSnippets()
+    private async Task GetAllUserSnippets()
     {
         SnippetsList = await SnippetController.GetSnippetListAll();
         StateHasChanged();
     }
 
-    private SnippetTableModel ConvertModel(SnippetDto snippet)
+    private static SnippetTableModel ConvertModel(SnippetDto snippet)
     {
         return new SnippetTableModel
         {

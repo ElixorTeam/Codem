@@ -7,7 +7,7 @@ using Microsoft.JSInterop;
 
 namespace WebClient.Components.CodeEditor;
 
-public sealed partial class EditFileNameModal: ComponentBase, IModalInvoke
+public sealed partial class EditFileNameModal: ComponentBase, IModalInvoke, IDisposable
 {
     
     # region Injects

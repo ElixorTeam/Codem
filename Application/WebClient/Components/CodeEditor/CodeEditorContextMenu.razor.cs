@@ -1,10 +1,13 @@
+using System.Reflection;
 using Blazor.Heroicons;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace WebClient.Components.CodeEditor;
 
 public sealed partial class CodeEditorContextMenu: ComponentBase
 {
+    [Inject] private IJSRuntime JSRuntime { get; set; } = null!;
     
     # region Parameters
     
@@ -19,16 +22,19 @@ public sealed partial class CodeEditorContextMenu: ComponentBase
     private EditFileNameModal EditModal { get; set; } = null!;
     private DeleteFileModal DeleteModal { get; set; } = null!;
     private List<ContextMenuEntry> ContextMenuEntries { get; set; } = new();
+    private IJSObjectReference Module { get; set; } = null!;
+    private string DropdownUniqueId { get; init; } = Guid.NewGuid().ToString();
     
     # endregion
-
-    protected override void OnAfterRender(bool firstRender)
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
         InitializeContextMenu();
+        await InitializeDropdown();
         StateHasChanged();
     }
-
+    
     private void InitializeContextMenu()
     {
         ContextMenuEntries = new List<ContextMenuEntry>
@@ -38,8 +44,24 @@ public sealed partial class CodeEditorContextMenu: ComponentBase
             new("Clone Project", HeroiconName.DocumentDuplicate, DeleteModal, !IsOwner)
         };
     }
+
+    private async Task InitializeDropdown()
+    {
+        Module = await JSRuntime.InvokeAsync<IJSObjectReference>(
+            "import", "./js/dropdownInterface.js");
+        var options = new { offsetSkidding = -60 };
+        await Module.InvokeVoidAsync("initDropdown", "editorContextMenu",
+            "editorContextMenuButton", DropdownUniqueId, options);
+    }
     
-    private static async Task CallChildFunction(IModalInvoke modal) => await modal.InvokeChildFunction();
+    private async Task HideDropdown() => 
+        await Module.InvokeVoidAsync("hideDropdown", DropdownUniqueId);
+    
+    private async Task CallChildFunction(IModalInvoke modal)
+    {
+        await HideDropdown();
+        await modal.InvokeChildFunction();
+    }
 }
 
 internal class ContextMenuEntry

@@ -30,3 +30,9 @@ public sealed partial class SnippetInfo : ComponentBase
         };
     }
 }
+
+internal class SnippetStatModel
+{
+    public string IconName { get; init; } = string.Empty;
+    public string Value { get; init; } = string.Empty;
+}

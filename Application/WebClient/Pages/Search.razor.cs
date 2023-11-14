@@ -20,7 +20,7 @@ public sealed partial class Search : ComponentBase, IDisposable
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        UpdateFilteredList();
+        await UpdateFilteredList();
     }
 
     protected override void OnInitialized()
@@ -28,7 +28,7 @@ public sealed partial class Search : ComponentBase, IDisposable
         NavigationManager.LocationChanged += HandleLocationChanged;
     }
 
-    private async void UpdateFilteredList()
+    private async Task UpdateFilteredList()
     {
         SearchQuery = GetSearchQuery();
         SnippetList = await SnippetController.GetSnippetListByName(SearchQuery);
@@ -38,10 +38,10 @@ public sealed partial class Search : ComponentBase, IDisposable
     private string getFirstFileCode(SnippetDto snippet) => 
         snippet.Files.Any() ? snippet.Files.First().Data : string.Empty;
     
-    private void HandleLocationChanged(object? sender, LocationChangedEventArgs e)
+    private async void HandleLocationChanged(object? sender, LocationChangedEventArgs e)
     {
         SearchQuery = GetSearchQuery();
-        UpdateFilteredList();
+        await UpdateFilteredList();
         StateHasChanged();
     }
 

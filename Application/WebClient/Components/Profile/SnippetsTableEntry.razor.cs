@@ -23,6 +23,5 @@ public sealed partial class SnippetsTableEntry : ComponentBase
         {
             ToastService.ShowError("Error while deleting file");
         }
-        
     }
 }

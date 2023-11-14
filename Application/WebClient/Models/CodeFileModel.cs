@@ -2,7 +2,7 @@
 
 namespace WebClient.Models;
 
-public sealed class CodeFile
+public sealed class CodeFileModel
 { 
     public Guid Id { get; init; } = Guid.NewGuid();
     public string Text { get; set; } = string.Empty;

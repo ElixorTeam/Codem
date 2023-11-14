@@ -20,19 +20,19 @@ public sealed partial class Viewer : ComponentBase
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        GetSnippet();
+        await GetSnippet();
         IsLoading = false;
         StateHasChanged();
     }
 
-    private List<CodeFile> ConvertFileList()
+    private List<CodeFileModel> ConvertFileList()
     {
-        if (SnippetDto == null) return new List<CodeFile>();
+        if (SnippetDto == null) return new List<CodeFileModel>();
         List<FileDto> fileDtos = SnippetDto.Files;
-        return fileDtos.Adapt<List<CodeFile>>();
+        return fileDtos.Adapt<List<CodeFileModel>>();
     }
 
-    private async void GetSnippet()
+    private async Task GetSnippet()
     {
         try
         {
@@ -42,6 +42,5 @@ public sealed partial class Viewer : ComponentBase
         {
             NavigationManager.NavigateTo(@RouteUtils.Home);
         }
-        
     }
 }

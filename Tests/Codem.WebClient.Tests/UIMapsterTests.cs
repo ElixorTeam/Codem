@@ -20,34 +20,34 @@ public class UIMapsterTests : IClassFixture<MapsterFixture>
     [Fact]
     public void Map_CodeFile_To_FileDto()
     {
-        CodeFile codeFile = new CodeFile
+        CodeFileModel codeFileModel = new CodeFileModel
         {
             Text = "Hello World",
             Title = "test_file",
             Language = ProgrammingLanguage.Markdown
         };
         
-        FileDto fileDto = codeFile.Adapt<FileDto>();
+        FileDto fileDto = codeFileModel.Adapt<FileDto>();
         
-        Assert.Equal(codeFile.Id, fileDto.Id);
-        Assert.Equal(codeFile.Title, fileDto.Name);
-        Assert.Equal(codeFile.Text, fileDto.Data);
+        Assert.Equal(codeFileModel.Id, fileDto.Id);
+        Assert.Equal(codeFileModel.Title, fileDto.Name);
+        Assert.Equal(codeFileModel.Text, fileDto.Data);
     }
     
     [Fact]
     public void Map_CodeFile_To_FileCreateDto()
     {
-        CodeFile codeFile = new CodeFile
+        CodeFileModel codeFileModel = new CodeFileModel
         {
             Text = "Hello World",
             Title = "test_file",
             Language = ProgrammingLanguage.Markdown
         };
 
-        FileCreateDto fileCreateDto = codeFile.Adapt<FileCreateDto>();
+        FileCreateDto fileCreateDto = codeFileModel.Adapt<FileCreateDto>();
 
-        Assert.Equal(codeFile.Title, fileCreateDto.Name);
-        Assert.Equal(codeFile.Text, fileCreateDto.Data);
+        Assert.Equal(codeFileModel.Title, fileCreateDto.Name);
+        Assert.Equal(codeFileModel.Text, fileCreateDto.Data);
     }
     
     [Fact]
@@ -60,62 +60,62 @@ public class UIMapsterTests : IClassFixture<MapsterFixture>
             Data = "Test content"
         };
         
-        CodeFile codeFile = fileDto.Adapt<CodeFile>();
+        CodeFileModel codeFileModel = fileDto.Adapt<CodeFileModel>();
         
-        Assert.Equal(fileDto.Id, codeFile.Id);
-        Assert.Equal(fileDto.Name, codeFile.Title);
-        Assert.Equal(fileDto.Data, codeFile.Text);
-        Assert.Equal(ProgrammingLanguage.Markdown, codeFile.Language);
+        Assert.Equal(fileDto.Id, codeFileModel.Id);
+        Assert.Equal(fileDto.Name, codeFileModel.Title);
+        Assert.Equal(fileDto.Data, codeFileModel.Text);
+        Assert.Equal(ProgrammingLanguage.Markdown, codeFileModel.Language);
     }
     
     [Fact]
     public void Map_CodeSnippet_To_SnippetDto()
     {
-        CodeFile codeFile = new CodeFile
+        CodeFileModel codeFileModel = new CodeFileModel
         {
             Title = "test_file",
             Text = "Test content"
         };
 
-        CodeSnippet codeSnippet = new CodeSnippet
+        CodeSnippetModel codeSnippetModel = new CodeSnippetModel
         {
             Title = "Test Snippet",
             IsPrivate = true,
             Password = "123",
-            Files = new List<CodeFile> { codeFile }
+            Files = new List<CodeFileModel> { codeFileModel }
         };
 
-        SnippetDto snippetDto = codeSnippet.Adapt<SnippetDto>();
+        SnippetDto snippetDto = codeSnippetModel.Adapt<SnippetDto>();
 
         Assert.NotEqual(Guid.Empty, snippetDto.Id);
-        Assert.Equal(codeSnippet.Title, snippetDto.Title);
-        Assert.Equal(codeSnippet.IsPrivate, snippetDto.IsPrivate);
-        Assert.Equal(codeSnippet.Password, snippetDto.Password);
+        Assert.Equal(codeSnippetModel.Title, snippetDto.Title);
+        Assert.Equal(codeSnippetModel.IsPrivate, snippetDto.IsPrivate);
+        Assert.Equal(codeSnippetModel.Password, snippetDto.Password);
         Assert.Single(snippetDto.Files);
     }
     
     [Fact]
     public void Map_CodeSnippet_To_SnippetCreateDto()
     {
-        CodeFile codeFile = new CodeFile
+        CodeFileModel codeFileModel = new CodeFileModel
         {
             Title = "test_file",
             Text = "Test content"
         };
         
-        CodeSnippet codeSnippet = new CodeSnippet
+        CodeSnippetModel codeSnippetModel = new CodeSnippetModel
         {
             Title = "Test Snippet",
             IsPrivate = true,
             Password = "123",
-            Files = new List<CodeFile> { codeFile }
+            Files = new List<CodeFileModel> { codeFileModel }
         };
 
-        SnippetCreateDto snippetCreateDto = codeSnippet.Adapt<SnippetCreateDto>();
+        SnippetCreateDto snippetCreateDto = codeSnippetModel.Adapt<SnippetCreateDto>();
 
-        Assert.Equal(codeSnippet.Title, snippetCreateDto.Title);
-        Assert.Equal(codeSnippet.IsPrivate, snippetCreateDto.IsPrivate);
-        Assert.Equal(codeSnippet.Password, snippetCreateDto.Password);
+        Assert.Equal(codeSnippetModel.Title, snippetCreateDto.Title);
+        Assert.Equal(codeSnippetModel.IsPrivate, snippetCreateDto.IsPrivate);
+        Assert.Equal(codeSnippetModel.Password, snippetCreateDto.Password);
         Assert.Single(snippetCreateDto.Files);
     }
     
@@ -137,12 +137,12 @@ public class UIMapsterTests : IClassFixture<MapsterFixture>
             Files = new List<FileDto> {fileDto}
         };
 
-        CodeSnippet codeSnippet = snippetDto.Adapt<CodeSnippet>();
+        CodeSnippetModel codeSnippetModel = snippetDto.Adapt<CodeSnippetModel>();
 
-        Assert.Equal(snippetDto.Title, codeSnippet.Title);
-        Assert.Equal(snippetDto.IsPrivate, codeSnippet.IsPrivate);
-        Assert.Equal(snippetDto.Password, codeSnippet.Password);
-        Assert.Equal(SnippetExpiration.OneWeek, codeSnippet.ExpireTime);
-        Assert.Single(codeSnippet.Files);
+        Assert.Equal(snippetDto.Title, codeSnippetModel.Title);
+        Assert.Equal(snippetDto.IsPrivate, codeSnippetModel.IsPrivate);
+        Assert.Equal(snippetDto.Password, codeSnippetModel.Password);
+        Assert.Equal(SnippetExpiration.OneWeek, codeSnippetModel.ExpireTime);
+        Assert.Single(codeSnippetModel.Files);
     }
 }

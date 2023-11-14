@@ -22,7 +22,7 @@ public sealed partial class EditSnippetForm : ComponentBase
     
     # region Parameters
     
-    [Parameter, EditorRequired] public CodeSnippet Model { get; set; } = null!;
+    [Parameter, EditorRequired] public CodeSnippetModel Model { get; set; } = null!;
     [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
     [Parameter, EditorRequired] public Guid SnippetId { get; set; }
     

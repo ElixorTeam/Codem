@@ -16,7 +16,7 @@ public sealed partial class CreateSnippetForm : ComponentBase
     [Inject] private SnippetController SnippetController { get; set; } = null!;
     
     [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
-    private CodeSnippet Model { get; set; } = new();
+    private CodeSnippetModel Model { get; set; } = new();
 
     private async Task HandleSubmit()
     {

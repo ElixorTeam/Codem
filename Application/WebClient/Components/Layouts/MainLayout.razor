@@ -5,14 +5,13 @@
 
 <div class="h-full grow w-full flex flex-col">
   <div class="h-full w-full flex flex-col relative grow bg-slate-50 text-zinc-900 dark:bg-neutral-950 dark:text-white">
-    <MainHeader @bind-Theme="@CurrentTheme"/>
+    <MainHeader />
     <main class="mx-auto grow test-class h-full w-full max-w-screen-2xl">
       @Body
     </main>
-    <MainFooter />
+    <MainFooter/>
     <BlazoredToasts
       ShowProgressBar="true"
-      Position="ToastPosition.BottomLeft"
-    />
+      Position="ToastPosition.BottomLeft"/>
   </div>
 </div>

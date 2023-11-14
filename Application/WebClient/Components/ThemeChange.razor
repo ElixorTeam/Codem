@@ -1,0 +1,10 @@
+@using Blazor.Heroicons;
+@using Сodem.Shared.Enums
+
+<button @onclick="ToggleTheme" class="w-6 h-full flex items-center justify-center">
+  <Heroicon
+    Name="@(CurrentTheme == ThemesEnum.Dark ? HeroiconName.Sun : HeroiconName.Moon)"
+    Type="HeroiconType.Solid"
+    class="h-5 w-5 text-gray-800 dark:text-neutral-200"
+  />
+</button>

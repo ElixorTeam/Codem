@@ -9,13 +9,13 @@ public class MapperConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.ForType<CodeFile, FileDto>()
+        config.ForType<CodeFileModel, FileDto>()
             .Map(dest => dest.Id, src => src.Id)
             .Map(dest => dest.Name, src => src.Title)
             .Map(dest => dest.Data, src => src.Text);
 
-        config.ForType<FileDto, CodeFile>()
-            .ConstructUsing(dto => new CodeFile
+        config.ForType<FileDto, CodeFileModel>()
+            .ConstructUsing(dto => new CodeFileModel
             {
                 Id = dto.Id,
                 Title = dto.Name,
@@ -23,38 +23,38 @@ public class MapperConfig : IRegister
                 Language = ProgrammingLanguage.Markdown
             });
 
-        config.ForType<CodeFile, FileCreateDto>()
+        config.ForType<CodeFileModel, FileCreateDto>()
             .Map(dest => dest.Name, src => src.Title)
             .Map(dest => dest.Data, src => src.Text);
         
-        config.ForType<CodeSnippet, SnippetDto>()
+        config.ForType<CodeSnippetModel, SnippetDto>()
             .Map(dest => dest.Id, src => Guid.NewGuid())
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.IsPrivate, src => src.IsPrivate)
             .Map(dest => dest.Password, src => src.Password)
             .Map(dest => dest.Files, src => ConvertToFileDto(src.Files));
         
-        config.ForType<CodeSnippet, SnippetCreateDto>()
+        config.ForType<CodeSnippetModel, SnippetCreateDto>()
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.IsPrivate, src => src.IsPrivate)
             .Map(dest => dest.Password, src => src.Password)
             .Map(dest => dest.Files, src => ConvertToFileCreateDto(src.Files));
 
-        config.ForType<SnippetDto, CodeSnippet>()
+        config.ForType<SnippetDto, CodeSnippetModel>()
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.IsPrivate, src => src.IsPrivate)
             .Map(dest => dest.Password, src => src.Password)
             .Map(dest => dest.Files, src => ConvertToFileModel(src.Files));
     }
 
-    private static List<FileDto> ConvertToFileDto(IList<CodeFile> fileModelList) =>
+    private static List<FileDto> ConvertToFileDto(IList<CodeFileModel> fileModelList) =>
         fileModelList.Adapt<List<FileDto>>();
     
 
-    private static List<FileCreateDto> ConvertToFileCreateDto(IList<CodeFile> fileModelList) =>
+    private static List<FileCreateDto> ConvertToFileCreateDto(IList<CodeFileModel> fileModelList) =>
         fileModelList.Adapt<List<FileCreateDto>>();
     
 
-    private static List<CodeFile> ConvertToFileModel(List<FileDto> fileDtoList) =>
-        fileDtoList.Adapt<List<CodeFile>>();
+    private static List<CodeFileModel> ConvertToFileModel(List<FileDto> fileDtoList) =>
+        fileDtoList.Adapt<List<CodeFileModel>>();
 }

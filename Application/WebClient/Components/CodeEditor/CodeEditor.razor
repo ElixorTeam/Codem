@@ -17,7 +17,7 @@
   </div>
   <div class="w-full bg-white dark:bg-neutral-950">
     <CodeMirrorWrapper
-      @bind-Text="CurrentCodeFile.Text"
+      @bind-Text="CurrentCodeFileModel.Text"
       TabSize="4"
       ReadOnly="@IsReadOnly"
       Language="@EnumHelper.GetEnumDescription(ActiveLanguage)"

@@ -10,13 +10,13 @@ public sealed partial class CodeEditor : ComponentBase
 
     [Parameter, EditorRequired] public ProgrammingLanguage ActiveLanguage { get; set; } = ProgrammingLanguage.Markdown;
     [Parameter] public CodeFileManager CodeFileManager { get; set; } = new();
-    [Parameter] public List<CodeFile> CodeFileList { get; set; } = new();
+    [Parameter] public List<CodeFileModel> CodeFileList { get; set; } = new();
     [Parameter] public bool IsReadOnly { get; set; }
     [Parameter] public bool IsOwner { get; set; }
 
     #endregion
     
-    private CodeFile CurrentCodeFile { get; set; } = null!;
+    private CodeFileModel CurrentCodeFileModel { get; set; } = null!;
     
     protected override void OnInitialized()
     {
@@ -28,13 +28,13 @@ public sealed partial class CodeEditor : ComponentBase
         CodeFileManager = new CodeFileManager(CodeFileList);
         CodeFileManager.OnFileChange += () =>
         {
-            CodeFile file = CodeFileManager.GetCurrentFile();
-            CurrentCodeFile = file;
-            ActiveLanguage = file.Language;
+            CodeFileModel fileModel = CodeFileManager.GetCurrentFile();
+            CurrentCodeFileModel = fileModel;
+            ActiveLanguage = fileModel.Language;
             StateHasChanged();
         };
-        CurrentCodeFile = CodeFileManager.GetCurrentFile();
-        ActiveLanguage = CurrentCodeFile.Language;
+        CurrentCodeFileModel = CodeFileManager.GetCurrentFile();
+        ActiveLanguage = CurrentCodeFileModel.Language;
     }
     
     private void HandleActiveLanguageChanged(ProgrammingLanguage language)

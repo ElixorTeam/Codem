@@ -20,22 +20,22 @@ public sealed partial class Editor: ComponentBase
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        GetEditSnippet();
+        await GetEditSnippet();
         IsLoading = false;
         StateHasChanged();
     }
 
-    private async void GetEditSnippet()
+    private async Task GetEditSnippet()
     {
         SnippetDto = await SnippetController.GetSnippetById(Id);
         StateHasChanged();
     }
     
-    private static List<CodeFile> ConvertFileList(SnippetDto snippetDto)
+    private static List<CodeFileModel> ConvertFileList(SnippetDto snippetDto)
     {
         List<FileDto> fileDtos = snippetDto.Files;
-        return fileDtos.Adapt<List<CodeFile>>();
+        return fileDtos.Adapt<List<CodeFileModel>>();
     }
 
-    private static CodeSnippet ConvertModel(SnippetDto snippetDto) => snippetDto.Adapt<CodeSnippet>();
+    private static CodeSnippetModel ConvertModel(SnippetDto snippetDto) => snippetDto.Adapt<CodeSnippetModel>();
 }

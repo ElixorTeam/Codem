@@ -5,7 +5,7 @@ namespace WebClient.Components.Forms;
 
 public sealed partial class SnippetFormInputs
 {
-    [Parameter, EditorRequired] public CodeSnippet Model { get; set; } = null!;
+    [Parameter, EditorRequired] public CodeSnippetModel Model { get; set; } = null!;
     
     private bool IsPasswordVisible { get; set; } = false;
     private static Array ExpireTimeList { get; } = Enum.GetValues(typeof(SnippetExpiration));

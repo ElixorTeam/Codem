@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Сodem.Shared.Enums;
 
 namespace WebClient.Models;
 

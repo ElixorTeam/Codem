@@ -2,6 +2,7 @@ using Mapster;
 using WebClient.Models;
 using Сodem.Shared.Dtos.File;
 using Сodem.Shared.Dtos.Snippet;
+using Сodem.Shared.Enums;
 
 namespace WebClient.Utils;
 
@@ -15,7 +16,7 @@ public class WebMapperConfig : IRegister
             .Map(dest => dest.Data, src => src.Text);
 
         config.ForType<FileDto, CodeFileModel>()
-            .ConstructUsing(dto => new()
+            .ConstructUsing(dto => new CodeFileModel
             {
                 Id = dto.Id,
                 Title = dto.Name,
@@ -31,13 +32,13 @@ public class WebMapperConfig : IRegister
             .Map(dest => dest.Id, src => Guid.NewGuid())
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.IsPrivate, src => src.IsPrivate)
-            .Map(dest => dest.Password, src => src.Password)
+            .Map(dest => dest.Password, src => string.IsNullOrEmpty(src.Password) ? null : src.Password)
             .Map(dest => dest.Files, src => ConvertToFileDto(src.Files));
         
         config.ForType<CodeSnippetModel, SnippetCreateDto>()
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.IsPrivate, src => src.IsPrivate)
-            .Map(dest => dest.Password, src => src.Password)
+            .Map(dest => dest.Password, src => string.IsNullOrEmpty(src.Password) ? null : src.Password)
             .Map(dest => dest.Files, src => ConvertToFileCreateDto(src.Files));
 
         config.ForType<SnippetDto, CodeSnippetModel>()

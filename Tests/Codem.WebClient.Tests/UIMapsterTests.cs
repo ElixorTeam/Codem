@@ -4,6 +4,7 @@ using WebClient.Models;
 using WebClient.Utils;
 using Сodem.Shared.Dtos.File;
 using Сodem.Shared.Dtos.Snippet;
+using Сodem.Shared.Enums;
 
 namespace Codem.WebClient.Tests;
 

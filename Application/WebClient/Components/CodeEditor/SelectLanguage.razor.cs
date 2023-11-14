@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using WebClient.Models;
 using WebClient.Utils;
+using Сodem.Shared.Enums;
 
 namespace WebClient.Components.CodeEditor;
 

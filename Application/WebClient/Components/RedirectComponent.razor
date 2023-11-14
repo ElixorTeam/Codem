@@ -3,5 +3,5 @@
 
 @code {
   [Parameter] public string RedirectUrl { get; set; } = RouteUtils.Home;
-  protected override void OnInitialized() => Navigation.NavigateTo(RedirectUrl);
+  protected override void OnAfterRender(bool firstRender) => Navigation.NavigateTo(RedirectUrl);
 }

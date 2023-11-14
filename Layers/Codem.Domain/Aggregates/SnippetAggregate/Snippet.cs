@@ -11,27 +11,27 @@ public class Snippet : IEntity
     public string Title { get; set; }
     public Password? Password { get; private set; }
     public SnippetVisibilityEnum Visibility { get; private set; }
-    public IEnumerable<File> Files { get; private set; }
+    public IEnumerable<SnippetFile> Files { get; private set; }
     
     public Snippet()
     {
         Title = string.Empty;
         Visibility = SnippetVisibilityEnum.Public;
-        Files = new List<File>();
+        Files = new List<SnippetFile>();
     }
 
-    public void AddFile(File file)
+    public void AddFile(SnippetFile snippetFile)
     {
-        if (Files.Any(f => f.Id == file.Id))
+        if (Files.Any(f => f.Id == snippetFile.Id))
         {
-            throw new FileAlreadyExistsException($"File with name '{file.Name}' already exists.");
+            throw new FileAlreadyExistsException($"File with name '{snippetFile.Name}' already exists.");
         }
-        Files = Files.Append(file).ToList();
+        Files = Files.Append(snippetFile).ToList();
     }
     
-    public void DeleteFile(File file)
+    public void DeleteFile(SnippetFile snippetFile)
     {
-        Files = Files.Where(f => f.Name != file.Name).ToList();
+        Files = Files.Where(f => f.Name != snippetFile.Name).ToList();
     }
     
     public void ChangePassword(Password password)

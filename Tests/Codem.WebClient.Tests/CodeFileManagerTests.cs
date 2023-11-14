@@ -1,5 +1,6 @@
 using WebClient.Components.CodeEditor;
 using WebClient.Models;
+using Сodem.Shared.Enums;
 
 namespace Codem.WebClient.Tests;
 

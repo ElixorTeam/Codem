@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using WebClient.Models;
+using Сodem.Shared.Enums;
 
 namespace WebClient.Components.CodeEditor;
 

@@ -17,4 +17,8 @@
       <Folder Include="Aggregates\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\Libs\Сodem.Shared\Сodem.Shared.csproj" />
+    </ItemGroup>
+
 </Project>

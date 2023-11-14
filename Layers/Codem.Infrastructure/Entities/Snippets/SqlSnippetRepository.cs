@@ -33,6 +33,15 @@ public class SqlSnippetRepository : ISnippetRepository
         return list.Adapt<List<Snippet>>();
     }
     
+    public Snippet Add(Snippet snippet)
+    {
+        SqlSnippetEntity sqlSnippet = snippet.Adapt<SqlSnippetEntity>();;
+        sqlSnippet.ChangeDt = DateTime.Now;
+        sqlSnippet.CreateDt = DateTime.Now;
+        _session.Save(sqlSnippet);
+        return sqlSnippet.Adapt<Snippet>();
+    }
+    
     public void DeleteById(Guid id)
     {
         SqlSnippetEntity? sqlSnippet = _session.Get<SqlSnippetEntity>(id);

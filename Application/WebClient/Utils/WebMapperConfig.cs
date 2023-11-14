@@ -5,7 +5,7 @@ using Сodem.Shared.Dtos.Snippet;
 
 namespace WebClient.Utils;
 
-public class MapperConfig : IRegister
+public class WebMapperConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
@@ -15,7 +15,7 @@ public class MapperConfig : IRegister
             .Map(dest => dest.Data, src => src.Text);
 
         config.ForType<FileDto, CodeFileModel>()
-            .ConstructUsing(dto => new CodeFileModel
+            .ConstructUsing(dto => new()
             {
                 Id = dto.Id,
                 Title = dto.Name,

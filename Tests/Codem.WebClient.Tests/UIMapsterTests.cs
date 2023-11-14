@@ -11,7 +11,7 @@ public class MapsterFixture
 {
     public MapsterFixture()
     {
-        TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetAssembly(typeof(MapperConfig))!);
+        TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetAssembly(typeof(WebMapperConfig))!);
     }
 }
 

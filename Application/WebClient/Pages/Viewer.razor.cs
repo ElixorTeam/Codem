@@ -1,7 +1,6 @@
 using Codem.Api.Controllers;
 using Mapster;
 using Microsoft.AspNetCore.Components;
-using NHibernate.Mapping;
 using WebClient.Models;
 using WebClient.Utils;
 using Сodem.Shared.Dtos.File;

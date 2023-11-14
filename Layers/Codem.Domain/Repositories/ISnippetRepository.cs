@@ -5,7 +5,17 @@ namespace Codem.Domain.Repositories;
 
 public interface ISnippetRepository : IRepository<Snippet>
 {
-    public IEnumerable<Snippet> FindListByTitle(string title);
+    #region Read
+
     public IEnumerable<Snippet> GetAll();
+    public IEnumerable<Snippet> FindListByTitle(string title);
+    
+    #endregion
+
+    #region CUD
+
+    public Snippet Add(Snippet snippet);
     public void DeleteById(Guid id);
+    
+    #endregion
 }

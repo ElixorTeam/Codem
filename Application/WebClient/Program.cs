@@ -26,12 +26,12 @@ public class Program
         builder.Services.AddBlazoredToast();
         
         TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetExecutingAssembly());
+        
         #region Local
 
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<CodeMirrorJsInterop>();
-        builder.Services.AddNhibernate();
         builder.Services.AddApi();
 
         #endregion

@@ -1,6 +1,8 @@
-﻿using Codem.Infrastructure.Common;
+﻿using System.Reflection;
+using Codem.Infrastructure.Common;
 using Codem.Infrastructure.Models;
 using Codem.Infrastructure.Uow;
+using Mapster;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NHibernate.Cfg;
@@ -17,12 +19,12 @@ public static class DependencyInjection
     {
         SqlSettings sqlSettings = LoadJsonConfig();
         Configuration configuration = LoadSqlConfig(sqlSettings);   
-        
-        configuration.AddAssembly(typeof(SqlEntity).Assembly);
-        
+
         SqlSetupUtil.LoadMappings(configuration);
         SqlSetupUtil.UpdateScheme(configuration);
         SqlSetupUtil.SetupRepositories(services);
+        
+        TypeAdapterConfig.GlobalSettings.Scan(typeof(InfraMapperConfig).Assembly);
         
         ISessionFactory sessionFactory = configuration.BuildSessionFactory();
         services.AddScoped<ISession>(_ => sessionFactory.OpenSession());

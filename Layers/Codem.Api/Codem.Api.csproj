@@ -17,6 +17,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Libs\Сodem.Shared\Сodem.Shared.csproj" />
       <ProjectReference Include="..\Codem.Application\Codem.Application.csproj" />
+      <ProjectReference Include="..\Codem.Infrastructure\Codem.Infrastructure.csproj" />
     </ItemGroup>
 
 

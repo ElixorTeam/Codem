@@ -43,12 +43,13 @@ public class SnippetController
 
     public async Task CreateSnippet(SnippetCreateDto snippet) 
     { 
-        await _mediator.Send(new CreateSnippetCommand());
+        await _mediator.Send(new CreateSnippetCommand(snippet));
     }
     
     public async Task UpdateSnippet(SnippetDto snippet) 
     { 
-        await _mediator.Send(new CreateSnippetCommand());
+        // await _mediator.Send(new CreateSnippetCommand(snippet));
+        
     }
 
     #endregion

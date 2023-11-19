@@ -36,6 +36,13 @@ public class SqlFileMap : ClassMapping<SqlFileEntity>
             m.NotNullable(true);
         });
         
+        Property(x => x.Data, m =>
+        {
+            m.Column("DATA");
+            m.Type(NHibernateUtil.String);
+            m.Length(8192);
+            m.NotNullable(true);
+        });
 
         ManyToOne(x => x.Snippet, m => { 
             m.Cascade(Cascade.All | Cascade.DeleteOrphans); 

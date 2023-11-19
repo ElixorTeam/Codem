@@ -5,6 +5,5 @@ namespace WebClient.Pages;
 
 public sealed partial class Index : ComponentBase
 {
-    private CodeFileManager CodeFileManager { get; set; } = new();
-    private string ActivateLanguage { get; set; } = "Markdown";
+    private CodeFileManager CodeFileManager { get; } = new();
 }

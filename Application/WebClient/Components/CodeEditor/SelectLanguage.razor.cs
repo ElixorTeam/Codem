@@ -57,7 +57,7 @@ public sealed partial class SelectLanguage: ComponentBase
     }
 
     private async Task HideDropdown() => 
-        await Module.InvokeVoidAsync("hideLangDropdown", DropdownUniqueId);
+        await Module.InvokeVoidAsync("hideDropdown", DropdownUniqueId);
 
     private void ClearSearch() => SearchString = string.Empty;
 

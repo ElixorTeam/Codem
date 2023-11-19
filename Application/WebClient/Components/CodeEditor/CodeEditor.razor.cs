@@ -11,7 +11,6 @@ public sealed partial class CodeEditor : ComponentBase
 
     [Parameter, EditorRequired] public ProgrammingLanguage ActiveLanguage { get; set; } = ProgrammingLanguage.Markdown;
     [Parameter] public CodeFileManager CodeFileManager { get; set; } = new();
-    [Parameter] public List<CodeFileModel> CodeFileList { get; set; } = new();
     [Parameter] public bool IsReadOnly { get; set; }
     [Parameter] public bool IsOwner { get; set; }
 
@@ -26,7 +25,6 @@ public sealed partial class CodeEditor : ComponentBase
 
     private void InitFileManager()
     {
-        CodeFileManager = new CodeFileManager(CodeFileList);
         CodeFileManager.OnFileChange += () =>
         {
             CodeFileModel fileModel = CodeFileManager.GetCurrentFile();

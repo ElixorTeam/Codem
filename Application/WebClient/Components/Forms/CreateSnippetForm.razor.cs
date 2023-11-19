@@ -50,7 +50,8 @@ public sealed partial class CreateSnippetForm : ComponentBase
         // DateTime finalDate = DateTime.Now.Add(Model.ExpireTime.ToTimeSpan());
         string title = string.IsNullOrEmpty(Model.Title) ? "Untitled snippet" : Model.Title;
         string password = Model.IsPrivate ? Model.Password : string.Empty;
-        List<FileCreateDto> codeFiles = CodeFileManager.GetAllFiles().Adapt<List<FileCreateDto>>();
+        IList<CodeFileModel> currentFiles = CodeFileManager.GetAllFiles();
+        List<FileCreateDto> codeFiles = currentFiles.Adapt<List<FileCreateDto>>();
         
         return new SnippetCreateDto
         {

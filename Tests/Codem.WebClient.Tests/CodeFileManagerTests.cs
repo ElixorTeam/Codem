@@ -7,6 +7,16 @@ namespace Codem.WebClient.Tests;
 public class CodeFileManagerTests
 {
     [Fact]
+    public void GetAllFiles_ReturnDefaultList()
+    {
+        CodeFileManager codeFileManager = new CodeFileManager();
+        
+        IList<CodeFileModel> result = codeFileManager.GetAllFiles();
+        
+        Assert.NotEmpty(result);
+    }
+    
+    [Fact]
     public void GetCurrentFile_ReturnsFirstFile_WhenNoFilesExist()
     {
         CodeFileManager codeFileManager = new CodeFileManager();
@@ -40,6 +50,19 @@ public class CodeFileManagerTests
         Assert.NotNull(addedFileModel);
         Assert.Equal("new_file.txt", addedFileModel.Title);
         Assert.Equal(ProgrammingLanguage.Markdown, addedFileModel.Language);
+    }
+    
+    [Fact]
+    public void AddFile_AddsFileWithCustomValues()
+    {
+        CodeFileManager codeFileManager = new CodeFileManager();
+
+        codeFileManager.AddFile("<h1>Hello World!</h1>", "hello_file.txt", ProgrammingLanguage.Html);
+
+        CodeFileModel addedFileModel = codeFileManager.GetAllFiles().Last();
+        Assert.Equal("<h1>Hello World!</h1>", addedFileModel.Text);
+        Assert.Equal("hello_file.txt", addedFileModel.Title);
+        Assert.Equal(ProgrammingLanguage.Html, addedFileModel.Language);
     }
     
     [Fact]
@@ -111,10 +134,10 @@ public class CodeFileManagerTests
     }
     
     [Fact]
-    public void ChangeFileName_ModifiesFileName()
+    public void ChangeFileName()
     {
         CodeFileManager codeFileManager = new CodeFileManager();
-        const string newFileName = "Updated File Name";
+        const string newFileName = "updated_file_name.txt";
         CodeFileModel fileModelToModify = codeFileManager.GetAllFiles().First();
 
         codeFileManager.ChangeFileName(fileModelToModify.Id, newFileName);

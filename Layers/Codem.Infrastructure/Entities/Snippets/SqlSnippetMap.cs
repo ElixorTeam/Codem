@@ -38,7 +38,8 @@ public class SqlSnippetMap : ClassMapping<SqlSnippetEntity>
         
         Bag(x => x.Files, m => {
             m.Key(k => k.Column("SNIPPET_UID")); 
-            m.Inverse(true);
+            m.Cascade(Cascade.All | Cascade.DeleteOrphans);
+            m.Inverse(true); 
         }, 
         r =>  r.OneToMany());
     }

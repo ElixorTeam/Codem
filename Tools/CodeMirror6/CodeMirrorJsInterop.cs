@@ -26,7 +26,7 @@ public class CodeMirrorJsInterop : IAsyncDisposable
             _codeMirror.Text,
             _codeMirror.ReadOnly,
             _codeMirror.TabSize,
-            "Markdown"
+            _codeMirror.Language
         );
     }
     

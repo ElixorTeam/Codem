@@ -44,7 +44,7 @@ public partial class CodeMirrorWrapper : ComponentBase
         TabSize = 4;
         Id = Guid.NewGuid().ToString();
         
-        Language = string.Empty;
+        Language = "Markdown";
         Text = string.Empty;
         
         _text = string.Empty;

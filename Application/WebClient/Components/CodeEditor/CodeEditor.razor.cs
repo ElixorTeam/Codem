@@ -8,8 +8,7 @@ public sealed partial class CodeEditor : ComponentBase
 {
 
     #region Parameters
-
-    [Parameter, EditorRequired] public ProgrammingLanguage ActiveLanguage { get; set; } = ProgrammingLanguage.Markdown;
+    
     [Parameter] public CodeFileManager CodeFileManager { get; set; } = new();
     [Parameter] public bool IsReadOnly { get; set; }
     [Parameter] public bool IsOwner { get; set; }
@@ -17,7 +16,8 @@ public sealed partial class CodeEditor : ComponentBase
     #endregion
     
     private CodeFileModel CurrentCodeFileModel { get; set; } = null!;
-    
+    public ProgrammingLanguage ActiveLanguage { get; set; } = ProgrammingLanguage.Markdown;
+
     protected override void OnInitialized()
     {
         InitFileManager();

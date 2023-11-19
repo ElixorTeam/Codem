@@ -13,20 +13,19 @@ public class WebMapperConfig : IRegister
         config.ForType<CodeFileModel, FileDto>()
             .Map(dest => dest.Id, src => src.Id)
             .Map(dest => dest.Name, src => src.Title)
-            .Map(dest => dest.Data, src => src.Text);
+            .Map(dest => dest.Data, src => src.Text)
+            .Map(dest => dest.ProgrammingLanguage, src => src.Language);
 
         config.ForType<FileDto, CodeFileModel>()
-            .ConstructUsing(dto => new CodeFileModel
-            {
-                Id = dto.Id,
-                Title = dto.Name,
-                Text = dto.Data,
-                Language = ProgrammingLanguage.Markdown
-            });
+            .Map(dest => dest.Id, src => src.Id)
+            .Map(dest => dest.Title, src => src.Name)
+            .Map(dest => dest.Text, src => src.Data)
+            .Map(dest => dest.Language, src => src.ProgrammingLanguage);
 
         config.ForType<CodeFileModel, FileCreateDto>()
             .Map(dest => dest.Name, src => src.Title)
-            .Map(dest => dest.Data, src => src.Text);
+            .Map(dest => dest.Data, src => src.Text)
+            .Map(dest => dest.ProgrammingLanguage, src => src.Language);
         
         config.ForType<CodeSnippetModel, SnippetDto>()
             .Map(dest => dest.Id, src => Guid.NewGuid())

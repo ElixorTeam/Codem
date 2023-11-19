@@ -7,29 +7,29 @@ public enum ProgrammingLanguage
     [Description("C")]
     C,
     [Description("C++")]
-    CPP,
+    Cpp,
     [Description("CSS")]
-    CSS,
+    Css,
     [Description("HTML")]
-    HTML,
+    Html,
     [Description("Java")]
     Java,
     [Description("JavaScript")]
     JavaScript,
     [Description("JSON")]
-    JSON,
+    Json,
     [Description("JSX")]
-    JSX,
+    Jsx,
     [Description("MariaDB SQL")]
-    MariaDBSQL,
+    MariaDbSql,
     [Description("Markdown")]
     Markdown,
     [Description("MS SQL")]
-    MSSQL,
+    Mssql,
     [Description("MySQL")]
-    MySQL,
+    MySql,
     [Description("PHP")]
-    PHP,
+    Php,
     [Description("PostgreSQL")]
     PostgreSQL,
     [Description("Python")]
@@ -37,15 +37,15 @@ public enum ProgrammingLanguage
     [Description("Rust")]
     Rust,
     [Description("SQL")]
-    SQL,
+    Sql,
     [Description("SQLite")]
-    SQLite,
+    SqLite,
     [Description("TSX")]
-    TSX,
+    Tsx,
     [Description("TypeScript")]
     TypeScript,
     [Description("XML")]
-    XML,
+    Xml,
     [Description("C#")]
     CSharp,
     [Description("CMake")]
@@ -69,7 +69,7 @@ public enum ProgrammingLanguage
     [Description("Haskell")]
     Haskell,
     [Description("HTTP")]
-    HTTP,
+    Http,
     [Description("Jinja2")]
     Jinja2,
     [Description("Kotlin")]
@@ -83,7 +83,7 @@ public enum ProgrammingLanguage
     [Description("Objective-C")]
     ObjectiveC,
     [Description("Objective-C++")]
-    ObjectiveCPP,
+    ObjectiveCpp,
     [Description("Pascal")]
     Pascal,
     [Description("Perl")]
@@ -95,7 +95,7 @@ public enum ProgrammingLanguage
     [Description("Sass")]
     Sass,
     [Description("SCSS")]
-    SCSS,
+    Scss,
     [Description("Shell")]
     Shell,
     [Description("Swift")]
@@ -105,9 +105,9 @@ public enum ProgrammingLanguage
     [Description("LaTeX")]
     LaTeX,
     [Description("TOML")]
-    TOML,
+    Toml,
     [Description("VB.NET")]
-    VBNET,
+    VbNet,
     [Description("YAML")]
-    YAML
+    Yaml
 }

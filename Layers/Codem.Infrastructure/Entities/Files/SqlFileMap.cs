@@ -1,4 +1,7 @@
-﻿namespace Codem.Infrastructure.Entities.Files;
+﻿using NHibernate.Type;
+using Сodem.Shared.Enums;
+
+namespace Codem.Infrastructure.Entities.Files;
 
 public class SqlFileMap : ClassMapping<SqlFileEntity>
 {
@@ -49,6 +52,14 @@ public class SqlFileMap : ClassMapping<SqlFileEntity>
             m.Column("SNIPPET_UID"); 
             m.ForeignKey("FK_SNIPPET_FILES");
             m.NotNullable(true);
+        });
+        
+        Property(x => x.ProgrammingLanguage, m =>
+        {
+            m.Column("LANGUAGE");
+            m.NotNullable(true);
+            m.Type<EnumStringType<ProgrammingLanguage>>();
+            m.Length(16);
         });
     }
 }

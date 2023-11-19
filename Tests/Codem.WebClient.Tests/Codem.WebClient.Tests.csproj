@@ -4,17 +4,9 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-
         <IsPackable>false</IsPackable>
-
-        <Configurations>Release;Develop;Local</Configurations>
-
-        <Platforms>AnyCPU</Platforms>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Develop' ">
-      <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
-      <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
+      <Configurations>Release;Develop;Local</Configurations>
+      <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 
     <ItemGroup>

@@ -17,11 +17,6 @@
     <Configurations>Release;Develop;Local</Configurations>
     <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
-  
-  <PropertyGroup Condition=" '$(Configuration)' == 'Develop' ">
-    <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
-    <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
-  </PropertyGroup>
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />

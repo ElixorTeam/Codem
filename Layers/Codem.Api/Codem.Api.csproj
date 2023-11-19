@@ -8,12 +8,6 @@
         <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)' == 'Develop' ">
-      <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
-      <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
-    </PropertyGroup>
-
-
     <ItemGroup>
       <ProjectReference Include="..\..\Libs\Сodem.Shared\Сodem.Shared.csproj" />
       <ProjectReference Include="..\Codem.Application\Codem.Application.csproj" />

@@ -5,6 +5,16 @@
         <LangVersion>latest</LangVersion>
         <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Local|AnyCpu' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <DefineConstants>DEBUG;TRACE;LOCAL</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Local_AnyCPU</OutputPath>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <WarningLevel>9999</WarningLevel>
+    </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Develop|AnyCpu' ">
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>

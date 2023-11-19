@@ -13,12 +13,12 @@ public static class BuildUtil
 #elif RELEASE
             return BuildConfigurationEnum.Release;
 #else
-            return BuildConfigurationEnum.Develop;
+            return BuildConfigurationEnum.Local;
 #endif
         }
     }
     
-    public static bool IsDevelop => Config is BuildConfigurationEnum.Develop;
+    public static bool IsDevelop => Config is BuildConfigurationEnum.Develop or BuildConfigurationEnum.Local;
 
     public static bool IsRelease => Config is BuildConfigurationEnum.Release;
 }

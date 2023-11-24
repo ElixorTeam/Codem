@@ -2,7 +2,6 @@ using Mapster;
 using WebClient.Models;
 using Сodem.Shared.Dtos.File;
 using Сodem.Shared.Dtos.Snippet;
-using Сodem.Shared.Enums;
 
 namespace WebClient.Utils;
 

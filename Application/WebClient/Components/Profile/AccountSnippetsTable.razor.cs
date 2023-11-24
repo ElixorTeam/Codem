@@ -43,7 +43,7 @@ public sealed partial class AccountSnippetsTable: ComponentBase
             ExpireTime="1 week",
             Views=1400,
             Stars=100,
-            ProgramLanguage=@EnumHelper.GetEnumDescription(ProgrammingLanguage.Markdown)
+            ProgramLanguage=@EnumHelper.GetEnumDescription(snippet.Files.First().ProgrammingLanguage)
         };
     }
 }

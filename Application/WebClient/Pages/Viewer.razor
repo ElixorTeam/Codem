@@ -1,5 +1,4 @@
 @page "/c/{Id:guid}"
-@using Сodem.Shared.Enums
 
 <div
   class="flex w-full grid-cols-[1fr,300px] grid-rows-1 flex-col gap-2 px-4 pb-4 pt-2 sm:grid sm:flex-none lg:gap-4 lg:px-8"
@@ -18,10 +17,8 @@
     <SnippetInfo
       Author="Ap73MKa"
       Title="@SnippetModel.Title"
-      Access="Public"
-      Description="Cool turing machine"
-      ProgramLanguage="@EnumHelper.GetEnumDescription(ProgrammingLanguage.Markdown)"
-      Stars="140"
+      Access='@(SnippetModel.IsPrivate ? "Private" : "Public")'
+      ProgramLanguage="@EnumHelper.GetEnumDescription(SnippetModel.Files.First().Language)"
       Views="1400"
       CreateDate="DateOnly.FromDateTime(DateTime.Today)"
     />

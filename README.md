@@ -6,6 +6,8 @@
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
+![codem-banner](https://github.com/ElixorTeam/Codem/assets/45181349/7394419e-a6df-4001-9899-9d8a89b3eaa2)
+
 ## Description
 
 Codem is a code snippet sharing platform designed to facilitate easy and secure exchange of programming code among developers. With Codem, you can effortlessly share your code snippets, receive feedback, and collaborate with colleagues, streamlining the process of exchanging expertise and knowledge in the programming field. Its straightforward interface and user-friendly features make Codem an indispensable tool for efficient interaction within the developer community.

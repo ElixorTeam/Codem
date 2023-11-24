@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply flex min-h-screen flex-col w-full h-full;
+    @apply flex min-h-screen flex-col w-full h-full bg-slate-50 text-zinc-900 dark:bg-neutral-950 dark:text-white;
   }
 
   html {

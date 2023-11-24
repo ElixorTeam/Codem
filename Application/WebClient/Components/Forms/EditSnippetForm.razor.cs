@@ -91,6 +91,7 @@ public sealed partial class EditSnippetForm : ComponentBase
         {
             await SnippetController.DeleteSnippet(SnippetId);
             NavigationManager.NavigateTo(RouteUtils.Profile);
+            ToastService.ShowSuccess("Successfully deleted");
         }
         catch
         {

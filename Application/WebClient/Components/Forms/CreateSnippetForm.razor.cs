@@ -5,6 +5,7 @@ using Mapster;
 using Microsoft.AspNetCore.Components;
 using WebClient.Components.CodeEditor;
 using WebClient.Models;
+using WebClient.Utils;
 using Сodem.Shared.Dtos.File;
 using Сodem.Shared.Dtos.Snippet;
 
@@ -12,6 +13,7 @@ namespace WebClient.Components.Forms;
 
 public sealed partial class CreateSnippetForm : ComponentBase
 {
+    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     [Inject] private IToastService ToastService { get; set; } = null!;
     [Inject] private SnippetController SnippetController { get; set; } = null!;
     
@@ -65,7 +67,8 @@ public sealed partial class CreateSnippetForm : ComponentBase
     {
         try
         {
-            await SnippetController.CreateSnippet(snippetDto);
+            SnippetDto snippet = await SnippetController.CreateSnippet(snippetDto);
+            NavigationManager.NavigateTo($"{RouteUtils.Snippet}/{snippet.Id}");
             ToastService.ShowSuccess("Successfully added");
         }
         catch

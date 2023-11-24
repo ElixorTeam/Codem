@@ -41,9 +41,10 @@ public class SnippetController
         await _mediator.Send(new DeleteSnippetCommand(id));
     }
 
-    public async Task CreateSnippet(SnippetCreateDto snippet) 
+    public async Task<SnippetDto> CreateSnippet(SnippetCreateDto snippet) 
     { 
-        await _mediator.Send(new CreateSnippetCommand(snippet));
+        SnippetDto snippetDto = await _mediator.Send(new CreateSnippetCommand(snippet));
+        return snippetDto;
     }
     
     public async Task UpdateSnippet(SnippetDto snippet) 

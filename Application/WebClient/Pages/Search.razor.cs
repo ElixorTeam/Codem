@@ -1,5 +1,6 @@
 using System.Collections.Specialized;
 using System.Web;
+using Blazored.Toast.Services;
 using Codem.Api.Controllers;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
@@ -16,11 +17,16 @@ public sealed partial class Search : ComponentBase, IDisposable
     private List<SnippetDto> SnippetList { get; set; } = new();
 
     private string SearchQuery { get; set; } = string.Empty;
+    private int CurrentPage { get; set; } = 1;
+    private int TotalPages { get; set; } = 1;
+    private const int MaxItemsPerPage = 10;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
         await UpdateFilteredList();
+        TotalPages = (int)Math.Ceiling((double)SnippetList.Count / MaxItemsPerPage);
+        StateHasChanged();
     }
 
     protected override void OnInitialized()
@@ -60,6 +66,14 @@ public sealed partial class Search : ComponentBase, IDisposable
         if (!(string.IsNullOrEmpty(SearchQuery)))
             url = $"{url}?searchQuery={SearchQuery}";
         NavigationManager.NavigateTo(url);
+    }
+
+    private void ChangePage(int newPageOffset)
+    {
+        int newPage = CurrentPage + newPageOffset;
+        if (newPage < 1 || newPage > TotalPages) return;
+        CurrentPage = newPage;
+        StateHasChanged();
     }
 
     public void Dispose() => NavigationManager.LocationChanged -= HandleLocationChanged;

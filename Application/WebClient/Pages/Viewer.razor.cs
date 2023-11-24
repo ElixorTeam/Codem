@@ -17,11 +17,13 @@ public sealed partial class Viewer : ComponentBase
     private CodeSnippetModel? SnippetModel { get; set; }
     private CodeFileManager CodeFileManager { get; set; } = new();
     private bool IsLoading { get; set; } = true;
+    private bool IsBlockedByPassword { get; set; } = false;
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
         SnippetModel = (await GetSnippet()).Adapt<CodeSnippetModel>();
+        if (SnippetModel.IsPrivate) IsBlockedByPassword = true;
         CodeFileManager = new CodeFileManager(SnippetModel.Files);
         IsLoading = false;
         StateHasChanged();
@@ -38,5 +40,13 @@ public sealed partial class Viewer : ComponentBase
             NavigationManager.NavigateTo(@RouteUtils.Home);
             return new SnippetDto();
         }
+    }
+
+    private void RedirectToHome() => NavigationManager.NavigateTo(RouteUtils.Home);
+
+    private void UnblockSnippet()
+    {
+        IsBlockedByPassword = false;
+        StateHasChanged();
     }
 }

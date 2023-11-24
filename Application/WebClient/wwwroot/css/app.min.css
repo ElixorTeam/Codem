@@ -1124,20 +1124,16 @@ html {
   right: 0px;
 }
 
+.right-2 {
+  right: 0.5rem;
+}
+
 .top-0 {
   top: 0px;
 }
 
-.top-1\/2 {
-  top: 50%;
-}
-
 .top-1\/4 {
   top: 25%;
-}
-
-.right-2 {
-  right: 0.5rem;
 }
 
 .z-10 {
@@ -1195,6 +1191,10 @@ html {
   margin-left: 0.5rem;
 }
 
+.mr-1 {
+  margin-right: 0.25rem;
+}
+
 .mr-2 {
   margin-right: 0.5rem;
 }
@@ -1233,10 +1233,6 @@ html {
 
 .mt-\[2px\] {
   margin-top: 2px;
-}
-
-.mr-1 {
-  margin-right: 0.25rem;
 }
 
 .line-clamp-1 {
@@ -1656,10 +1652,6 @@ html {
 
 .gap-6 {
   gap: 1.5rem;
-}
-
-.gap-5 {
-  gap: 1.25rem;
 }
 
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {

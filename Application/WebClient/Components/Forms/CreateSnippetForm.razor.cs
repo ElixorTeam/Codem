@@ -52,7 +52,7 @@ public sealed partial class CreateSnippetForm : ComponentBase
         string password = Model.IsPrivate ? Model.Password : string.Empty;
         List<FileCreateDto> codeFiles = CodeFileManager.GetAllFiles().Adapt<List<FileCreateDto>>();
         
-        return new()
+        return new SnippetCreateDto
         {
             Title = title,
             IsPrivate = Model.IsPrivate,

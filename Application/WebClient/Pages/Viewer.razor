@@ -1,29 +1,44 @@
 @page "/c/{Id:guid}"
 
-<div
-  class="flex w-full grid-cols-[1fr,300px] grid-rows-1 flex-col gap-2 px-4 pb-4 pt-2 sm:grid sm:flex-none lg:gap-4 lg:px-8"
->
-  @if (IsLoading || SnippetModel == null)
-  {
-    <CodeEditorStub />
-  }
-  else
-  {
-    <CodeEditor
-      CodeFileManager="CodeFileManager"
-      IsReadOnly="true"
-      IsOwner="false"
+@if (IsBlockedByPassword && SnippetModel != null)
+{
+  <div class="flex grow w-full h-full justify-center mt-14 items-center">
+    <PasswordForm
+      CorrectPassword="@SnippetModel.Password"
+      CancelCallbackFunction="RedirectToHome"
+      SuccessCallbackFunction="UnblockSnippet"
     />
-    <SnippetInfo
-      Author="Ap73MKa"
-      Title="@SnippetModel.Title"
-      Access='@(SnippetModel.IsPrivate ? "Private" : "Public")'
-      ProgramLanguage="@EnumHelper.GetEnumDescription(SnippetModel.Files.First().Language)"
-      Views="1400"
-      CreateDate="DateOnly.FromDateTime(DateTime.Today)"
-    />
-  }
-</div>
+  </div>
+}
+else
+{
+  <div
+    class="flex h-full grow w-full grid-cols-[1fr,300px] grid-rows-1 flex-col gap-2 px-4 pb-4 pt-2 sm:grid lg:gap-4 lg:px-8"
+  >
+    @if (IsLoading || SnippetModel == null)
+    {
+      <CodeEditorStub />
+    }
+    else
+    {
+      <CodeEditor
+        CodeFileManager="CodeFileManager"
+        IsReadOnly="true"
+        IsOwner="false"
+      />
+      <SnippetInfo
+        Author="Ap73MKa"
+        Title="@SnippetModel.Title"
+        Access='@(SnippetModel.IsPrivate ? "Private" : "Public")'
+        ProgramLanguage="@EnumHelper.GetEnumDescription(SnippetModel.Files.First().Language)"
+        Views="1400"
+        CreateDate="DateOnly.FromDateTime(DateTime.Today)"
+      />
+    }
+  </div>
+}
+
+
 
 @* @if (!IsLoading) *@
 @* { *@

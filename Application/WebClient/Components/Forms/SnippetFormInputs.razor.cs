@@ -14,9 +14,10 @@ public sealed partial class SnippetFormInputs
 
     private void SwitchPasswordVisibility() => IsPasswordVisible = !IsPasswordVisible;
     
-    private void HandleVisibilityChangeClearPassword()
+    private void HandleVisibilityChange()
     {
-        if (Model.Visibility != SnippetVisibilityEnum.ByLink & !string.IsNullOrEmpty(Model.Password))
-            Model.Password = string.Empty;
+        if (!(Model.Visibility != SnippetVisibilityEnum.ByLink & !string.IsNullOrEmpty(Model.Password))) return;
+        Model.Password = string.Empty;
+        IsPasswordVisible = false;
     }
 }

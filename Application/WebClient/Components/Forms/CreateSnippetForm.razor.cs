@@ -66,6 +66,20 @@ public sealed partial class CreateSnippetForm : ComponentBase
     
     private async Task CreateAndHandleSnippet(SnippetCreateDto snippetDto)
     {
+        bool allDataEmpty = CodeFileManager.GetAllFiles().All(file => string.IsNullOrEmpty(file.Text));
+
+        if (allDataEmpty)
+        {
+            ToastService.ShowError("Snippet's files are empty");
+            return;
+        }
+
+        if (Model.Visibility == SnippetVisibilityEnum.ByLink && string.IsNullOrEmpty(Model.Password))
+        {
+            ToastService.ShowError("This type of snippet requires password");
+            return;
+        }
+        
         try
         {
             SnippetDto snippet = await SnippetController.CreateSnippet(snippetDto);

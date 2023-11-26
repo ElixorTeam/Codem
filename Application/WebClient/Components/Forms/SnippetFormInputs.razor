@@ -29,7 +29,9 @@
   <label for="visibility" class="text-sm">Visibility</label>
   <select
     id="visibility"
-    @bind="Model.Visibility"
+    @bind-value="@Model.Visibility"
+    @bind-value:event="oninput"
+    @onchange="@HandleVisibilityChange"
     class="mt-1 p-0 h-8 w-full rounded-md border bg-white border-black/[.2] px-2 pr-10 text-sm focus:ring-0 focus:border-black/[.2] dark:bg-neutral-950 dark:border-white/[.15] dark:focus:border-white/[.15] dark:placeholder-neutral-950">
     @foreach (SnippetVisibilityEnum visibility in VisibilityList)
     {
@@ -50,6 +52,7 @@
     />
     <button
       type="button"
+      disabled="@(Model.Visibility != SnippetVisibilityEnum.ByLink)"
       @onclick="SwitchPasswordVisibility"
       class="absolute right-2 top-1/4"
     >

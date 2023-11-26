@@ -35,7 +35,7 @@ public sealed partial class Search : ComponentBase, IDisposable
     private async Task UpdateFilteredList()
     {
         SearchQuery = GetSearchQuery();
-        SnippetList = await SnippetController.GetSnippetListByName(SearchQuery);
+        SnippetList = await SnippetController.GetSnippetPublicListByName(SearchQuery);
         TotalPages = (int)Math.Ceiling((double)SnippetList.Count / MaxItemsPerPage);
         StateHasChanged();
     }

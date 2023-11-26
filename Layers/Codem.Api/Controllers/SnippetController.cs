@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Codem.Application.SnippetActions.Queries.GetSnippetsPublic;
+using MediatR;
 using Сodem.Shared.Dtos.Snippet;
 
 namespace Codem.Api.Controllers;
@@ -20,15 +21,15 @@ public class SnippetController
         return dto;
     }
     
-    public async Task<List<SnippetDto>> GetSnippetListByName(string name)
+    public async Task<List<SnippetDto>> GetSnippetPublicListByName(string name)
     {
-        List<SnippetDto> snippetDto = await _mediator.Send(new GetSnippetListByNameQuery(name));
+        List<SnippetDto> snippetDto = await _mediator.Send(new GetSnippetPublicListByNameQuery(name));
         return snippetDto;
     }
     
-    public async Task<List<SnippetDto>> GetSnippetListPublicAll()
+    public async Task<List<SnippetDto>> GetSnippetPublicList()
     {
-        List<SnippetDto> snippetDtos = await _mediator.Send(new GetSnippetListPublicAllQuery());
+        List<SnippetDto> snippetDtos = await _mediator.Send(new GetSnippetPublicListQuery());
         return snippetDtos;
     }
     

@@ -36,7 +36,7 @@ public sealed partial class AccountSnippetsTable: ComponentBase
 
     private async Task GetAllUserSnippets()
     {
-        SnippetsList = await SnippetController.GetSnippetListPublicAll();
+        SnippetsList = await SnippetController.GetSnippetPublicList();
         StateHasChanged();
     }
     

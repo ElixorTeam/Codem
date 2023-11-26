@@ -21,7 +21,7 @@ public class UIMapsterTests : IClassFixture<MapsterFixture>
     [Fact]
     public void Map_CodeFile_To_FileDto()
     {
-        CodeFileModel codeFileModel = new CodeFileModel
+        CodeFileModel codeFileModel = new()
         {
             Text = "Hello World",
             Title = "test_file",
@@ -38,7 +38,7 @@ public class UIMapsterTests : IClassFixture<MapsterFixture>
     [Fact]
     public void Map_CodeFile_To_FileCreateDto()
     {
-        CodeFileModel codeFileModel = new CodeFileModel
+        CodeFileModel codeFileModel = new()
         {
             Text = "Hello World",
             Title = "test_file",
@@ -54,7 +54,7 @@ public class UIMapsterTests : IClassFixture<MapsterFixture>
     [Fact]
     public void Map_FileDto_To_CodeFile()
     {
-        FileDto fileDto = new FileDto
+        FileDto fileDto = new()
         {
             Id = Guid.NewGuid(),
             Name = "Test File",
@@ -72,25 +72,25 @@ public class UIMapsterTests : IClassFixture<MapsterFixture>
     [Fact]
     public void Map_CodeSnippet_To_SnippetDto()
     {
-        CodeFileModel codeFileModel = new CodeFileModel
+        CodeFileModel codeFileModel = new()
         {
             Title = "test_file",
             Text = "Test content"
         };
 
-        CodeSnippetModel codeSnippetModel = new CodeSnippetModel
+        CodeSnippetModel codeSnippetModel = new()
         {
             Title = "Test Snippet",
-            IsPrivate = true,
+            Visibility = SnippetVisibilityEnum.Private,
             Password = "123",
-            Files = new List<CodeFileModel> { codeFileModel }
+            Files = new() { codeFileModel }
         };
 
         SnippetDto snippetDto = codeSnippetModel.Adapt<SnippetDto>();
 
         Assert.NotEqual(Guid.Empty, snippetDto.Id);
         Assert.Equal(codeSnippetModel.Title, snippetDto.Title);
-        Assert.Equal(codeSnippetModel.IsPrivate, snippetDto.IsPrivate);
+        Assert.Equal(codeSnippetModel.Visibility, snippetDto.Visibility);
         Assert.Equal(codeSnippetModel.Password, snippetDto.Password);
         Assert.Single(snippetDto.Files);
     }
@@ -98,24 +98,24 @@ public class UIMapsterTests : IClassFixture<MapsterFixture>
     [Fact]
     public void Map_CodeSnippet_To_SnippetCreateDto()
     {
-        CodeFileModel codeFileModel = new CodeFileModel
+        CodeFileModel codeFileModel = new()
         {
             Title = "test_file",
             Text = "Test content"
         };
         
-        CodeSnippetModel codeSnippetModel = new CodeSnippetModel
+        CodeSnippetModel codeSnippetModel = new()
         {
             Title = "Test Snippet",
-            IsPrivate = true,
+            Visibility = SnippetVisibilityEnum.Public,
             Password = "123",
-            Files = new List<CodeFileModel> { codeFileModel }
+            Files = new() { codeFileModel }
         };
 
         SnippetCreateDto snippetCreateDto = codeSnippetModel.Adapt<SnippetCreateDto>();
 
         Assert.Equal(codeSnippetModel.Title, snippetCreateDto.Title);
-        Assert.Equal(codeSnippetModel.IsPrivate, snippetCreateDto.IsPrivate);
+        Assert.Equal(codeSnippetModel.Visibility, snippetCreateDto.Visibility);
         Assert.Equal(codeSnippetModel.Password, snippetCreateDto.Password);
         Assert.Single(snippetCreateDto.Files);
     }
@@ -123,25 +123,25 @@ public class UIMapsterTests : IClassFixture<MapsterFixture>
     [Fact]
     public void Map_SnippetDto_To_CodeSnippet()
     {
-        FileDto fileDto = new FileDto
+        FileDto fileDto = new()
         {
             Id = Guid.NewGuid(),
             Name = "test_file",
             Data = "Test content"
         };
 
-        SnippetDto snippetDto = new SnippetDto
+        SnippetDto snippetDto = new()
         {
             Title = "Test Snippet",
-            IsPrivate = true,
+            Visibility = SnippetVisibilityEnum.Public,
             Password = "123",
-            Files = new List<FileDto> {fileDto}
+            Files = new() {fileDto}
         };
 
         CodeSnippetModel codeSnippetModel = snippetDto.Adapt<CodeSnippetModel>();
 
         Assert.Equal(snippetDto.Title, codeSnippetModel.Title);
-        Assert.Equal(snippetDto.IsPrivate, codeSnippetModel.IsPrivate);
+        Assert.Equal(snippetDto.Visibility, codeSnippetModel.Visibility);
         Assert.Equal(snippetDto.Password, codeSnippetModel.Password);
         Assert.Equal(SnippetExpiration.OneWeek, codeSnippetModel.ExpireTime);
         Assert.Single(codeSnippetModel.Files);

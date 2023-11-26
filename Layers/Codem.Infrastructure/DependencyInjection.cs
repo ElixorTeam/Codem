@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using Codem.Infrastructure.Common;
-using Codem.Infrastructure.Models;
+﻿using Codem.Infrastructure.Models;
 using Codem.Infrastructure.Uow;
 using Mapster;
 using Microsoft.Extensions.Configuration;
@@ -43,6 +41,7 @@ public static class DependencyInjection
         sqlConfiguration.GetSection("SqlSettings").Bind(sqlSettings);
         return sqlSettings;
     }
+    
     private static Configuration LoadSqlConfig(SqlSettings settings)
     {
         Configuration configuration = new();

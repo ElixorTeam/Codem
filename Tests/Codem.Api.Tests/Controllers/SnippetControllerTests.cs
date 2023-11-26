@@ -37,7 +37,7 @@ public class SnippetControllerTests : IClassFixture<MediatorFixture>
     {
         const string name = "Test";
 
-        List<SnippetDto> dtos = await _controller.GetSnippetListByName(name);
+        List<SnippetDto> dtos = await _controller.GetSnippetPublicListByName(name);
 
         Assert.NotEmpty(dtos);
     }

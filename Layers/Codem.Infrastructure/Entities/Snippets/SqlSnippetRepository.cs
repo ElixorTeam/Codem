@@ -20,10 +20,13 @@ public class SqlSnippetRepository : ISnippetRepository
         return sqlSnippet.Adapt<Snippet>();
     }
 
-    public IEnumerable<Snippet> FindListByTitle(string title)
+    public IEnumerable<Snippet> FindPublicListByTitle(string title)
     {
         ICriteria criteria = _session.CreateCriteria<SqlSnippetEntity>();
+        
         criteria.Add(Restrictions.InsensitiveLike(nameof(SqlSnippetEntity.Title), title, MatchMode.Anywhere));
+        criteria.Add(Restrictions.Eq(nameof(SqlSnippetEntity.Visibility), SnippetVisibilityEnum.Public));
+        
         List<SqlSnippetEntity> list = criteria.List<SqlSnippetEntity>().ToList();
         return list.Adapt<List<Snippet>>();
     }
@@ -31,8 +34,10 @@ public class SqlSnippetRepository : ISnippetRepository
     public IEnumerable<Snippet> GetAllPublic()
     {
         ICriteria criteria = _session.CreateCriteria<SqlSnippetEntity>();
+        
         criteria.Add(Restrictions.Eq(nameof(SqlSnippetEntity.Visibility), SnippetVisibilityEnum.Public));
         List<SqlSnippetEntity> list = criteria.List<SqlSnippetEntity>().ToList();
+        
         return list.Adapt<List<Snippet>>();
     }
     

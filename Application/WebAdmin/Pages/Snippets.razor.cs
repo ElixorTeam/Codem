@@ -17,6 +17,6 @@ public sealed partial class Snippets : ComponentBase
     }
     
     private async Task GetAllUserSnippets() =>
-        SnippetsList = await SnippetController.GetSnippetListAll();
+        SnippetsList = await SnippetController.GetSnippetListPublicAll();
     
 }

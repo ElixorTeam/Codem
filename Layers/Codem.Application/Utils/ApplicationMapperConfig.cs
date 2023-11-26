@@ -5,7 +5,6 @@ using Mapster;
 namespace Codem.Application.Utils;
 
 
-// TODO: fix mapster
 public class ApplicationMapperConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)

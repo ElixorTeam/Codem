@@ -9,6 +9,7 @@
       type="text"
       id="title"
       @bind="Model.Title"
+      maxlength="64"
       class="h-8 w-full rounded-md border bg-white border-black/[.2] px-2 text-sm focus:ring-0 focus:border-black/[.2] dark:bg-transparent dark:border-white/[.15] dark:focus:border-white/[.15] dark:placeholder:text-neutral-500"
       placeholder="Untitled snippet..."/>
   </div>
@@ -47,6 +48,7 @@
       id="password"
       disabled="@(Model.Visibility != SnippetVisibilityEnum.ByLink)"
       @bind="Model.Password"
+      maxlength="24"
       class="h-8 w-full rounded-md border bg-white border-black/[.2] pl-2 pr-8 text-sm disabled:bg-slate-100 focus:ring-0 focus:border-black/[.2] dark:bg-transparent dark:border-white/[.15] dark:focus:border-white/[.15] dark:disabled:bg-neutral-900 dark:placeholder:text-neutral-500"
       placeholder="Password..."
     />

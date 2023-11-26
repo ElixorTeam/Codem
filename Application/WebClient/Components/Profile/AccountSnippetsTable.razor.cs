@@ -36,7 +36,7 @@ public sealed partial class AccountSnippetsTable: ComponentBase
 
     private async Task GetAllUserSnippets()
     {
-        SnippetsList = await SnippetController.GetSnippetListAll();
+        SnippetsList = await SnippetController.GetSnippetListPublicAll();
         StateHasChanged();
     }
     
@@ -50,7 +50,7 @@ public sealed partial class AccountSnippetsTable: ComponentBase
 
     private static SnippetTableModel ConvertModel(SnippetDto snippet)
     {
-        return new SnippetTableModel
+        return new()
         {
             Id=snippet.Id,
             Title=snippet.Title,

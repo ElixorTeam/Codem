@@ -1,6 +1,7 @@
 ﻿using Codem.Domain.Aggregates.SnippetAggregate;
 using Mapster;
 using NHibernate.Criterion;
+using Сodem.Shared.Enums;
 
 namespace Codem.Infrastructure.Entities.Snippets;
 
@@ -27,9 +28,11 @@ public class SqlSnippetRepository : ISnippetRepository
         return list.Adapt<List<Snippet>>();
     }
     
-    public IEnumerable<Snippet> GetAll()
+    public IEnumerable<Snippet> GetAllPublic()
     {
-        List<SqlSnippetEntity> list = _session.Query<SqlSnippetEntity>().ToList();
+        ICriteria criteria = _session.CreateCriteria<SqlSnippetEntity>();
+        criteria.Add(Restrictions.Eq(nameof(SqlSnippetEntity.Visibility), SnippetVisibilityEnum.Public));
+        List<SqlSnippetEntity> list = criteria.List<SqlSnippetEntity>().ToList();
         return list.Adapt<List<Snippet>>();
     }
     

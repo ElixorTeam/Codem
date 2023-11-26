@@ -26,9 +26,9 @@ public class SnippetController
         return snippetDto;
     }
     
-    public async Task<List<SnippetDto>> GetSnippetListAll()
+    public async Task<List<SnippetDto>> GetSnippetListPublicAll()
     {
-        List<SnippetDto> snippetDtos = await _mediator.Send(new GetSnippetListAllQuery());
+        List<SnippetDto> snippetDtos = await _mediator.Send(new GetSnippetListPublicAllQuery());
         return snippetDtos;
     }
     

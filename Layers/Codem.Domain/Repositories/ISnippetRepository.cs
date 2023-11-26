@@ -7,7 +7,7 @@ public interface ISnippetRepository : IRepository<Snippet>
 {
     #region Read
 
-    public IEnumerable<Snippet> GetAll();
+    public IEnumerable<Snippet> GetAllPublic();
     public IEnumerable<Snippet> FindListByTitle(string title);
     
     #endregion

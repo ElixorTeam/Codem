@@ -1,4 +1,7 @@
-﻿namespace Codem.Infrastructure.Entities.Snippets;
+﻿using NHibernate.Type;
+using Сodem.Shared.Enums;
+
+namespace Codem.Infrastructure.Entities.Snippets;
 
 public class SqlSnippetMap : ClassMapping<SqlSnippetEntity>
 {
@@ -33,6 +36,15 @@ public class SqlSnippetMap : ClassMapping<SqlSnippetEntity>
             m.Column("TITLE");
             m.Type(NHibernateUtil.String);
             m.Length(30);
+            m.NotNullable(true);
+        });
+        
+        Property(x => x.Visibility, m =>
+        {
+            m.Column("VISIBILITY");
+            m.NotNullable(true);
+            m.Type<EnumStringType<SnippetVisibilityEnum>>();
+            m.Length(8);
             m.NotNullable(true);
         });
         

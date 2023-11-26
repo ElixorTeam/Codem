@@ -1,5 +1,4 @@
 using Codem.Domain.Aggregates.SnippetAggregate;
-using Codem.Domain.Enums;
 using Codem.Domain.ValueTypes;
 using Mapster;
 
@@ -31,8 +30,7 @@ public class InfraMapperConfig : IRegister
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.Password,
                 src => src.Password != null ? src.Password.Value : string.Empty)
-            .Map(dest => dest.IsVisible,
-            src => src.Visibility == SnippetVisibilityEnum.Public)
+            .Map(dest => dest.Visibility, src=>src.Visibility)
             .Map(dest => dest.Files, src => src.Files.Adapt<List<SqlFileEntity>>())
             .AfterMapping((_, dest) => 
         {
@@ -45,8 +43,7 @@ public class InfraMapperConfig : IRegister
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.Password, 
                 src => string.IsNullOrEmpty(src.Password) ? null : new Password(src.Password))
-            .Map(dest => dest.Visibility, 
-                src => src.IsVisible ? SnippetVisibilityEnum.Public : SnippetVisibilityEnum.Private)
+            .Map(dest => dest.Visibility, src=>src.Visibility)
             .Map(dest => dest.Files, src => src.Files.Adapt<List<SnippetFile>>());
     }
 }

@@ -1,7 +1,7 @@
 using Codem.Domain.Common;
-using Codem.Domain.Enums;
 using Codem.Domain.Exceptions;
 using Codem.Domain.ValueTypes;
+using Сodem.Shared.Enums;
 
 namespace Codem.Domain.Aggregates.SnippetAggregate;
 

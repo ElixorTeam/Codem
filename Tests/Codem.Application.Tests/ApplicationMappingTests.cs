@@ -1,9 +1,9 @@
 using System.Reflection;
 using Codem.Application.Utils;
 using Codem.Domain.Aggregates.SnippetAggregate;
-using Codem.Domain.Enums;
 using Mapster;
 using Сodem.Shared.Dtos.Snippet;
+using Сodem.Shared.Enums;
 
 namespace Codem.Application.Tests;
 

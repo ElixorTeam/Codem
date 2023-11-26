@@ -1,10 +1,10 @@
 using System.Reflection;
 using Codem.Domain.Aggregates.SnippetAggregate;
-using Codem.Domain.Enums;
 using Codem.Infrastructure.Entities.Files;
 using Codem.Infrastructure.Entities.Snippets;
 using Codem.Infrastructure.Utils;
 using Mapster;
+using Сodem.Shared.Enums;
 
 namespace Codem.Infrastructure.Tests;
 
@@ -55,7 +55,7 @@ public class InfrastructureMappingTests: IClassFixture<MapsterFixture>
         Assert.Equal(snippet.Id, sqlSnippetEntity.Id);
         Assert.Equal(snippet.Title, sqlSnippetEntity.Title);
         Assert.Equal(string.Empty, sqlSnippetEntity.Password);
-        Assert.True(sqlSnippetEntity.IsVisible);
+        Assert.Equal(SnippetVisibilityEnum.Public, sqlSnippetEntity.Visibility);
         Assert.Single(sqlSnippetEntity.Files);
         Assert.Equal(sqlSnippetEntity, sqlSnippetEntity.Files.First().Snippet);
     }
@@ -69,7 +69,7 @@ public class InfrastructureMappingTests: IClassFixture<MapsterFixture>
 
         Assert.Equal(sqlSnippetEntity.Id, snippet.Id);
         Assert.Equal(sqlSnippetEntity.Title, snippet.Title);
-        Assert.Equal(SnippetVisibilityEnum.Private, snippet.Visibility);
+        Assert.Equal(SnippetVisibilityEnum.Public, snippet.Visibility);
         Assert.Null(snippet.Password);
         Assert.Empty(snippet.Files);
     }

@@ -73,12 +73,6 @@ public sealed partial class CreateSnippetForm : ComponentBase
             ToastService.ShowError("Snippet's files are empty");
             return;
         }
-
-        if (Model.Visibility == SnippetVisibilityEnum.ByLink && string.IsNullOrEmpty(Model.Password))
-        {
-            ToastService.ShowError("This type of snippet requires password");
-            return;
-        }
         
         try
         {

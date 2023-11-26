@@ -40,7 +40,7 @@ public class InfraMapperConfig : IRegister
             .Map(dest => dest.Visibility, src=>src.Visibility)
             .AfterMapping((src, dest) => 
             {
-                dest.Password = src.Password != string.Empty ? new Password(src.Password) : null;
+                dest.Password = !string.IsNullOrEmpty(src.Password) ? new Password(src.Password) : null;
             })
             .Map(dest => dest.Files, src => src.Files.Adapt<List<SnippetFile>>());
     }

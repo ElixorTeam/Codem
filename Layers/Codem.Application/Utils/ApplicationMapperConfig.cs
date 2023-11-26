@@ -16,7 +16,7 @@ public class ApplicationMapperConfig : IRegister
             .Map(dest => dest.Visibility, src=>src.Visibility)
             .AfterMapping((src, dest) => 
             {
-                dest.Password = src.Password != null ? new Password(src.Password) : null;
+                dest.Password = !string.IsNullOrEmpty(src.Password) ? new Password(src.Password) : null;
             })
             .Map(dest => dest.Files, src => src.Files.Adapt<IEnumerable<SnippetFile>>());
         
@@ -26,7 +26,7 @@ public class ApplicationMapperConfig : IRegister
             .Map(dest => dest.Visibility, src=>src.Visibility)
             .AfterMapping((src, dest) => 
             {
-                dest.Password = src.Password != null ? new Password(src.Password) : null;
+                dest.Password = !string.IsNullOrEmpty(src.Password) ? new Password(src.Password) : null;
             })
             .Map(dest => dest.Files, src => src.Files.Adapt<IEnumerable<SnippetFile>>());
     }

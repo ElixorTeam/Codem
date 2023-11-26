@@ -23,8 +23,9 @@ public sealed partial class Viewer : ComponentBase
     {
         if (!firstRender) return;
         SnippetModel = (await GetSnippet()).Adapt<CodeSnippetModel>();
-        if (SnippetModel.Visibility == SnippetVisibilityEnum.ByLink) IsBlockedByPassword = true;
-        CodeFileManager = new CodeFileManager(SnippetModel.Files);
+        IsBlockedByPassword = SnippetModel.Visibility == SnippetVisibilityEnum.ByLink 
+                              && !string.IsNullOrEmpty(SnippetModel.Password);
+        CodeFileManager = new(SnippetModel.Files);
         IsLoading = false;
         StateHasChanged();
     }

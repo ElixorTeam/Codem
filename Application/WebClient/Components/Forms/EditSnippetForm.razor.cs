@@ -8,6 +8,7 @@ using WebClient.Models;
 using WebClient.Utils;
 using Сodem.Shared.Dtos.File;
 using Сodem.Shared.Dtos.Snippet;
+using Сodem.Shared.Enums;
 
 namespace WebClient.Components.Forms;
 
@@ -59,13 +60,13 @@ public sealed partial class EditSnippetForm : ComponentBase
     {
         // DateTime finalDate = DateTime.Now.Add(Model.ExpireTime.ToTimeSpan());
         string title = string.IsNullOrEmpty(Model.Title) ? "Untitled snippet" : Model.Title;
-        string password = Model.IsPrivate ? Model.Password : string.Empty;
+        string password = Model.Visibility == SnippetVisibilityEnum.ByLink ? Model.Password : string.Empty;
         List<FileDto> codeFiles = CodeFileManager.GetAllFiles().Adapt<List<FileDto>>();
         
         return new SnippetDto
         {
             Title = title,
-            IsPrivate = Model.IsPrivate,
+            Visibility = Model.Visibility,
             Password = password,
             Files = codeFiles,
         };

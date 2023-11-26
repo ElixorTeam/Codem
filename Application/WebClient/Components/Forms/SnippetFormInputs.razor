@@ -1,5 +1,6 @@
 @using WebClient.Models
 @using Blazor.Heroicons
+@using Сodem.Shared.Enums
 
 <div>
   <label for="title" class="text-sm">Name</label>
@@ -25,12 +26,24 @@
   </select>
 </div>
 <div>
+  <label for="visibility" class="text-sm">Visibility</label>
+  <select
+    id="visibility"
+    @bind="Model.Visibility"
+    class="mt-1 p-0 h-8 w-full rounded-md border bg-white border-black/[.2] px-2 pr-10 text-sm focus:ring-0 focus:border-black/[.2] dark:bg-neutral-950 dark:border-white/[.15] dark:focus:border-white/[.15] dark:placeholder-neutral-950">
+    @foreach (SnippetVisibilityEnum visibility in VisibilityList)
+    {
+      <option value="@visibility">@EnumHelper.GetEnumDescription(visibility)</option>
+    }
+  </select>
+</div>
+<div>
   <label for="password" class="text-sm">Password</label>
   <div class="relative mt-1 w-full">
     <input
       type="@(IsPasswordVisible ? "text" : "password")"
       id="password"
-      disabled="@(!Model.IsPrivate)"
+      disabled="@(Model.Visibility != SnippetVisibilityEnum.ByLink)"
       @bind="Model.Password"
       class="h-8 w-full rounded-md border bg-white border-black/[.2] pl-2 pr-8 text-sm disabled:bg-slate-100 focus:ring-0 focus:border-black/[.2] dark:bg-transparent dark:border-white/[.15] dark:focus:border-white/[.15] dark:disabled:bg-neutral-900 dark:placeholder:text-neutral-500"
       placeholder="Password..."
@@ -48,20 +61,20 @@
     </button>
   </div>
 </div>
-<div class="mt-2 flex items-start">
-  <div class="flex h-5 items-center">
-    <input
-      id="is-private"
-      aria-describedby="comments-description"
-      name="is-private"
-      type="checkbox"
-      @bind="Model.IsPrivate"
-      @oninput="HandleIsPrivateChange"
-      class="h-4 w-4 rounded border-black/[.2] bg-white border text-sky-400 focus:ring-0 focus:ring-offset-0 dark:bg-transparent dark:border-white/[.15]"/>
-  </div>
-  <div class="ml-2 text-sm">
-    <label for="is-private" class="font-medium text-gray-700 dark:text-neutral-300">
-      Private
-    </label>
-  </div>
-</div>
+@* <div class="mt-2 flex items-start"> *@
+@*   <div class="flex h-5 items-center"> *@
+@*     <input *@
+@*       id="is-private" *@
+@*       aria-describedby="comments-description" *@
+@*       name="is-private" *@
+@*       type="checkbox" *@
+@*       @bind="Model.IsPrivate" *@
+@*       @oninput="HandleIsPrivateChange" *@
+@*       class="h-4 w-4 rounded border-black/[.2] bg-white border text-sky-400 focus:ring-0 focus:ring-offset-0 dark:bg-transparent dark:border-white/[.15]"/> *@
+@*   </div> *@
+@*   <div class="ml-2 text-sm"> *@
+@*     <label for="is-private" class="font-medium text-gray-700 dark:text-neutral-300"> *@
+@*       Private *@
+@*     </label> *@
+@*   </div> *@
+@* </div> *@

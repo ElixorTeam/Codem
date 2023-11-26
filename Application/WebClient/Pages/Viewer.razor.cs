@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Components;
 using WebClient.Components.CodeEditor;
 using WebClient.Models;
 using WebClient.Utils;
-using Сodem.Shared.Dtos.File;
 using Сodem.Shared.Dtos.Snippet;
+using Сodem.Shared.Enums;
 
 namespace WebClient.Pages;
 
@@ -17,13 +17,13 @@ public sealed partial class Viewer : ComponentBase
     private CodeSnippetModel? SnippetModel { get; set; }
     private CodeFileManager CodeFileManager { get; set; } = new();
     private bool IsLoading { get; set; } = true;
-    private bool IsBlockedByPassword { get; set; } = false;
+    private bool IsBlockedByPassword { get; set; }
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
         SnippetModel = (await GetSnippet()).Adapt<CodeSnippetModel>();
-        if (SnippetModel.IsPrivate) IsBlockedByPassword = true;
+        if (SnippetModel.Visibility == SnippetVisibilityEnum.ByLink) IsBlockedByPassword = true;
         CodeFileManager = new CodeFileManager(SnippetModel.Files);
         IsLoading = false;
         StateHasChanged();

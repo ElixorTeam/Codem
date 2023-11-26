@@ -29,7 +29,7 @@ else
       <SnippetInfo
         Author="Ap73MKa"
         Title="@SnippetModel.Title"
-        Access='@(SnippetModel.IsPrivate ? "Private" : "Public")'
+        Access="@EnumHelper.GetEnumDescription(SnippetModel.Visibility)"
         ProgramLanguage="@EnumHelper.GetEnumDescription(SnippetModel.Files.First().Language)"
         Views="1400"
         CreateDate="DateOnly.FromDateTime(DateTime.Today)"
@@ -37,8 +37,6 @@ else
     }
   </div>
 }
-
-
 
 @* @if (!IsLoading) *@
 @* { *@

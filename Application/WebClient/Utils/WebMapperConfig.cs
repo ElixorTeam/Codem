@@ -29,19 +29,19 @@ public class WebMapperConfig : IRegister
         config.ForType<CodeSnippetModel, SnippetDto>()
             .Map(dest => dest.Id, src => Guid.NewGuid())
             .Map(dest => dest.Title, src => src.Title)
-            .Map(dest => dest.IsPrivate, src => src.IsPrivate)
+            .Map(dest => dest.Visibility, src => src.Visibility)
             .Map(dest => dest.Password, src => string.IsNullOrEmpty(src.Password) ? null : src.Password)
             .Map(dest => dest.Files, src => ConvertToFileDto(src.Files));
         
         config.ForType<CodeSnippetModel, SnippetCreateDto>()
             .Map(dest => dest.Title, src => src.Title)
-            .Map(dest => dest.IsPrivate, src => src.IsPrivate)
+            .Map(dest => dest.Visibility, src => src.Visibility)
             .Map(dest => dest.Password, src => string.IsNullOrEmpty(src.Password) ? null : src.Password)
             .Map(dest => dest.Files, src => ConvertToFileCreateDto(src.Files));
 
         config.ForType<SnippetDto, CodeSnippetModel>()
             .Map(dest => dest.Title, src => src.Title)
-            .Map(dest => dest.IsPrivate, src => src.IsPrivate)
+            .Map(dest => dest.Visibility, src => src.Visibility)
             .Map(dest => dest.Password, src => src.Password)
             .Map(dest => dest.Files, src => ConvertToFileModel(src.Files));
     }

@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace WebClient.Models;
+namespace Сodem.Shared.Enums;
 
 public enum SnippetExpiration
 {

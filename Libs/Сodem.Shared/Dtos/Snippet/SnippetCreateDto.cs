@@ -1,11 +1,12 @@
 using Сodem.Shared.Dtos.File;
+using Сodem.Shared.Enums;
 
 namespace Сodem.Shared.Dtos.Snippet;
 
 public class SnippetCreateDto
 { 
     public string Title { get; set; }
-    public bool IsPrivate { get; set; }
+    public SnippetVisibilityEnum Visibility { get; set; }
     public string? Password { get; set; }
     
     public List<FileCreateDto> Files { get; set; }
@@ -13,7 +14,7 @@ public class SnippetCreateDto
     public SnippetCreateDto()
     {
         Title = string.Empty;
-        IsPrivate = false;
+        Visibility = SnippetVisibilityEnum.Public;
         Password = null;
         Files = new();
     }

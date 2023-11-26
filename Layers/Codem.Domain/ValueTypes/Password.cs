@@ -6,7 +6,7 @@ namespace Codem.Domain.ValueTypes;
 
 public partial class Password : IValueType<Password>
 {
-    [GeneratedRegex("^.{4,32}$")]
+    [GeneratedRegex("^.{4,24}$")]
     private static partial Regex PasswordRegex();
     public string Value { get; init; }
 

@@ -1,0 +1,22 @@
+@using Сodem.Shared.Dtos.Snippet
+
+@page "/snippets"
+
+<div class="snippets-table__container">
+  <RadzenDataGrid Data="SnippetsList" TItem="SnippetDto">
+    <Columns>
+      <RadzenDataGridColumn
+          Title="ID"
+          TItem="SnippetDto"
+          Property="Id"
+          Width="30%"
+        />
+        <RadzenDataGridColumn
+          Title="Name"
+          TItem="SnippetDto"
+          Property="Title"
+          Width="70%"
+        />
+    </Columns>
+  </RadzenDataGrid>
+</div>

@@ -12,7 +12,7 @@ public sealed class CodeSnippetModel
 
     public bool IsPrivate { get; set; }
 
-    [RegularExpression(@"^.{4,32}$", ErrorMessage = "Password must be between 4 and 32 characters")]
+    [RegularExpression("^.{4,32}$", ErrorMessage = "Password must be between 4 and 32 characters")]
     public string Password { get; set; } = string.Empty;
     
     public List<CodeFileModel> Files { get; set; } = new();

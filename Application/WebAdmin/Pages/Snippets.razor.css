@@ -1,0 +1,5 @@
+.snippets-table__container {
+  overflow: hidden;
+  width: 100%;
+  border-radius: 0.5rem;
+}

@@ -24,4 +24,9 @@
     <PackageReference Include="Radzen.Blazor" Version="4.21.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Layers\Codem.Api\Codem.Api.csproj" />
+    <ProjectReference Include="..\..\Libs\Сodem.Shared\Сodem.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,10 @@
+using Codem.Api;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddApi();
 
 WebApplication app = builder.Build();
 

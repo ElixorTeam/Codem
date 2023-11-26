@@ -28,28 +28,4 @@ public class Snippet : IEntity
         }
         Files = Files.Append(snippetFile).ToList();
     }
-    
-    public void DeleteFile(SnippetFile snippetFile)
-    {
-        Files = Files.Where(f => f.Name != snippetFile.Name).ToList();
-    }
-    
-    public void ChangePassword(Password password)
-    {
-        if (Visibility is SnippetVisibilityEnum.Public)
-            throw new PasswordCanNotBeSetException("Password can't be set, snippet is public");
-        Password = password;
-    }
-    
-    public void ChangeVisibility(SnippetVisibilityEnum visibility)
-    {
-        Visibility = visibility;
-        if (Visibility is SnippetVisibilityEnum.Public) 
-            Password = null;
-    }
-
-    public Snippet Copy()
-    {
-        throw new NotImplementedException();
-    }
 }

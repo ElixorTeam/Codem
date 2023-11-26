@@ -48,7 +48,7 @@ public class InfrastructureMappingTests: IClassFixture<MapsterFixture>
     public void Map_Snippet_To_SqlSnippetEntity()
     {
         Snippet snippet = new();
-        snippet.AddFile(new SnippetFile());
+        snippet.AddFile(new());
         
         SqlSnippetEntity sqlSnippetEntity = snippet.Adapt<SqlSnippetEntity>();
         
@@ -66,11 +66,11 @@ public class InfrastructureMappingTests: IClassFixture<MapsterFixture>
         SqlSnippetEntity sqlSnippetEntity = new();
         
         Snippet snippet = sqlSnippetEntity.Adapt<Snippet>();
-        
+
         Assert.Equal(sqlSnippetEntity.Id, snippet.Id);
         Assert.Equal(sqlSnippetEntity.Title, snippet.Title);
-        Assert.Null(snippet.Password);
         Assert.Equal(SnippetVisibilityEnum.Private, snippet.Visibility);
+        Assert.Null(snippet.Password);
         Assert.Empty(snippet.Files);
     }
 }

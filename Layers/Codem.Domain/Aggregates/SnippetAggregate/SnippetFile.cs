@@ -14,15 +14,6 @@ public class SnippetFile : IEntity
     {
         Name = string.Empty;    
         Data = string.Empty;
-    }
-    
-    public void Rename(string name)
-    {
-        Name = name;
-    }
-    
-    public SnippetFile Copy()
-    {
-        throw new NotImplementedException();
+        ProgrammingLanguage = ProgrammingLanguage.Markdown;
     }
 }

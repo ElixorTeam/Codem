@@ -3,20 +3,40 @@
 @page "/snippets"
 
 <div class="snippets-table__container">
-  <RadzenDataGrid Data="SnippetsList" TItem="SnippetDto">
+  <RadzenDataGrid
+    TItem="SnippetDto"
+    Data="SnippetsList"
+    PageSize="20"
+    AllowPaging="true"
+    PagerPosition="PagerPosition.TopAndBottom"
+    Count="SnippetsList.Count"
+    AllowSorting="true">
     <Columns>
       <RadzenDataGridColumn
-          Title="ID"
-          TItem="SnippetDto"
-          Property="Id"
-          Width="30%"
-        />
-        <RadzenDataGridColumn
-          Title="Name"
-          TItem="SnippetDto"
-          Property="Title"
-          Width="70%"
-        />
+        Title="ID"
+        TItem="SnippetDto"
+        Property="Id"
+        Width="30%"
+      />
+      <RadzenDataGridColumn
+        Title="Name"
+        TItem="SnippetDto"
+        Property="Title"
+        Width="40%"
+      />
+     <RadzenDataGridColumn
+        Title="Visibility"
+        TItem="SnippetDto"
+        Property="Visibility"
+        Width="20%"
+      />
+      <RadzenDataGridColumn
+        Title="Files"
+        TItem="SnippetDto"
+        Property="Files.Count"
+        Width="10%"
+      />
+
     </Columns>
   </RadzenDataGrid>
 </div>

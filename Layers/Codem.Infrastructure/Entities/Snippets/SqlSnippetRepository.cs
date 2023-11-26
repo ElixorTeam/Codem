@@ -31,10 +31,20 @@ public class SqlSnippetRepository : ISnippetRepository
         return list.Adapt<List<Snippet>>();
     }
     
+    public IEnumerable<Snippet> GetAll()
+    {
+        ICriteria criteria = _session.CreateCriteria<SqlSnippetEntity>();
+        criteria.AddOrder(Order.Desc(nameof(SqlSnippetEntity.CreateDt)));
+        
+        List<SqlSnippetEntity> list = criteria.List<SqlSnippetEntity>().ToList();
+        return list.Adapt<List<Snippet>>();
+    }
+    
     public IEnumerable<Snippet> GetAllPublic()
     {
         ICriteria criteria = _session.CreateCriteria<SqlSnippetEntity>();
         
+        criteria.AddOrder(Order.Desc(nameof(SqlSnippetEntity.CreateDt)));
         criteria.Add(Restrictions.Eq(nameof(SqlSnippetEntity.Visibility), SnippetVisibilityEnum.Public));
         List<SqlSnippetEntity> list = criteria.List<SqlSnippetEntity>().ToList();
         

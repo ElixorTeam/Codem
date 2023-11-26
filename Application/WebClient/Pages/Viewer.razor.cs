@@ -14,6 +14,7 @@ public sealed partial class Viewer : ComponentBase
     [Inject] private NavigationManager NavigationManager { get; set; }  = null!;
     [Inject] private SnippetController SnippetController { get; set; } = null!;
     [Parameter] public Guid Id { get; set; }
+    
     private CodeSnippetModel? SnippetModel { get; set; }
     private CodeFileManager CodeFileManager { get; set; } = new();
     private bool IsLoading { get; set; } = true;
@@ -39,7 +40,7 @@ public sealed partial class Viewer : ComponentBase
         catch
         {
             NavigationManager.NavigateTo(@RouteUtils.Home);
-            return new SnippetDto();
+            return new();
         }
     }
 

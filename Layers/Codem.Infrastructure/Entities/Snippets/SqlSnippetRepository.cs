@@ -53,9 +53,7 @@ public class SqlSnippetRepository : ISnippetRepository
     
     public Snippet Add(Snippet snippet)
     {
-        SqlSnippetEntity sqlSnippet = snippet.Adapt<SqlSnippetEntity>();;
-        sqlSnippet.ChangeDt = DateTime.Now;
-        sqlSnippet.CreateDt = DateTime.Now;
+        SqlSnippetEntity sqlSnippet = snippet.Adapt<SqlSnippetEntity>();
         _session.Save(sqlSnippet);
         return sqlSnippet.Adapt<Snippet>();
     }

@@ -29,6 +29,7 @@ public class UnitOfWork : IUnitOfWork
         {
             _transaction?.Rollback();
             Console.WriteLine($"Error: {ex.Message}");
+            throw;
         }
     }
     

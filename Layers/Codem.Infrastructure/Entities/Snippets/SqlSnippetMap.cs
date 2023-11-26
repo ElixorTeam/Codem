@@ -60,6 +60,7 @@ public class SqlSnippetMap : ClassMapping<SqlSnippetEntity>
             m.Key(k => k.Column("SNIPPET_UID")); 
             m.Cascade(Cascade.All | Cascade.DeleteOrphans);
             m.Inverse(true); 
+            m.OrderBy("CREATE_DT ASC");
         }, 
         r =>  r.OneToMany());
     }

@@ -6,6 +6,7 @@ namespace Сodem.Shared.Dtos.Snippet;
 public class SnippetDto
 { 
     public Guid Id { get; set; } = Guid.Empty;
+    public string? UserId { get; set; } = null;
     public string Title { get; set; } = string.Empty;
     public SnippetVisibilityEnum Visibility { get; set; } = SnippetVisibilityEnum.Public;
     public string? Password { get; set; } = null;

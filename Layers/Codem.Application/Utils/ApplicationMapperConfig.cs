@@ -14,6 +14,7 @@ public class ApplicationMapperConfig : IRegister
             .Map(dest => dest.Id, src => src.Id)
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.Visibility, src=>src.Visibility)
+            .Map(dest => dest.UserId, src => src.UserId)
             .AfterMapping((src, dest) => 
             {
                 dest.Password = !string.IsNullOrEmpty(src.Password) ? new Password(src.Password) : null;
@@ -24,6 +25,7 @@ public class ApplicationMapperConfig : IRegister
             .Ignore(dest=>dest.Password!)
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.Visibility, src=>src.Visibility)
+            .Map(dest => dest.UserId, src => src.UserId)
             .AfterMapping((src, dest) => 
             {
                 dest.Password = !string.IsNullOrEmpty(src.Password) ? new Password(src.Password) : null;

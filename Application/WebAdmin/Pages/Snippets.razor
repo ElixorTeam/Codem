@@ -10,7 +10,8 @@
     AllowPaging="true"
     PagerPosition="PagerPosition.TopAndBottom"
     Count="SnippetsList.Count"
-    AllowSorting="true">
+    AllowSorting="true"
+  >
     <Columns>
       <RadzenDataGridColumn
         Title="ID"
@@ -24,19 +25,18 @@
         Property="Title"
         Width="40%"
       />
-     <RadzenDataGridColumn
+      <RadzenDataGridColumn
         Title="Visibility"
         TItem="SnippetDto"
         Property="Visibility"
         Width="20%"
-      />
+       />
       <RadzenDataGridColumn
         Title="Files"
         TItem="SnippetDto"
         Property="Files.Count"
         Width="10%"
       />
-
     </Columns>
   </RadzenDataGrid>
 </div>

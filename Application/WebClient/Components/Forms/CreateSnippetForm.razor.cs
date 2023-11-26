@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Blazored.Toast.Services;
 using Codem.Api.Controllers;
+using Codem.Domain.Models;
 using Mapster;
 using Microsoft.AspNetCore.Components;
+using WebClient.Common;
 using WebClient.Components.CodeEditor;
 using WebClient.Models;
 using WebClient.Utils;
@@ -17,6 +19,7 @@ public sealed partial class CreateSnippetForm : ComponentBase
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     [Inject] private IToastService ToastService { get; set; } = null!;
     [Inject] private SnippetController SnippetController { get; set; } = null!;
+    [Inject] private IUserService UserService { get; set; } = null!;
     
     [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
     private CodeSnippetModel Model { get; set; } = new();
@@ -77,6 +80,7 @@ public sealed partial class CreateSnippetForm : ComponentBase
         try
         {
             SnippetDto snippet = await SnippetController.CreateSnippet(snippetDto);
+            snippet.UserId = UserService.GetUser()?.Id;
             NavigationManager.NavigateTo($"{RouteUtils.Snippet}/{snippet.Id}");
             ToastService.ShowSuccess("Successfully added");
         }

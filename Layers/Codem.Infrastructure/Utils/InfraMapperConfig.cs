@@ -27,6 +27,7 @@ public class InfraMapperConfig : IRegister
             .Map(dest => dest.Password, src => src.Password != null ? src.Password.Value : string.Empty)
             .Map(dest => dest.Visibility, src=>src.Visibility)
             .Map(dest => dest.Files, src => src.Files.Adapt<List<SqlFileEntity>>())
+            .Map(dest => dest.UserId, src => src.UserId)
             .AfterMapping((_, dest) => 
         {
             foreach (SqlFileEntity file in dest.Files)
@@ -38,6 +39,7 @@ public class InfraMapperConfig : IRegister
             .Map(dest => dest.Id, src => src.Id)
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.Visibility, src=>src.Visibility)
+            .Map(dest => dest.UserId, src => src.UserId)
             .AfterMapping((src, dest) => 
             {
                 dest.Password = !string.IsNullOrEmpty(src.Password) ? new Password(src.Password) : null;

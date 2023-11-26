@@ -31,19 +31,22 @@ public class WebMapperConfig : IRegister
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.Visibility, src => src.Visibility)
             .Map(dest => dest.Password, src => string.IsNullOrEmpty(src.Password) ? null : src.Password)
-            .Map(dest => dest.Files, src => ConvertToFileDto(src.Files));
+            .Map(dest => dest.Files, src => ConvertToFileDto(src.Files))
+            .Map(dest => dest.UserId, src => src.UserId);;
         
         config.ForType<CodeSnippetModel, SnippetCreateDto>()
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.Visibility, src => src.Visibility)
             .Map(dest => dest.Password, src => string.IsNullOrEmpty(src.Password) ? null : src.Password)
-            .Map(dest => dest.Files, src => ConvertToFileCreateDto(src.Files));
+            .Map(dest => dest.Files, src => ConvertToFileCreateDto(src.Files))
+            .Map(dest => dest.UserId, src => src.UserId);;
 
         config.ForType<SnippetDto, CodeSnippetModel>()
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.Visibility, src => src.Visibility)
             .Map(dest => dest.Password, src => src.Password)
-            .Map(dest => dest.Files, src => ConvertToFileModel(src.Files));
+            .Map(dest => dest.Files, src => ConvertToFileModel(src.Files))
+            .Map(dest => dest.UserId, src => src.UserId);
     }
 
     private static List<FileDto> ConvertToFileDto(IList<CodeFileModel> fileModelList) =>

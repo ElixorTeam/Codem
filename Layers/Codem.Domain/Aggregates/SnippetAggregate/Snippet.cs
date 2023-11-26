@@ -7,10 +7,25 @@ namespace Codem.Domain.Aggregates.SnippetAggregate;
 
 public class Snippet : IEntity
 {
+    #region Private
+
+    private SnippetVisibilityEnum _visibility;
+    private Password? _password;
+
+    #endregion
+
     public Guid Id { get; set; }
     public string Title { get; set; }
-    public Password? Password { get; private set; }
-    public SnippetVisibilityEnum Visibility { get; private set; }
+    public Password? Password
+    {
+        get => _password;
+        set { ChangePassword(value); }
+    }
+    public SnippetVisibilityEnum Visibility
+    {
+        get => _visibility;
+        set { ChangeVisibility(value); }
+    }
     public IEnumerable<SnippetFile> Files { get; private set; }
     
     public Snippet()
@@ -19,7 +34,7 @@ public class Snippet : IEntity
         Visibility = SnippetVisibilityEnum.Public;
         Files = new List<SnippetFile>();
     }
-
+    
     public void AddFile(SnippetFile snippetFile)
     {
         if (Files.Any(f => f.Id == snippetFile.Id))
@@ -27,5 +42,22 @@ public class Snippet : IEntity
             throw new FileAlreadyExistsException($"File with name '{snippetFile.Name}' already exists.");
         }
         Files = Files.Append(snippetFile).ToList();
+    }
+    
+    public void ChangeVisibility(SnippetVisibilityEnum visibility)
+    {
+        _visibility = visibility;
+        if (_visibility is not SnippetVisibilityEnum.ByLink)
+            Password = null;
+    }
+
+    public void ChangePassword(Password? password)
+    {
+        if (_visibility is not SnippetVisibilityEnum.ByLink)
+        {
+            _password = null;
+            return;
+        }
+        _password = password;
     }
 }

@@ -1,13 +1,19 @@
+using System.Text.RegularExpressions;
 using Codem.Domain.Common;
+using Codem.Domain.Exceptions;
 
 namespace Codem.Domain.ValueTypes;
 
-public class Password : IValueType<Password>
+public partial class Password : IValueType<Password>
 {
+    [GeneratedRegex("^.{4,32}$")]
+    private static partial Regex PasswordRegex();
     public string Value { get; init; }
-    
+
     public Password(string value)
     {
+        if (!PasswordRegex().IsMatch(value))
+            throw new PasswordCanNotBeSetException();
         Value = value;
     }
     

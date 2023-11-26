@@ -34,11 +34,14 @@ public class InfraMapperConfig : IRegister
         });
 
         config.ForType<SqlSnippetEntity, Snippet>()
+            .Ignore(dest=>dest.Password!)
             .Map(dest => dest.Id, src => src.Id)
             .Map(dest => dest.Title, src => src.Title)
-            .Map(dest => dest.Password, 
-                src => string.IsNullOrEmpty(src.Password) ? null : new Password(src.Password))
             .Map(dest => dest.Visibility, src=>src.Visibility)
+            .AfterMapping((src, dest) => 
+            {
+                dest.Password = src.Password != string.Empty ? new Password(src.Password) : null;
+            })
             .Map(dest => dest.Files, src => src.Files.Adapt<List<SnippetFile>>());
     }
 }

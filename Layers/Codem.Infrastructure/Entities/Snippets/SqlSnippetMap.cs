@@ -38,6 +38,14 @@ public class SqlSnippetMap : ClassMapping<SqlSnippetEntity>
             m.Length(30);
             m.NotNullable(true);
         });
+            
+        Property(x => x.Password, m =>
+        {
+            m.Column("PASSWORD");
+            m.Type(NHibernateUtil.String);
+            m.Length(24);
+            m.NotNullable(true);
+        });
         
         Property(x => x.Visibility, m =>
         {

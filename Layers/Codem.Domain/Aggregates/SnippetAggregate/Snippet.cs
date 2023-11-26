@@ -30,8 +30,9 @@ public class Snippet : IEntity
     
     public Snippet()
     {
+        _visibility = SnippetVisibilityEnum.Public;
+        _password = null;
         Title = string.Empty;
-        Visibility = SnippetVisibilityEnum.Public;
         Files = new List<SnippetFile>();
     }
     
@@ -47,17 +48,17 @@ public class Snippet : IEntity
     public void ChangeVisibility(SnippetVisibilityEnum visibility)
     {
         _visibility = visibility;
-        if (_visibility is not SnippetVisibilityEnum.ByLink)
+        if (_visibility != SnippetVisibilityEnum.ByLink)
             Password = null;
     }
 
     public void ChangePassword(Password? password)
     {
-        if (_visibility is not SnippetVisibilityEnum.ByLink)
+        if (_visibility == SnippetVisibilityEnum.ByLink)
         {
-            _password = null;
+            _password = password;
             return;
         }
-        _password = password;
+        _password = null;
     }
 }

@@ -66,7 +66,7 @@ public class UIMapsterTests : IClassFixture<MapsterFixture>
         Assert.Equal(fileDto.Id, codeFileModel.Id);
         Assert.Equal(fileDto.Name, codeFileModel.Title);
         Assert.Equal(fileDto.Data, codeFileModel.Text);
-        Assert.Equal(ProgrammingLanguage.Markdown, codeFileModel.Language);
+        Assert.Equal(ProgrammingLanguage.C, codeFileModel.Language);
     }
     
     [Fact]

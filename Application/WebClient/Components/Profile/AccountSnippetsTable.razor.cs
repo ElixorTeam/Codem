@@ -12,11 +12,15 @@ public sealed partial class AccountSnippetsTable: ComponentBase
     [Inject] private SnippetController SnippetController { get; set; } = null!;
     private List<SnippetDto> SnippetsList { get; set; } = new();
     private bool IsLoading { get; set; } = true;
+    private int CurrentPage { get; set; } = 1;
+    private int TotalPages { get; set; } = 1;
+    private const int MaxItemsPerPage = 10;
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
         await GetAllUserSnippets();
+        TotalPages = (int)Math.Ceiling((double)SnippetsList.Count / MaxItemsPerPage);
         IsLoading = false;
         StateHasChanged();
     }
@@ -24,12 +28,23 @@ public sealed partial class AccountSnippetsTable: ComponentBase
     public void TableInvokeAction(int fileIndex)
     {
         SnippetsList.RemoveAt(fileIndex);
+        if (CurrentPage > 1 && (CurrentPage - 1) * MaxItemsPerPage >= SnippetsList.Count)
+            CurrentPage -= 1;
+        TotalPages = (int)Math.Ceiling((double)SnippetsList.Count / MaxItemsPerPage);
         StateHasChanged();
     }
 
     private async Task GetAllUserSnippets()
     {
         SnippetsList = await SnippetController.GetSnippetListAll();
+        StateHasChanged();
+    }
+    
+    private void ChangePage(int newPageOffset)
+    {
+        int newPage = CurrentPage + newPageOffset;
+        if (newPage < 1 || newPage > TotalPages) return;
+        CurrentPage = newPage;
         StateHasChanged();
     }
 

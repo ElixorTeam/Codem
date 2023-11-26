@@ -9,6 +9,6 @@ public sealed partial class SearchItem : ComponentBase
     [Parameter] public string Title { get; init; } = string.Empty;
     [Parameter] public string Syntax { get; init; } = string.Empty;
     [Parameter] public string Author { get; init; } = string.Empty;
-    [Parameter] public string AvatarSrc { get; init; } = "assets/avatar.jpg";
+    [Parameter] public string AvatarSrc { get; init; } = string.Empty;
     [Parameter] public string Code { get; init; } = string.Empty;
 }

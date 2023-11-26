@@ -12,8 +12,15 @@
         </div>
         <div class="flex items-center gap-2">
           <div class="flex items-center gap-1">
-            <div class="mt-1 h-4 w-4 overflow-hidden rounded-full">
-              <img src="@AvatarSrc" alt="" class="h-full w-full" />
+            <div class="h-4 w-4 overflow-hidden rounded-full">
+              @if (AvatarSrc != string.Empty)
+              {
+                <img src="@AvatarSrc" alt="" class="h-full w-full"/>
+              }
+              else
+              {
+                <UserCircleIcon class="h-full w-full" />
+              }
             </div>
             <h1 class="line-clamp-1 text-xs">@Author</h1>
           </div>

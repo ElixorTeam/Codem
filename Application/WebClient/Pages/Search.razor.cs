@@ -25,8 +25,6 @@ public sealed partial class Search : ComponentBase, IDisposable
     {
         if (!firstRender) return;
         await UpdateFilteredList();
-        TotalPages = (int)Math.Ceiling((double)SnippetList.Count / MaxItemsPerPage);
-        StateHasChanged();
     }
 
     protected override void OnInitialized()
@@ -38,10 +36,11 @@ public sealed partial class Search : ComponentBase, IDisposable
     {
         SearchQuery = GetSearchQuery();
         SnippetList = await SnippetController.GetSnippetListByName(SearchQuery);
+        TotalPages = (int)Math.Ceiling((double)SnippetList.Count / MaxItemsPerPage);
         StateHasChanged();
     }
 
-    private string getFirstFileCode(SnippetDto snippet) => 
+    private static string GetFirstFileCode(SnippetDto snippet) => 
         snippet.Files.Any() ? snippet.Files.First().Data : string.Empty;
     
     private async void HandleLocationChanged(object? sender, LocationChangedEventArgs e)

@@ -41,7 +41,7 @@
         <SearchItem
           Id="@snippet.Id"
           Author="Ap73MKa"
-          Code="@getFirstFileCode(snippet)"
+          Code="@GetFirstFileCode(snippet)"
           Syntax="Python"
           Title="@snippet.Title"
           PublicDate="DateOnly.FromDateTime(DateTime.Now)"/>
@@ -56,18 +56,18 @@
           type="button"
           disabled="@(CurrentPage <= 1)"
           @onclick="() => ChangePage(-1)"
-          class="h-full px-2 transition-colors hover:bg-slate-100 dark:hover:bg-neutral-900">
-          <ChevronLeftIcon class="h-6 w-6"/>
+          class="flex h-full w-10 items-center justify-center transition-colors hover:bg-slate-100 dark:hover:bg-neutral-900">
+          <ChevronLeftIcon class="h-4 w-4"/>
         </button>
-        <div class="h-full px-2 flex items-center">
+        <div class="h-full px-3 flex items-center">
           @CurrentPage/@TotalPages
         </div>
         <button
           type="button"
           disabled="@(CurrentPage >= TotalPages)"
           @onclick="() => ChangePage(1)"
-          class="h-full px-2 transition-colors hover:bg-slate-100 dark:hover:bg-neutral-900">
-          <ChevronRightIcon class="h-6 w-6"/>
+          class="flex h-full w-10 items-center justify-center transition-colors hover:bg-slate-100 dark:hover:bg-neutral-900">
+          <ChevronRightIcon class="h-4 w-4"/>
         </button>
       </div>
     </div>

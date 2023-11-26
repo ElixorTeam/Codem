@@ -1,4 +1,6 @@
 @using Сodem.Shared.Dtos.Snippet
+@using Blazor.Heroicons.Outline
+
 <div class="h-fit overflow-hidden rounded-md border border-black/[.1] bg-slate-100 dark:bg-neutral-950 dark:border-white/[.15]">
   <div class="-mx-2 overflow-hidden sm:-mx-4 md:mx-0">
     <table class="min-w-full divide-y divide-gray-300 dark:divide-white/[.15]">
@@ -40,7 +42,7 @@
       </tr>
       </thead>
       <tbody class="divide-y divide-gray-200 dark:divide-white/[.15]">
-      @foreach (SnippetDto snippet in SnippetsList)
+      @foreach (SnippetDto snippet in SnippetsList.Skip((CurrentPage - 1) * MaxItemsPerPage).Take(MaxItemsPerPage))
       {
         <SnippetsTableEntry
           TableInvokeAction="() => TableInvokeAction(SnippetsList.IndexOf(snippet))"
@@ -49,6 +51,30 @@
       }
       </tbody>
     </table>
+    @if (!IsLoading && TotalPages > 1)
+    {
+      <div class="w-full h-12 flex justify-center items-center border-t border-t-black/[.1] dark:border-t-white/[.15]">
+        <div class="w-fit h-10 flex items-center divide-x divide-black/[.1] overflow-hidden rounded-lg border border-black/[.1] dark:divide-white/[.15] dark:border-white/[.15]">
+          <button
+            type="button"
+            disabled="@(CurrentPage <= 1)"
+            @onclick="() => ChangePage(-1)"
+            class="flex h-full w-10 items-center justify-center transition-colors hover:bg-slate-100 dark:hover:bg-neutral-900">
+            <ChevronLeftIcon class="h-4 w-4"/>
+          </button>
+          <div class="h-full px-3 flex items-center">
+            @CurrentPage/@TotalPages
+          </div>
+          <button
+            type="button"
+            disabled="@(CurrentPage >= TotalPages)"
+            @onclick="() => ChangePage(1)"
+            class="flex h-full w-10 items-center justify-center transition-colors hover:bg-slate-100 dark:hover:bg-neutral-900">
+            <ChevronRightIcon class="h-4 w-4"/>
+          </button>
+        </div>
+      </div>
+    }
     @if (IsLoading)
     {
       <div class="w-full h-14 border-t border-t-black/[.1] animate-pulse bg-slate-100 dark:bg-neutral-900 dark:border-t-white/[.15]" />

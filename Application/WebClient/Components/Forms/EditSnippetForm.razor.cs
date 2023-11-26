@@ -74,6 +74,20 @@ public sealed partial class EditSnippetForm : ComponentBase
 
     private async Task UpdateAndHandleSnippet(SnippetDto snippetDto)
     {
+        bool allDataEmpty = CodeFileManager.GetAllFiles().All(file => string.IsNullOrEmpty(file.Text));
+
+        if (allDataEmpty)
+        {
+            ToastService.ShowError("Snippet's files are empty");
+            return;
+        }
+
+        if (Model.Visibility == SnippetVisibilityEnum.ByLink && string.IsNullOrEmpty(Model.Password))
+        {
+            ToastService.ShowError("This type of snippet requires password");
+            return;
+        }
+        
         try
         {
             await SnippetController.UpdateSnippet(snippetDto);

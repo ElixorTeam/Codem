@@ -41,6 +41,16 @@ public class SqlSnippetRepository : ISnippetRepository
         return list.Adapt<List<Snippet>>();
     }
     
+    public IEnumerable<Snippet> GetAllByUser(string userId)
+    {
+        ICriteria criteria = _session.CreateCriteria<SqlSnippetEntity>()
+            .CreateAlias(nameof(SqlSnippetEntity.UserSnippetFk), "user")
+            .Add(Restrictions.Eq($"user.{nameof(SqlUserSnippetFkEntity.UserId)}", userId));
+        criteria.AddOrder(Order.Desc(nameof(SqlSnippetEntity.CreateDt)));
+        List<SqlSnippetEntity> list = criteria.List<SqlSnippetEntity>().ToList();
+        return list.Adapt<List<Snippet>>();
+    }
+
     public IEnumerable<Snippet> GetAllPublic()
     {
         ICriteria criteria = _session.CreateCriteria<SqlSnippetEntity>();

@@ -1,7 +1,7 @@
+using Blazor.Heroicons;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using WebClient.Utils;
-using Blazor.Heroicons;
 
 namespace WebClient.Components.Layouts;
 

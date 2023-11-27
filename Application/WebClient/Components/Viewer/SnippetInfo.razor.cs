@@ -1,6 +1,5 @@
 using Blazor.Heroicons;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 
 namespace WebClient.Components.Viewer;
 

@@ -1,8 +1,5 @@
-using Blazor.Heroicons;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using WebClient.Common;
-using Сodem.Shared.Enums;
 using Сodem.Shared.Models;
 
 namespace WebClient.Components.Layouts;

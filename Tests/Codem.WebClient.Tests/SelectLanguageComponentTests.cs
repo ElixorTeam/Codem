@@ -2,7 +2,6 @@ using AngleSharp.Dom;
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using WebClient.Components.CodeEditor;
-using WebClient.Models;
 using WebClient.Utils;
 
 namespace Codem.WebClient.Tests;

@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;

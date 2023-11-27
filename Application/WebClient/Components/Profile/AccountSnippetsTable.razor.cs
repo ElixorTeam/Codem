@@ -1,9 +1,7 @@
 using Codem.Api.Controllers;
 using Microsoft.AspNetCore.Components;
-using WebClient.Models;
 using WebClient.Utils;
 using Сodem.Shared.Dtos.Snippet;
-using Сodem.Shared.Enums;
 
 namespace WebClient.Components.Profile;
 

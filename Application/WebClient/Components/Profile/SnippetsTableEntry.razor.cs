@@ -1,7 +1,6 @@
 using Blazored.Toast.Services;
 using Codem.Api.Controllers;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 
 namespace WebClient.Components.Profile;
 

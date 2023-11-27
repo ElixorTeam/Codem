@@ -1,7 +1,6 @@
 using Blazor.Heroicons;
 using Microsoft.AspNetCore.Components;
 using WebClient.Common;
-using WebClient.Utils;
 using Сodem.Shared.Models;
 
 namespace WebClient.Components.Profile;

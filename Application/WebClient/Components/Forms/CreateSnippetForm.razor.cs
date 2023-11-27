@@ -57,12 +57,13 @@ public sealed partial class CreateSnippetForm : ComponentBase
         string password = Model.Visibility == SnippetVisibilityEnum.ByLink ? Model.Password : string.Empty;
         List<FileCreateDto> codeFiles = CodeFileManager.GetAllFiles().Adapt<List<FileCreateDto>>();
         
-        return new SnippetCreateDto
+        return new()
         {
             Title = title,
             Visibility = Model.Visibility,
             Password = password,
             Files = codeFiles,
+            UserId = UserService.GetUser()?.Id
         };
     }
     

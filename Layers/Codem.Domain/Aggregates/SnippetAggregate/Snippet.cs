@@ -17,6 +17,7 @@ public class Snippet : IEntity
     public Guid Id { get; set; }
     public string? UserId { get; set; }
     public string Title { get; set; }
+    public DateTime CreateDate { get; set; }
     public Password? Password
     {
         get => _password;
@@ -35,6 +36,7 @@ public class Snippet : IEntity
         _password = null;
         Title = string.Empty;
         Files = new List<SnippetFile>();
+        CreateDate = DateTime.Today;
     }
     
     public void AddFile(SnippetFile snippetFile)

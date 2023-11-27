@@ -7,8 +7,8 @@ public sealed class CodeSnippetModel
 {
     [MaxLength(64, ErrorMessage = "Title length can not exceed 64 characters")]
     public string Title { get; set; } = string.Empty;
-
     public string UserId { get; set; } = string.Empty;
+    public DateOnly CreateDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
 
     [Required] 
     public SnippetExpiration ExpireTime { get; set; } = SnippetExpiration.OneWeek;

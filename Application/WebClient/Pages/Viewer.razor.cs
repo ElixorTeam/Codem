@@ -39,7 +39,7 @@ public sealed partial class Viewer : ComponentBase
         }
         catch
         {
-            NavigationManager.NavigateTo(@RouteUtils.Home);
+            NavigationManager.NavigateTo(RouteUtils.Home);
             return new();
         }
     }

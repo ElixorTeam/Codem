@@ -1,5 +1,7 @@
 using Codem.Api.Controllers;
+using Mapster;
 using Microsoft.AspNetCore.Components;
+using WebClient.Models;
 using WebClient.Utils;
 using Сodem.Shared.Dtos.Snippet;
 
@@ -8,33 +10,34 @@ namespace WebClient.Components.Profile;
 public sealed partial class AccountSnippetsTable: ComponentBase
 {
     [Inject] private SnippetController SnippetController { get; set; } = null!;
-    private List<SnippetDto> SnippetsList { get; set; } = new();
+    private List<SnippetDto> SnippetsDtos { get; set; } = new();
     private bool IsLoading { get; set; } = true;
     private int CurrentPage { get; set; } = 1;
     private int TotalPages { get; set; } = 1;
+    
     private const int MaxItemsPerPage = 10;
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
         await GetAllUserSnippets();
-        TotalPages = (int)Math.Ceiling((double)SnippetsList.Count / MaxItemsPerPage);
+        TotalPages = (int)Math.Ceiling((double)SnippetsDtos.Count / MaxItemsPerPage);
         IsLoading = false;
         StateHasChanged();
     }
 
-    public void TableInvokeAction(int fileIndex)
+    public void DeleteCallbackAction(int fileIndex)
     {
-        SnippetsList.RemoveAt(fileIndex);
-        if (CurrentPage > 1 && (CurrentPage - 1) * MaxItemsPerPage >= SnippetsList.Count)
+        SnippetsDtos.RemoveAt(fileIndex);
+        if (CurrentPage > 1 && (CurrentPage - 1) * MaxItemsPerPage >= SnippetsDtos.Count)
             CurrentPage -= 1;
-        TotalPages = (int)Math.Ceiling((double)SnippetsList.Count / MaxItemsPerPage);
+        TotalPages = (int)Math.Ceiling((double)SnippetsDtos.Count / MaxItemsPerPage);
         StateHasChanged();
     }
 
     private async Task GetAllUserSnippets()
     {
-        SnippetsList = await SnippetController.GetSnippetPublicList();
+        SnippetsDtos = await SnippetController.GetSnippetPublicList();
         StateHasChanged();
     }
     
@@ -44,19 +47,5 @@ public sealed partial class AccountSnippetsTable: ComponentBase
         if (newPage < 1 || newPage > TotalPages) return;
         CurrentPage = newPage;
         StateHasChanged();
-    }
-
-    private static SnippetTableModel ConvertModel(SnippetDto snippet)
-    {
-        return new()
-        {
-            Id=snippet.Id,
-            Title=snippet.Title,
-            PublicDate=DateOnly.FromDateTime(DateTime.Today),
-            ExpireTime="1 week",
-            Views=1400,
-            Stars=100,
-            ProgramLanguage=@EnumHelper.GetEnumDescription(snippet.Files.First().ProgrammingLanguage)
-        };
     }
 }

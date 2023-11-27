@@ -18,7 +18,8 @@
           <button
             type="button"
             @onclick="() => CodeFileManager.DeleteFile(file.Id)"
-            class="w-[15px] h-[15px] @(file.Id == CodeFileManager.GetCurrentFile().Id ? "text-gray-700 dark:text-neutral-300" : "text-gray-500 dark:text-neutral-500") flex mt-[2px] items-center justify-center rounded-full overflow-hidden group-hover/del:bg-gray-200 group-hover/del:text-gray-800 group-active/del:text-black">
+            class="w-[15px] h-[15px] @(file.Id == CodeFileManager.GetCurrentFile().Id ? "text-gray-700 dark:text-neutral-300" : "text-gray-500 dark:text-neutral-500") flex mt-[2px] items-center justify-center rounded-full overflow-hidden group-hover/del:bg-gray-200 group-hover/del:text-gray-800 group-active/del:text-black"
+          >
             <XMarkIcon class="w-3 h-3" />
           </button>
         </div>

@@ -19,7 +19,7 @@ public sealed partial class SnippetInfo : ComponentBase
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        StatsList = new List<SnippetStatModel>()
+        StatsList = new()
         {
             new() { IconName = @HeroiconName.User, Value = Author },
             new() { IconName = @HeroiconName.CalendarDays, Value = CreateDate.ToString() },

@@ -5,7 +5,7 @@
       @if (IsReadOnly)
       {
         <div class="w-fit px-2 flex items-center text-left border-l border-l-black/[.1] dark:border-l-white/[.15]">
-          <p class="text-sm">@ActiveLanguage</p>
+          <p class="text-sm">@EnumHelper.GetEnumDescription(ActiveLanguage)</p>
         </div>
       }
       else

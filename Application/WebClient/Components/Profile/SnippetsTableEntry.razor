@@ -7,19 +7,21 @@
     </a>
   </td>
   <td class="hidden whitespace-nowrap px-3 py-4 lg:table-cell">
-    @Snippet.PublicDate.ToString()
+    @DateOnly.FromDateTime(Snippet.CreateDate)
   </td>
   <td class="table-cell whitespace-nowrap px-3 py-4">
-    @Snippet.ExpireTime
+    1 week
+    @* @Snippet.ExpireTime *@
   </td>
   <td class="hidden whitespace-nowrap px-3 py-4 md:table-cell">
-    @Snippet.Views
+    100
+    @* @Snippet.Views *@
   </td>
   @* <td class="hidden whitespace-nowrap px-3 py-4 md:table-cell"> *@
   @*   @Snippet.Stars *@
   @* </td> *@
   <td class="hidden whitespace-nowrap px-3 py-4 lg:table-cell">
-    @Snippet.ProgramLanguage
+    @EnumHelper.GetEnumDescription(Snippet.Files[0].ProgrammingLanguage)
   </td>
   <td class="flex items-center gap-4 whitespace-nowrap py-4 pl-3 pr-4 !text-right sm:pr-6">
     <a href="@RouteUtils.Editor/@Snippet.Id" class="text-sky-500 hover:text-sky-400">

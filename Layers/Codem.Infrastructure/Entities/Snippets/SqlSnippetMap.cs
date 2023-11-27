@@ -63,5 +63,13 @@ public class SqlSnippetMap : ClassMapping<SqlSnippetEntity>
             m.OrderBy("CREATE_DT ASC");
         }, 
         r =>  r.OneToMany());
+        
+        OneToOne(x => x.UserSnippetFk, m =>  
+        {  
+            m.Access(Accessor.Property); 
+            m.Cascade(Cascade.All | Cascade.DeleteOrphans);
+            m.PropertyReference(p => p!.Snippet);  
+            m.Constrained(false);
+        });
     }
 }

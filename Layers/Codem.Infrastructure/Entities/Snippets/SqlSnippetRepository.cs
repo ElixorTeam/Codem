@@ -1,4 +1,5 @@
 ﻿using Codem.Domain.Aggregates.SnippetAggregate;
+using Codem.Infrastructure.Entities.UserSnippetFk;
 using Mapster;
 using NHibernate.Criterion;
 using Сodem.Shared.Enums;
@@ -54,6 +55,14 @@ public class SqlSnippetRepository : ISnippetRepository
     public Snippet Add(Snippet snippet)
     {
         SqlSnippetEntity sqlSnippet = snippet.Adapt<SqlSnippetEntity>();
+        if (snippet.UserId != null)
+        {
+            sqlSnippet.UserSnippetFk = new()
+            {
+                Snippet = sqlSnippet,
+                UserId = snippet.UserId
+            };
+        }
         _session.Save(sqlSnippet);
         return sqlSnippet.Adapt<Snippet>();
     }

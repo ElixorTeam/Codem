@@ -1,6 +1,7 @@
 using Codem.Api.Controllers;
 using Mapster;
 using Microsoft.AspNetCore.Components;
+using WebClient.Common;
 using WebClient.Models;
 using WebClient.Utils;
 using Сodem.Shared.Dtos.Snippet;
@@ -10,6 +11,8 @@ namespace WebClient.Components.Profile;
 public sealed partial class AccountSnippetsTable: ComponentBase
 {
     [Inject] private SnippetController SnippetController { get; set; } = null!;
+    [Inject] private IUserService UserService { get; set; } = null!;
+    
     private List<SnippetDto> SnippetsDtos { get; set; } = new();
     private bool IsLoading { get; set; } = true;
     private int CurrentPage { get; set; } = 1;
@@ -37,7 +40,17 @@ public sealed partial class AccountSnippetsTable: ComponentBase
 
     private async Task GetAllUserSnippets()
     {
-        SnippetsDtos = await SnippetController.GetSnippetPublicList();
+        string? userId = UserService.GetUser()?.Id;
+        
+        if (userId != null)
+        {
+            SnippetsDtos = await SnippetController.GetSnippetListByUser(userId);
+        }
+        else
+        {
+            SnippetsDtos = new();
+        }
+  
         StateHasChanged();
     }
     

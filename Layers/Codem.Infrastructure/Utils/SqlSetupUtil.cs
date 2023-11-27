@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Codem.Infrastructure.Entities.UserSnippetFk;
+using Microsoft.Extensions.DependencyInjection;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Tool.hbm2ddl;
@@ -20,6 +21,7 @@ public static class SqlSetupUtil
         
         mapper.AddMapping<SqlSnippetMap>();
         mapper.AddMapping<SqlFileMap>();
+        mapper.AddMapping<SqlUserSnippetFkMap>();
         
         HbmMapping mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
         configuration.AddMapping(mapping);

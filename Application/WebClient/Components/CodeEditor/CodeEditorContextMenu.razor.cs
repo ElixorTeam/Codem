@@ -36,11 +36,11 @@ public sealed partial class CodeEditorContextMenu: ComponentBase
     
     private void InitializeContextMenu()
     {
-        ContextMenuEntries = new List<ContextMenuEntry>
+        ContextMenuEntries = new()
         {
             new("Edit name", HeroiconName.Pencil, EditModal, !IsReadOnly),
             new("Delete file", HeroiconName.Trash, DeleteModal, !IsReadOnly),
-            new("Clone Project", HeroiconName.DocumentDuplicate, DeleteModal, !IsOwner)
+            new("Clone Project", HeroiconName.DocumentDuplicate, DeleteModal, false)
         };
     }
 

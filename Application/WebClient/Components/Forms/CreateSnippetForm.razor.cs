@@ -80,7 +80,6 @@ public sealed partial class CreateSnippetForm : ComponentBase
         try
         {
             SnippetDto snippet = await SnippetController.CreateSnippet(snippetDto);
-            snippet.UserId = UserService.GetUser()?.Id;
             NavigationManager.NavigateTo($"{RouteUtils.Snippet}/{snippet.Id}");
             ToastService.ShowSuccess("Successfully added");
         }

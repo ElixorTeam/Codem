@@ -30,10 +30,10 @@ public class InfraMapperConfig : IRegister
             .Map(dest => dest.UserId, src => src.UserId)
             .Map(dest => dest.CreateDt, src => src.CreateDate)
             .AfterMapping((_, dest) => 
-        {
-            foreach (SqlFileEntity file in dest.Files)
-                file.Snippet = dest;
-        });
+            {
+                foreach (SqlFileEntity file in dest.Files)
+                    file.Snippet = dest;
+            });
 
         config.ForType<SqlSnippetEntity, Snippet>()
             .Ignore(dest => dest.Password!)

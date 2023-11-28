@@ -5,6 +5,8 @@ namespace WebClient.Models;
 
 public sealed class CodeSnippetModel
 {
+    public Guid Id { get; set; } = Guid.Empty;
+    
     [MaxLength(64, ErrorMessage = "Title length can not exceed 64 characters")]
     public string Title { get; set; } = string.Empty;
     public string UserId { get; set; } = string.Empty;

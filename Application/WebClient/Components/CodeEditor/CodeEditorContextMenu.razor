@@ -4,7 +4,7 @@
 <button
   type="button"
   id="editorContextMenuButton"
-  class="w-6 h-full flex items-center justify-center border-l border-l-black/[.1] dark:border-l-white/[.15] hover:bg-slate-200 dark:hover:bg-neutral-800 @(!ContextMenuEntries.Any() ? "hidden" : "")"
+  class="w-6 h-full flex items-center justify-center border-l border-l-black/[.1] dark:border-l-white/[.15] hover:bg-slate-200 dark:hover:bg-neutral-800 @(ContextMenuEntries.Any(entry => entry.IsVisible) ? "" : "hidden")"
 >
   <EllipsisVerticalIcon class="text-gray-700 h-4 w-4 dark:text-neutral-400" />
 </button>
@@ -31,6 +31,7 @@
     }
   </ul>
 </div>
+
 
 <EditFileNameModal @ref="EditModal" CodeFileManager="CodeFileManager" />
 <DeleteFileModal @ref="DeleteModal" CodeFileManager="CodeFileManager" />

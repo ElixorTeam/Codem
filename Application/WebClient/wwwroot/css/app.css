@@ -75,16 +75,16 @@
 }
 
 .blazored-toast {
-  @apply bg-slate-50 flex p-3 shadow-xl border-t-0 rounded-lg items-center transition-all w-fit max-w-[20rem] transform scale-95 opacity-0 translate-y-4 dark:bg-neutral-900;
-  animation: fadeInScale 0.3s ease-in-out forwards;
+  @apply !bg-slate-50 !flex !p-3 !shadow-xl !border-t-0 !rounded-lg !items-center !transition-all !w-fit !max-w-[20rem] !transform !scale-95 opacity-0 !translate-y-4 dark:!bg-neutral-900 dark:!text-neutral-200;
+  animation: fadeInScale 0.3s ease-in-out forwards !important;
 }
 
 .blazored-toast-icon {
-  @apply w-10;
+  @apply !w-10;
 }
 
 .blazored-toast-close {
-  @apply flex justify-end mt-[1px] w-8 scale-75 contrast-0;
+  @apply !flex !justify-end !mt-[1px] !w-8 !scale-75 !contrast-0;
 }
 
 @keyframes fadeInScale {
@@ -99,7 +99,7 @@
 }
 
 .blazored-toast-container {
-  @apply flex flex-col fixed z-50 bottom-4 left-4 gap-2;
+  @apply !flex !flex-col !fixed !z-50 !bottom-4 !left-4 !gap-2;
 }
 
 .blazored-toast-success .blazored-toast-icon svg {
@@ -111,9 +111,9 @@
 }
 
 .blazored-toast-progressbar {
-  @apply absolute bottom-0 left-0 right-0 h-1 rounded-b-md overflow-hidden;
+  @apply !absolute !bottom-0 !left-0 !right-0 !h-1 !rounded-b-md !overflow-hidden;
 }
 
 .blazored-toast-progressbar span {
-  @apply relative flex flex-row transition-all h-full bg-gray-200 dark:bg-white/[.2];
+  @apply !relative !flex !flex-row !transition-all !h-full !bg-gray-100 dark:!bg-white/[.2];
 }

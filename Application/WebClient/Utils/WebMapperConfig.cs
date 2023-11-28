@@ -43,6 +43,7 @@ public class WebMapperConfig : IRegister
             .Map(dest => dest.UserId, src => src.UserId);
 
         config.ForType<SnippetDto, CodeSnippetModel>()
+            .Map(dest => dest.Id, src => src.Id)
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.Visibility, src => src.Visibility)
             .Map(dest => dest.Password, src => src.Password)

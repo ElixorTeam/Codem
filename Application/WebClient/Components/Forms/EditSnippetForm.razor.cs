@@ -3,8 +3,10 @@ using Blazored.Toast.Services;
 using Codem.Api.Controllers;
 using Mapster;
 using Microsoft.AspNetCore.Components;
+using WebClient.Common;
 using WebClient.Components.CodeEditor;
 using WebClient.Models;
+using WebClient.Services;
 using WebClient.Utils;
 using Сodem.Shared.Dtos.File;
 using Сodem.Shared.Dtos.Snippet;
@@ -18,6 +20,7 @@ public sealed partial class EditSnippetForm : ComponentBase
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     [Inject] private IToastService ToastService { get; set; } = null!;
     [Inject] private SnippetController SnippetController { get; set; } = null!;
+    [Inject] private IUserService UserService { get; set; } = null!;
     
     # endregion
     
@@ -63,12 +66,13 @@ public sealed partial class EditSnippetForm : ComponentBase
         string password = Model.Visibility == SnippetVisibilityEnum.ByLink ? Model.Password : string.Empty;
         List<FileDto> codeFiles = CodeFileManager.GetAllFiles().Adapt<List<FileDto>>();
         
-        return new SnippetDto
+        return new()
         {
             Title = title,
             Visibility = Model.Visibility,
             Password = password,
             Files = codeFiles,
+            UserId = UserService.GetUser()?.Id
         };
     }
 

@@ -1,14 +1,14 @@
 using Microsoft.AspNetCore.Components;
+using WebClient.Models;
+using WebClient.Utils;
+using Сodem.Shared.Enums;
 
 namespace WebClient.Components;
 
 public sealed partial class SearchItem : ComponentBase
 {
-    [Parameter] public Guid Id { get; init; }
-    [Parameter] public DateOnly PublicDate { get; init; } = DateOnly.FromDateTime(DateTime.Now);
-    [Parameter] public string Title { get; init; } = string.Empty;
-    [Parameter] public string Syntax { get; init; } = string.Empty;
-    [Parameter] public string Author { get; init; } = string.Empty;
-    [Parameter] public string AvatarSrc { get; init; } = string.Empty;
-    [Parameter] public string Code { get; init; } = string.Empty;
+    [Parameter, EditorRequired] public CodeSnippetModel SnippetModel { get; set; } = null!;
+    
+    private List<ProgrammingLanguage> GetMostUsedLanguages() =>
+        LangUsageAnalyzer.GetMostUsedLanguages(SnippetModel.Files, 2);
 }

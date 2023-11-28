@@ -1,4 +1,6 @@
 @using Blazor.Heroicons
+@using Blazor.Heroicons.Outline
+@using Сodem.Shared.Enums
 
 <div class="sm:border-box w-full pt-4 sm:pt-14 sm:sticky sm:top-0">
   <div class="h-fit w-full overflow-hidden rounded-lg border border-black/[.1] bg-slate-100 dark:bg-neutral-950 dark:border-white/[.15]">
@@ -8,12 +10,12 @@
     <div class="flex h-full w-full flex-col px-4 py-4 text-sm">
       <div class="flex gap-2 mb-2">
         <p class="line-clamp-1 font-semibold text-slate-800 dark:text-neutral-200">
-          @Title
+          @SnippetModel.Title
         </p>
         <div
           class="flex items-center justify-center overflow-hidden rounded-2xl border border-black/[.1] bg-slate-200 px-2 dark:bg-neutral-800 dark:border-white/[.15]"
         >
-          <p class="text-xs">@Access</p>
+          <p class="text-xs">@EnumHelper.GetEnumDescription(SnippetModel.Visibility)</p>
         </div>
       </div>
       @* <p class="my-4 line-clamp-3 text-slate-600 dark:text-neutral-300"> *@
@@ -32,6 +34,24 @@
           </li>
         }
       </ul>
+      @if (SnippetModel.Visibility != SnippetVisibilityEnum.Private)
+      {
+        <div class="mt-3">
+          <label for="shareLink" class="text-sm">Share link</label>
+          <div class="mt-1 bg-white gap-1 flex items-center justify-between h-8 w-full rounded-md border border-black/[.2] px-2 dark:bg-transparent dark:border-white/[.15]">
+            <input
+              type="text"
+              id="shareLink"
+              value="@SnippetLink"
+              readonly
+              class="h-full w-full text-sm p-0 bg-transparent border-none focus:ring-0"
+            />
+            <button type="button" @onclick="OnCopyToClipboard">
+              <DocumentDuplicateIcon  class="h-4 w-4 transition-colors text-gray-600 hover:text-gray-800 active:text-black dark:text-neutral-400 dark:hover:text-neutral-200 dark:active:text-white" />
+            </button>
+          </div>
+        </div>
+      }
     </div>
   </div>
 </div>

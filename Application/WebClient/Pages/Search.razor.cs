@@ -1,9 +1,11 @@
 using System.Collections.Specialized;
 using System.Web;
 using Codem.Api.Controllers;
+using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
+using WebClient.Models;
 using Сodem.Shared.Dtos.Snippet;
 
 namespace WebClient.Pages;
@@ -13,7 +15,7 @@ public sealed partial class Search : ComponentBase, IDisposable
     [Inject] private SnippetController SnippetController { get; set; } = null!;
     [Inject] private NavigationManager NavigationManager { get; set; }  = null!;
 
-    private List<SnippetDto> SnippetList { get; set; } = new();
+    private List<CodeSnippetModel> SnippetModels { get; set; } = new();
 
     private string SearchQuery { get; set; } = string.Empty;
     private int CurrentPage { get; set; } = 1;
@@ -34,13 +36,11 @@ public sealed partial class Search : ComponentBase, IDisposable
     private async Task UpdateFilteredList()
     {
         SearchQuery = GetSearchQuery();
-        SnippetList = await SnippetController.GetSnippetPublicListByName(SearchQuery);
-        TotalPages = (int)Math.Ceiling((double)SnippetList.Count / MaxItemsPerPage);
+        List<SnippetDto> snippetDtos = await SnippetController.GetSnippetPublicListByName(SearchQuery);
+        SnippetModels = snippetDtos.Adapt<List<CodeSnippetModel>>();
+        TotalPages = (int)Math.Ceiling((double)SnippetModels.Count / MaxItemsPerPage);
         StateHasChanged();
     }
-
-    private static string GetFirstFileCode(SnippetDto snippet) => 
-        snippet.Files.Any() ? snippet.Files.First().Data : string.Empty;
     
     private async void HandleLocationChanged(object? sender, LocationChangedEventArgs e)
     {

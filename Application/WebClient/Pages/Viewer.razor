@@ -21,19 +21,8 @@ else
     }
     else
     {
-      <CodeEditor
-        CodeFileManager="CodeFileManager"
-        IsReadOnly="true"
-        IsOwner="false"
-      />
-      <SnippetInfo
-        Author="Ap73MKa"
-        Title="@SnippetModel.Title"
-        Access="@EnumHelper.GetEnumDescription(SnippetModel.Visibility)"
-        ProgramLanguage="@EnumHelper.GetEnumDescription(SnippetModel.Files.First().Language)"
-        Views="1400"
-        CreateDate="DateOnly.FromDateTime(DateTime.Today)"
-      />
+      <CodeEditor CodeFileManager="CodeFileManager" IsReadOnly="true" IsOwner="IsOwner" />
+      <SnippetInfo SnippetModel="SnippetModel" />
     }
   </div>
 }

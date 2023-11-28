@@ -1,6 +1,6 @@
 @page "/search"
-@using Сodem.Shared.Dtos.Snippet
 @using Blazor.Heroicons.Outline
+@using WebClient.Models
 
 <PageTitle>Codem - Search</PageTitle>
 
@@ -34,16 +34,10 @@
     Code snippets
   </p>
   <ul class="my-4 flex h-full w-full flex-col px-2">
-    @foreach (SnippetDto snippet in SnippetList.Skip((CurrentPage - 1) * MaxItemsPerPage).Take(MaxItemsPerPage))
+    @foreach (CodeSnippetModel snippet in SnippetModels.Skip((CurrentPage - 1) * MaxItemsPerPage).Take(MaxItemsPerPage))
     {
       <li>
-        <SearchItem
-          Id="@snippet.Id"
-          Author="Ap73MKa"
-          Code="@GetFirstFileCode(snippet)"
-          Syntax="Python"
-          Title="@snippet.Title"
-          PublicDate="DateOnly.FromDateTime(DateTime.Now)"/>
+        <SearchItem SnippetModel="snippet" />
       </li>
     }
   </ul>

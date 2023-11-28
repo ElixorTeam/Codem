@@ -1,6 +1,7 @@
 using Codem.Api.Controllers;
 using Mapster;
 using Microsoft.AspNetCore.Components;
+using WebClient.Common;
 using WebClient.Components.CodeEditor;
 using WebClient.Models;
 using WebClient.Utils;
@@ -13,22 +14,32 @@ public sealed partial class Viewer : ComponentBase
 {
     [Inject] private NavigationManager NavigationManager { get; set; }  = null!;
     [Inject] private SnippetController SnippetController { get; set; } = null!;
+    [Inject] private IUserService UserService { get; set; } = null!;
     [Parameter] public Guid Id { get; set; }
     
     private CodeSnippetModel? SnippetModel { get; set; }
     private CodeFileManager CodeFileManager { get; set; } = new();
     private bool IsLoading { get; set; } = true;
     private bool IsBlockedByPassword { get; set; }
+    private bool IsOwner { get; set; }
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        SnippetModel = (await GetSnippet()).Adapt<CodeSnippetModel>();
-        IsBlockedByPassword = SnippetModel.Visibility == SnippetVisibilityEnum.ByLink 
-                              && !string.IsNullOrEmpty(SnippetModel.Password);
+        await InitializeSnippet();
+        StateHasChanged();
+    }
+    
+    private async Task InitializeSnippet()
+    {
+        SnippetDto snippetDto = await GetSnippet();
+        SnippetModel = snippetDto.Adapt<CodeSnippetModel>();
+        IsOwner = SnippetModel.UserId == UserService.GetUser()?.Id;
+        bool IsLimited = SnippetModel.Visibility == SnippetVisibilityEnum.ByLink &&
+                         !string.IsNullOrEmpty(SnippetModel.Password);
+        IsBlockedByPassword = !IsOwner && IsLimited;
         CodeFileManager = new(SnippetModel.Files);
         IsLoading = false;
-        StateHasChanged();
     }
 
     private async Task<SnippetDto> GetSnippet()

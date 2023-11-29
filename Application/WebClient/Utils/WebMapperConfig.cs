@@ -33,14 +33,16 @@ public class WebMapperConfig : IRegister
             .Map(dest => dest.Password, src => string.IsNullOrEmpty(src.Password) ? null : src.Password)
             .Map(dest => dest.Files, src => ConvertToFileDto(src.Files))
             .Map(dest => dest.UserId, src => src.UserId)
-            .Map(dest => dest.CreateDate, src => src.CreateDate);
+            .Map(dest => dest.CreateDate, src => src.CreateDate)
+            .Map(dest => dest.ExpireTime, src => src.ExpireTime.ToDateTime(TimeOnly.MinValue));
         
         config.ForType<CodeSnippetModel, SnippetCreateDto>()
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.Visibility, src => src.Visibility)
             .Map(dest => dest.Password, src => string.IsNullOrEmpty(src.Password) ? null : src.Password)
             .Map(dest => dest.Files, src => ConvertToFileCreateDto(src.Files))
-            .Map(dest => dest.UserId, src => src.UserId);
+            .Map(dest => dest.UserId, src => src.UserId)
+            .Map(dest => dest.ExpireTime, src => src.ExpireTime.ToDateTime(TimeOnly.MinValue));;
 
         config.ForType<SnippetDto, CodeSnippetModel>()
             .Map(dest => dest.Id, src => src.Id)
@@ -49,7 +51,8 @@ public class WebMapperConfig : IRegister
             .Map(dest => dest.Password, src => src.Password)
             .Map(dest => dest.Files, src => ConvertToFileModel(src.Files))
             .Map(dest => dest.UserId, src => src.UserId)
-            .Map(dest => dest.CreateDate, src => DateOnly.FromDateTime(src.CreateDate));
+            .Map(dest => dest.CreateDate, src => DateOnly.FromDateTime(src.CreateDate))
+            .Map(dest => dest.ExpireTime, src => DateOnly.FromDateTime(src.ExpireTime));
     }
 
     private static List<FileDto> ConvertToFileDto(IList<CodeFileModel> fileModelList) =>

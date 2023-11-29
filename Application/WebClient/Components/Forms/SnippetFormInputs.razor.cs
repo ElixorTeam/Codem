@@ -7,8 +7,10 @@ namespace WebClient.Components.Forms;
 public sealed partial class SnippetFormInputs
 {
     [Parameter, EditorRequired] public CodeSnippetModel Model { get; set; } = null!;
+    [Parameter] public bool IsUpdate { get; set; }
     
     private bool IsPasswordVisible { get; set; } = false;
+    private SnippetExpiration SnippetExpiration { get; set; } = SnippetExpiration.OneWeek;
     private static Array VisibilityList { get; } = Enum.GetValues(typeof(SnippetVisibilityEnum));
     private static Array ExpireTimeList { get; } = Enum.GetValues(typeof(SnippetExpiration));
 
@@ -20,4 +22,7 @@ public sealed partial class SnippetFormInputs
         Model.Password = string.Empty;
         IsPasswordVisible = false;
     }
+
+    private void OnExpireTimeChange() =>
+        Model.ExpireTime = DateOnly.FromDateTime(DateTime.Now.Add(SnippetExpiration.ToTimeSpan()));
 }

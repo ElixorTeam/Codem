@@ -52,7 +52,6 @@ public sealed partial class CreateSnippetForm : ComponentBase
     
     private SnippetCreateDto CreateSnippetDto()
     {
-        // DateTime finalDate = DateTime.Now.Add(Model.ExpireTime.ToTimeSpan());
         string title = string.IsNullOrEmpty(Model.Title) ? "Untitled snippet" : Model.Title;
         string password = Model.Visibility == SnippetVisibilityEnum.ByLink ? Model.Password : string.Empty;
         List<FileCreateDto> codeFiles = CodeFileManager.GetAllFiles().Adapt<List<FileCreateDto>>();
@@ -63,7 +62,8 @@ public sealed partial class CreateSnippetForm : ComponentBase
             Visibility = Model.Visibility,
             Password = password,
             Files = codeFiles,
-            UserId = UserService.GetUser()?.Id
+            UserId = UserService.GetUser()?.Id,
+            ExpireTime = Model.ExpireTime.ToDateTime(TimeOnly.MinValue)
         };
     }
     

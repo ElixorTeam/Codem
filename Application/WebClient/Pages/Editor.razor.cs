@@ -19,7 +19,7 @@ public sealed partial class Editor: ComponentBase
     {
         if (!firstRender) return;
         SnippetModel = (await SnippetController.GetSnippetById(Id)).Adapt<CodeSnippetModel>();
-        CodeFileManager = new CodeFileManager(SnippetModel.Files);
+        CodeFileManager = new(SnippetModel.Files);
         IsLoading = false;
         StateHasChanged();
     }

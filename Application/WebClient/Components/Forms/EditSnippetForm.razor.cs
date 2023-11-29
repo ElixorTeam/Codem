@@ -61,7 +61,6 @@ public sealed partial class EditSnippetForm : ComponentBase
     
     private SnippetDto CreateSnippetDto()
     {
-        // DateTime finalDate = DateTime.Now.Add(Model.ExpireTime.ToTimeSpan());
         string title = string.IsNullOrEmpty(Model.Title) ? "Untitled snippet" : Model.Title;
         string password = Model.Visibility == SnippetVisibilityEnum.ByLink ? Model.Password : string.Empty;
         List<FileDto> codeFiles = CodeFileManager.GetAllFiles().Adapt<List<FileDto>>();
@@ -72,7 +71,8 @@ public sealed partial class EditSnippetForm : ComponentBase
             Visibility = Model.Visibility,
             Password = password,
             Files = codeFiles,
-            UserId = UserService.GetUser()?.Id
+            UserId = UserService.GetUser()?.Id,
+            ExpireTime = Model.ExpireTime.ToDateTime(TimeOnly.MinValue)
         };
     }
 
@@ -83,6 +83,12 @@ public sealed partial class EditSnippetForm : ComponentBase
         if (allDataEmpty)
         {
             ToastService.ShowError("Snippet's files are empty");
+            return;
+        }
+        
+        if (Model.ExpireTime <= DateOnly.FromDateTime(DateTime.Today))
+        {
+            ToastService.ShowError("Snippet expire time can not be less than today date");
             return;
         }
 

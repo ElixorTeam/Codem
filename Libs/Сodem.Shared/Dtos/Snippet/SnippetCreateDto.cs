@@ -9,6 +9,7 @@ public class SnippetCreateDto
     public string? UserId { get; set; } = null;
     public SnippetVisibilityEnum Visibility { get; set; }
     public string? Password { get; set; }
+    public DateTime ExpireTime { get; set; }
     
     public List<FileCreateDto> Files { get; set; }
     
@@ -16,6 +17,7 @@ public class SnippetCreateDto
     {
         Title = string.Empty;
         Visibility = SnippetVisibilityEnum.Public;
+        ExpireTime = DateTime.Today.AddDays(1);
         Password = null;
         Files = new();
     }

@@ -34,7 +34,8 @@ public sealed partial class Viewer : ComponentBase
     {
         SnippetDto snippetDto = await GetSnippet();
         SnippetModel = snippetDto.Adapt<CodeSnippetModel>();
-        IsOwner = SnippetModel.UserId == UserService.GetUser()?.Id;
+        string? UserId = UserService.GetUser()?.Id;
+        IsOwner = UserId != null && SnippetModel.UserId == UserId;
         bool IsLimited = SnippetModel.Visibility == SnippetVisibilityEnum.ByLink &&
                          !string.IsNullOrEmpty(SnippetModel.Password);
         IsBlockedByPassword = !IsOwner && IsLimited;

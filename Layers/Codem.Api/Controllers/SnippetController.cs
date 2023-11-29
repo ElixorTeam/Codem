@@ -35,12 +35,6 @@ public class SnippetController
         return snippetDtos;
     }
     
-    public async Task<List<SnippetDto>> GetSnippetPublicList()
-    {
-        List<SnippetDto> snippetDtos = await _mediator.Send(new GetSnippetPublicListQuery());
-        return snippetDtos;
-    }
-    
     public async Task<List<SnippetDto>> GetSnippetAllList()
     {
         List<SnippetDto> snippetDtos = await _mediator.Send(new GetSnippetAllListQuery());
@@ -63,9 +57,7 @@ public class SnippetController
     }
     
     public async Task UpdateSnippet(SnippetDto snippet) 
-    { 
-        // await _mediator.Send(new CreateSnippetCommand(snippet));
-        
+    {
     }
 
     #endregion

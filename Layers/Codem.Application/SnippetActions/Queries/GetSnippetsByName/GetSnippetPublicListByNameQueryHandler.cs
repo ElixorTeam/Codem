@@ -14,7 +14,9 @@ public class GetSnippetPublicListByNameQueryHandler : IRequestHandler<GetSnippet
 
     public Task<List<SnippetDto>> Handle(GetSnippetPublicListByNameQuery request, CancellationToken cancellationToken)
     {
-        List<Snippet> list = _snippetRepository.FindPublicListByTitle(request.Title).ToList();
+        List<Snippet> list = string.IsNullOrEmpty(request.Title) ?
+            _snippetRepository.GetAllPublic().ToList() :
+            _snippetRepository.FindPublicListByTitle(request.Title).ToList();
         List<SnippetDto> listDto = list.Adapt<List<SnippetDto>>();
         return Task.FromResult(listDto);
     }

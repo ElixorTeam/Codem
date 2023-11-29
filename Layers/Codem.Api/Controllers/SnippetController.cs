@@ -1,6 +1,6 @@
-﻿using Codem.Application.SnippetActions.Queries.GetSnippetListByUser;
+﻿using Codem.Application.SnippetActions.Commands.UpdateSnippet;
+using Codem.Application.SnippetActions.Queries.GetSnippetListByUser;
 using Codem.Application.SnippetActions.Queries.GetSnippetsAll;
-using Codem.Application.SnippetActions.Queries.GetSnippetsPublic;
 using MediatR;
 using Сodem.Shared.Dtos.Snippet;
 
@@ -58,6 +58,7 @@ public class SnippetController
     
     public async Task UpdateSnippet(SnippetDto snippet) 
     {
+        await _mediator.Send(new UpdateSnippetCommand(snippet));
     }
 
     #endregion

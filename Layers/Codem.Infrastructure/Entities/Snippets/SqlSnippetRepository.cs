@@ -77,6 +77,19 @@ public class SqlSnippetRepository : ISnippetRepository
         return sqlSnippet.Adapt<Snippet>();
     }
     
+    public Snippet Update(Snippet snippet)
+    {
+        SqlSnippetEntity sqlSnippet = _session.Query<SqlSnippetEntity>()
+            .FirstOrDefault(x => x.Id == snippet.Id) ?? new();
+        
+        if (sqlSnippet.Id == Guid.Empty) throw new InvalidDataException();
+        
+        SqlSnippetEntity snippetSqlUpdate = snippet.Adapt<SqlSnippetEntity>();
+        _session.Update(snippetSqlUpdate);
+        
+        return sqlSnippet.Adapt<Snippet>();
+    }
+    
     public void DeleteById(Guid id)
     {
         SqlSnippetEntity? sqlSnippet = _session.Get<SqlSnippetEntity>(id);

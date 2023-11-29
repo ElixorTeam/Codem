@@ -96,7 +96,7 @@ public sealed partial class EditSnippetForm : ComponentBase
         try
         {
             await SnippetController.UpdateSnippet(snippetDto);
-            NavigationManager.NavigateTo($"{RouteUtils.Profile}/{SnippetId}");
+            NavigationManager.NavigateTo($"{RouteUtils.Snippet}/{SnippetId}");
             ToastService.ShowSuccess("Successfully edited");
         }
         catch

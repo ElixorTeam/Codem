@@ -19,6 +19,7 @@
     <input
       type="date"
       @bind="Model.ExpireTime"
+      min='@DateTime.Today.AddDays(1).Date.ToString("yyyy-MM-dd")'
       class="h-8 w-full mt-1 rounded-md border bg-white border-black/[.2] px-2 py-0 text-sm focus:ring-0 focus:border-black/[.2] dark:bg-transparent dark:border-white/[.15] dark:focus:border-white/[.15] dark:placeholder:text-neutral-500"
     />
   }

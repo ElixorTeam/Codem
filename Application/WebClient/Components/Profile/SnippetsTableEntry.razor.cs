@@ -21,6 +21,8 @@ public sealed partial class SnippetsTableEntry : ComponentBase
         return EnumHelper.GetEnumDescription(mostUsedLanguages.First());
     }
 
+    private string GetExpireTime() => DateFormatting.FormatDateDifference(SnippetModel.ExpireTime);
+
     private async void DeleteFile()
     {
         try

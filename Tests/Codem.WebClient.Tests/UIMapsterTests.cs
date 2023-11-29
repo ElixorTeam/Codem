@@ -75,7 +75,7 @@ public class UIMapsterTests : IClassFixture<MapsterFixture>
         CodeFileModel codeFileModel = new()
         {
             Title = "test_file",
-            Text = "Test content"
+            Text = "Test content",
         };
 
         CodeSnippetModel codeSnippetModel = new()

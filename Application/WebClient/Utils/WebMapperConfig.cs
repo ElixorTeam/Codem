@@ -33,7 +33,7 @@ public class WebMapperConfig : IRegister
             .Map(dest => dest.Password, src => string.IsNullOrEmpty(src.Password) ? null : src.Password)
             .Map(dest => dest.Files, src => ConvertToFileDto(src.Files))
             .Map(dest => dest.UserId, src => src.UserId)
-            .Map(dest => dest.CreateDate, src => src.CreateDate)
+            .Map(dest => dest.CreateDate, src => src.CreateDate.ToDateTime(TimeOnly.MinValue))
             .Map(dest => dest.ExpireTime, src => src.ExpireTime.ToDateTime(TimeOnly.MinValue));
         
         config.ForType<CodeSnippetModel, SnippetCreateDto>()

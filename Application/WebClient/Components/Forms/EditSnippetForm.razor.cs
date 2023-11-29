@@ -92,12 +92,6 @@ public sealed partial class EditSnippetForm : ComponentBase
             ToastService.ShowError("Snippet expire time can not be less than today date");
             return;
         }
-
-        if (Model.Visibility == SnippetVisibilityEnum.ByLink && string.IsNullOrEmpty(Model.Password))
-        {
-            ToastService.ShowError("This type of snippet requires password");
-            return;
-        }
         
         try
         {

@@ -1,11 +1,9 @@
 using System.ComponentModel;
 
-namespace Сodem.Shared.Enums;
+namespace WebClient.Models;
 
 public enum SnippetExpiration
 {
-    [Description("1 hour")]
-    OneHour,
     [Description("1 day")]
     OneDay,
     [Description("1 week")]
@@ -22,7 +20,6 @@ public static class SnippetExpirationExtensions
     {
         return expiration switch
         {
-            SnippetExpiration.OneHour => TimeSpan.FromHours(1),
             SnippetExpiration.OneDay => TimeSpan.FromDays(1),
             SnippetExpiration.OneWeek => TimeSpan.FromDays(7),
             SnippetExpiration.OneMonth => TimeSpan.FromDays(30),

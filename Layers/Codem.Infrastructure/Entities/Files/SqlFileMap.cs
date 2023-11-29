@@ -48,7 +48,6 @@ public class SqlFileMap : ClassMapping<SqlFileEntity>
         });
 
         ManyToOne(x => x.Snippet, m => { 
-            m.Cascade(Cascade.All | Cascade.DeleteOrphans); 
             m.Column("SNIPPET_UID"); 
             m.ForeignKey("FK_SNIPPET_FILES");
             m.NotNullable(true);

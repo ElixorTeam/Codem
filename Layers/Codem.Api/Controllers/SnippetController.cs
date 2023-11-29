@@ -56,9 +56,10 @@ public class SnippetController
         return snippetDto;
     }
     
-    public async Task UpdateSnippet(SnippetDto snippet) 
+    public async Task<SnippetDto> UpdateSnippet(SnippetDto snippet) 
     {
-        await _mediator.Send(new UpdateSnippetCommand(snippet));
+        SnippetDto snippetDto = await _mediator.Send(new UpdateSnippetCommand(snippet));
+        return snippetDto;
     }
 
     #endregion

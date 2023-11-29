@@ -17,7 +17,7 @@ public class SqlSnippetRepository : ISnippetRepository
 
     public Snippet FindById(Guid id)
     {
-        SqlSnippetEntity sqlSnippet = _session.Query<SqlSnippetEntity>().FirstOrDefault(x => x.Id == id) ?? new();
+        SqlSnippetEntity sqlSnippet = _session.Get<SqlSnippetEntity>(id) ?? new();
         return sqlSnippet.Adapt<Snippet>();
     }
 
@@ -79,15 +79,16 @@ public class SqlSnippetRepository : ISnippetRepository
     
     public Snippet Update(Snippet snippet)
     {
-        SqlSnippetEntity sqlSnippet = _session.Query<SqlSnippetEntity>()
-            .FirstOrDefault(x => x.Id == snippet.Id) ?? new();
+        SqlSnippetEntity sqlSnippet = _session.Get<SqlSnippetEntity>(snippet.Id) ?? new();
         
         if (sqlSnippet.Id == Guid.Empty) throw new InvalidDataException();
+
+        SqlSnippetEntity sqlSnippetUpdate = snippet.Adapt<SqlSnippetEntity>();
+        sqlSnippetUpdate.CreateDt = sqlSnippet.CreateDt;
+        sqlSnippetUpdate.UserSnippetFk = sqlSnippet.UserSnippetFk;
         
-        SqlSnippetEntity snippetSqlUpdate = snippet.Adapt<SqlSnippetEntity>();
-        _session.Update(snippetSqlUpdate);
-        
-        return sqlSnippet.Adapt<Snippet>();
+        _session.Merge(sqlSnippetUpdate);
+        return sqlSnippetUpdate.Adapt<Snippet>();
     }
     
     public void DeleteById(Guid id)

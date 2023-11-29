@@ -19,6 +19,7 @@ public class ApplicationMapperConfig : IRegister
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.Visibility, src=>src.Visibility)
             .Map(dest => dest.UserId, src => src.UserId)
+            .Map(dest => dest.ExpireDt, src => src.ExpireTime)
             .AfterMapping((src, dest) => 
             {
                 dest.Password = !string.IsNullOrEmpty(src.Password) ? new Password(src.Password) : null;
@@ -32,15 +33,17 @@ public class ApplicationMapperConfig : IRegister
             .Map(dest => dest.UserId, src => src.UserId)
             .Map(dest => dest.Password, src => src.Password)
             .Map(dest => dest.CreateDate, src => src.CreateDate)
+            .Map(dest => dest.ExpireTime, src => src.ExpireDt)
             .Map(dest => dest.Files, src => src.Files.Adapt<IEnumerable<FileDto>>());
         
         config.ForType<SnippetCreateDto, Snippet>()
+            .Ignore(dest=>dest.CreateDate)
             .Ignore(dest => dest.Password!)
             .Ignore(dest => dest.CreateDate)
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.Visibility, src=>src.Visibility)
             .Map(dest => dest.UserId, src => src.UserId)
-            .Map(dest => dest.CreateDate, src => DateTime.Today)
+            .Map(dest => dest.ExpireDt, src => src.ExpireTime)
             .AfterMapping((src, dest) => 
             {
                 dest.Password = !string.IsNullOrEmpty(src.Password) ? new Password(src.Password) : null;

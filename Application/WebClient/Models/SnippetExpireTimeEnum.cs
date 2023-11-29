@@ -22,7 +22,6 @@ public static class SnippetExpirationExtensions
     {
         return expiration switch
         {
-            SnippetExpiration.Never => TimeSpan.FromDays(365 * 100),
             SnippetExpiration.OneHour => TimeSpan.FromHours(1),
             SnippetExpiration.OneDay => TimeSpan.FromDays(1),
             SnippetExpiration.OneWeek => TimeSpan.FromDays(7),

@@ -9,6 +9,7 @@ public class Snippet : IEntity
 {
     #region Private
 
+    private DateTime _ExpireDt;
     private SnippetVisibilityEnum _visibility;
     private Password? _password;
 
@@ -23,6 +24,11 @@ public class Snippet : IEntity
         get => _password;
         set { ChangePassword(value); }
     }
+    public DateTime ExpireDt
+    {
+        get => _ExpireDt;
+        set { ChangeExpireDt(value); }
+    }
     public SnippetVisibilityEnum Visibility
     {
         get => _visibility;
@@ -32,11 +38,10 @@ public class Snippet : IEntity
     
     public Snippet()
     {
+        _ExpireDt = DateTime.MaxValue;
         _visibility = SnippetVisibilityEnum.Public;
-        _password = null;
         Title = string.Empty;
         Files = new List<SnippetFile>();
-        CreateDate = DateTime.Today;
     }
     
     public void AddFile(SnippetFile snippetFile)
@@ -63,5 +68,12 @@ public class Snippet : IEntity
             return;
         }
         _password = null;
+    }
+    
+    public void ChangeExpireDt(DateTime time)
+    {
+        if (DateTime.Now > time)
+            throw new ExpireDtNotValidException();
+        _ExpireDt = time;
     }
 }

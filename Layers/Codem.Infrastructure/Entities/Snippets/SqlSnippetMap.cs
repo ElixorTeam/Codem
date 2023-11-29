@@ -56,6 +56,13 @@ public class SqlSnippetMap : ClassMapping<SqlSnippetEntity>
             m.NotNullable(true);
         });
         
+        Property(x => x.ExpireDt, m =>
+        {
+            m.Column("EXPIRE_DT");
+            m.NotNullable(true);
+            m.Type(NHibernateUtil.DateTime);
+        });
+        
         Bag(x => x.Files, m => {
             m.Key(k => k.Column("SNIPPET_UID")); 
             m.Cascade(Cascade.All | Cascade.DeleteOrphans);

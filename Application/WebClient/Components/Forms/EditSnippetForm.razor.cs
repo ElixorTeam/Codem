@@ -67,6 +67,7 @@ public sealed partial class EditSnippetForm : ComponentBase
         
         return new()
         {
+            Id = Model.Id,
             Title = title,
             Visibility = Model.Visibility,
             Password = password,

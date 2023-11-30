@@ -1,0 +1,34 @@
+@using Blazor.Heroicons.Outline
+
+<tr class="hover:bg-white/[.4]">
+  <td class="max-w-[200px] overflow-hidden text-ellipsis whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-500 dark:text-neutral-400 sm:pl-6">
+    <a href="@RouteUtils.Snippet/@SnippetModel.Id" class="text-sky-500 hover:text-sky-400">
+      @SnippetModel.Title
+    </a>
+  </td>
+  <td class="hidden whitespace-nowrap px-3 py-4 lg:table-cell">
+    @SnippetModel.CreateDate
+  </td>
+  <td class="table-cell whitespace-nowrap px-3 py-4">
+    @GetExpireTime()
+    @* @Snippet.ExpireTime *@
+  </td>
+  @* <td class="hidden whitespace-nowrap px-3 py-4 md:table-cell"> *@
+  @*   100 *@
+    @* @Snippet.Views *@
+  @* </td> *@
+  @* <td class="hidden whitespace-nowrap px-3 py-4 md:table-cell"> *@
+  @*   @Snippet.Stars *@
+  @* </td> *@
+  <td class="hidden whitespace-nowrap px-3 py-4 lg:table-cell">
+    @MostUsedLanguage()
+  </td>
+  <td class="flex items-center gap-4 whitespace-nowrap py-4 pl-3 pr-4 !text-right sm:pr-6">
+    <a href="@RouteUtils.Editor/@SnippetModel.Id" class="text-sky-500 hover:text-sky-400">
+      Edit
+    </a>
+    <button type="button" @onclick="DeleteFile">
+      <TrashIcon class="h-4 mt-[1px] w-4 text-red-500" />
+    </button>
+  </td>
+</tr>

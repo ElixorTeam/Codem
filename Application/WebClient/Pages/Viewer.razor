@@ -1,0 +1,51 @@
+@page "/c/{Id:guid}"
+
+@if (IsBlockedByPassword && SnippetModel != null)
+{
+  <div class="flex grow w-full h-full justify-center mt-14 items-center">
+    <PasswordForm
+      CorrectPassword="@SnippetModel.Password"
+      CancelCallbackFunction="RedirectToHome"
+      SuccessCallbackFunction="UnblockSnippet"
+    />
+  </div>
+}
+else
+{
+  <div
+    class="flex h-full grow w-full grid-cols-[1fr,300px] grid-rows-1 flex-col gap-2 px-4 pb-4 pt-2 sm:grid lg:gap-4 lg:px-8"
+  >
+    @if (IsLoading || SnippetModel == null)
+    {
+      <CodeEditorStub />
+    }
+    else
+    {
+      <CodeEditor CodeFileManager="CodeFileManager" IsReadOnly="true" IsOwner="IsOwner" />
+      <SnippetInfo SnippetModel="SnippetModel" IsOwner="IsOwner" />
+    }
+  </div>
+}
+
+@* @if (!IsLoading) *@
+@* { *@
+@*   <div class="mx-auto w-full max-w-5xl px-4 pb-4 pt-2"> *@
+@*     <p class="mb-4 text-2xl font-semibold text-slate-800 dark:text-neutral-200"> *@
+@*       Comments *@
+@*     </p> *@
+@*     <div class="mb-8 mt-4 flex max-w-2xl"> *@
+@*       <CreateCommentForm /> *@
+@*     </div> *@
+@*     <ul class="flex flex-col gap-6"> *@
+@*       <li> *@
+@*         <Comment *@
+@*           Author="Ap73MKa" *@
+@*           AvatarSrc="assets/avatar.jpg" *@
+@*           CreateDate="DateOnly.FromDateTime(DateTime.Today)" *@
+@*           CommentText="Nice code!" *@
+@*         /> *@
+@*       </li> *@
+@*     </ul> *@
+@*   </div> *@
+@* } *@
+

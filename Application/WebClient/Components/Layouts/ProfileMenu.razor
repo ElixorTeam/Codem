@@ -1,0 +1,50 @@
+@using Blazor.Heroicons
+@using Blazor.Heroicons.Outline
+
+<button
+  id="profileDropdownButton"
+  type="button" class="flex group items-center h-full max-w-[9rem] xl:max-w-[12rem] overflow-hidden gap-2"
+>
+  @if (string.IsNullOrEmpty(ImageUrl))
+  {
+    <UserIcon class="h-4 w-4" />
+  }
+  else
+  {
+    <div class="h-6 w-6 flex-shrink-0 overflow-hidden rounded-full">
+      <img src="@ImageUrl" alt=""/>
+    </div>
+  }
+  <div class="hidden w-full overflow-hidden sm:block">
+    <p class="text-sm text-ellipsis overflow-hidden whitespace-nowrap font-semibold text-gray-800 dark:text-neutral-200 group-hover:text-black dark:group-hover:text-white">
+      @UserName
+    </p>
+  </div>
+  <ChevronDownIcon class="h-4 w-4"/>
+</button>
+
+<div
+  id="profileDropdown"
+  class="z-10 hidden w-36 overflow-hidden rounded-lg border bg-slate-100 border-black/[.1] dark:border-white/[.15] dark:bg-neutral-950"
+>
+  <ul
+    aria-labelledby="langDropdownButton"
+    class="h-full flex flex-col divide-y divide-black/[.1] dark:divide-white/[.15]"
+  >
+    @foreach (ProfileMenuEntry button in MenuEntries)
+    {
+      <li>
+        <a href="@button.Url">
+          <button
+            @onclick="HideDropdown"
+            type="button"
+            class="h-9 text-gray-600 flex items-center justify-start gap-2 w-full text-left px-3 overflow-hidden hover:bg-slate-200 dark:text-neutral-300 dark:hover:bg-neutral-900"
+          >
+            <Heroicon Name="@button.IconName" Type="HeroiconType.Outline" class="h-4 w-4"/>
+            <p class="text-sm">@button.Title</p>
+          </button>
+        </a>
+      </li>
+    }
+  </ul>
+</div>

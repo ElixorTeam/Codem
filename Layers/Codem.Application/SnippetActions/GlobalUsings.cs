@@ -1,0 +1,1 @@
+﻿global using Сodem.Shared.Dtos.Snippet;

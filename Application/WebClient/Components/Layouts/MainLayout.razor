@@ -1,0 +1,17 @@
+﻿@using Blazored.Toast.Configuration
+@inherits LayoutComponentBase
+
+<PageTitle>Codem</PageTitle>
+
+<div class="h-full grow w-full flex flex-col">
+  <div class="h-full w-full flex flex-col relative grow">
+    <MainHeader />
+    <main class="mx-auto flex flex-col grow h-full w-full max-w-screen-2xl">
+      @Body
+    </main>
+    <MainFooter/>
+    <BlazoredToasts
+      ShowProgressBar="true"
+      Position="ToastPosition.BottomLeft"/>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "tw": "npx tailwindcss -i wwwroot/css/app.css -o wwwroot/css/app.min.css --watch",
+    "buildcss": "postcss wwwroot/css/app.css -o wwwroot/css/app.min.css"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.6",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0",
+    "tailwind-scrollbar": "^3.0.5",
+    "tailwindcss": "^3.3.3"
+  }
+}

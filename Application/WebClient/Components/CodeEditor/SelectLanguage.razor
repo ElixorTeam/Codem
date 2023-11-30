@@ -1,0 +1,60 @@
+@using Сodem.Shared.Enums
+@using Blazor.Heroicons.Outline
+
+<button
+  id="langDropdownButton"
+  class="flex w-24 gap-2 h-full px-2 items-center justify-between border-l border-l-black/[.1] dark:border-l-white/[.15] hover:bg-white/[.4] dark:hover:bg-white/[.2]"
+>
+  <p class="line-clamp-1 text-sm">@EnumHelper.GetEnumDescription(ActiveLanguage)</p>
+  <ChevronDownIcon class="h-4 w-4" />
+</button>
+
+<div
+  id="langDropdown"
+  class="z-10 hidden w-44 overflow-hidden rounded-lg border bg-slate-100 border-black/[.1] dark:border-white/[.15] dark:bg-neutral-950"
+>
+  <div class="h-full divide-y max-h-56 w-full flex flex-col overflow-hidden divide-y-black/[.1] dark:divide-white/[.15]">
+    <div class="h-10 flex-shrink-0 w-full flex items-center px-2 bg-slate-50 dark:bg-neutral-900">
+      <input
+        type="text"
+        @bind="SearchString"
+        @oninput="UpdateSearchString"
+        class="h-full p-0 pr-2 bg-transparent w-full text-sm focus:ring-0 border-none dark:placeholder:text-neutral-500"
+        placeholder="Search language..."/>
+      <div class="flex items-center gap-2">
+        @if (!string.IsNullOrEmpty(SearchString))
+        {
+          <button type="button" @onclick="ClearSearch">
+            <XMarkIcon class="h-4 w-4 text-gray-500 dark:text-neutral-500" />
+          </button>
+        }
+        <MagnifyingGlassIcon class="h-4 w-4"/>
+      </div>
+    </div>
+    <ul
+      aria-labelledby="langDropdownButton"
+      class="h-full overflow-y-auto flex flex-col divide-y divide-black/[.1] dark:divide-white/[.15] scrollbar-thin scrollbar-thumb-slate-300 scrollbar-corner-transparent scrollbar-track-transparent dark:scrollbar-thumb-neutral-700"
+    >
+      @if (!FilteredLanguages().Any())
+      {
+        <li>
+          <div class="h-8 w-full px-2 flex items-center">
+            <p class="text-sm">No results</p>
+          </div>
+        </li>
+      }
+      @foreach(ProgrammingLanguage language in FilteredLanguages())
+      {
+        <li>
+          <button
+            type="button"
+            @onclick="() => SwitchLanguage(language)"
+            class="w-full h-8 px-2 text-left hover:bg-white/[.4] dark:hover:bg-white/[.2]"
+          >
+            <p class="text-sm text-ellipsis">@EnumHelper.GetEnumDescription(language)</p>
+          </button>
+        </li>
+      }
+    </ul>
+  </div>
+</div>

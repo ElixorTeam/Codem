@@ -1,0 +1,18 @@
+﻿<Router AppAssembly="@typeof(App).Assembly">
+  <Found Context="routeData">
+    <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+      <Authorizing>
+        <p>Determining session state, please wait...</p>
+      </Authorizing>
+      <NotAuthorized>
+        <RedirectComponent RedirectUrl="@RouteUtils.Login" />
+      </NotAuthorized>
+    </AuthorizeRouteView>
+  </Found>
+  <NotFound>
+    <PageTitle>Not found</PageTitle>
+      <LayoutView Layout="@typeof(MainLayout)">
+        <RedirectComponent RedirectUrl="@RouteUtils.Home" />
+      </LayoutView>
+    </NotFound>
+</Router>

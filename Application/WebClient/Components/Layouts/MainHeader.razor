@@ -1,0 +1,44 @@
+@using Blazor.Heroicons.Outline
+<header class="fixed z-20 h-12 w-full border-b border-b-black/[.1] bg-slate-100 sm:pr-[calc(20px_-_(100vw_-_100%))] dark:bg-neutral-950 dark:border-b dark:border-b-white/[.15]">
+  <div class="mx-auto flex h-full max-w-screen-2xl items-center justify-between gap-2 px-4 lg:px-8">
+    <div class="flex h-full items-center gap-4 sm:gap-10">
+      <a href="@RouteUtils.Home">
+        <img src="assets/codem.svg" alt="" class="h-5 dark:invert"/>
+      </a>
+      <div class="flex gap-2">
+        <a href="@RouteUtils.Home">
+          <button
+            type="button"
+            class="flex h-8 items-center rounded-md border border-black/[.1] bg-sky-400 px-4 shadow-sm hover:bg-sky-500"
+          >
+            <p class="text-xs font-semibold text-white">New</p>
+          </button>
+        </a>
+        <a href="@RouteUtils.Search">
+          <button
+            type="button"
+            class="h-8 w-8 flex items-center justify-center overflow-hidden rounded-md border border-black/[.1] bg-white shadow-sm hover:bg-slate-100 sm:hidden"
+          >
+            <MagnifyingGlassIcon class="w-4 h-4 text-gray-500"/>
+          </button>
+        </a>
+        <HeaderSearch/>
+      </div>
+    </div>
+    <div class="flex gap-2 md:gap-6 h-full items-center">
+      <ThemeChange />
+      @if (User == null)
+      {
+        <a href="@RouteUtils.Login">
+          <button type="button" class="h-full">
+            <p class="text-sm">Log in</p>
+          </button>
+        </a>
+      }
+      else
+      {
+        <ProfileMenu UserName="@User.Name" ImageUrl="@User.Avatar" />
+      }
+    </div>
+  </div>
+</header>

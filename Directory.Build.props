@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+    <PropertyGroup>
+        <Deterministic>true</Deterministic>
+        <LangVersion>latest</LangVersion>
+        <WarningLevel>9999</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Local|AnyCpu' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <DefineConstants>DEBUG;TRACE;LOCAL</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Local_AnyCPU</OutputPath>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <WarningLevel>9999</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Develop|AnyCpu' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <DefineConstants>DEBUG;TRACE;DEVELOP</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Develop_AnyCPU</OutputPath>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <WarningLevel>9999</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugSymbols>false</DebugSymbols>
+        <Optimize>true</Optimize>
+        <DebugType>none</DebugType>
+        <DefineConstants>TRACE;RELEASE</DefineConstants>
+        <OutputPath>bin\Release_AnyCPU</OutputPath>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <WarningLevel>9999</WarningLevel>
+    </PropertyGroup>
+</Project>

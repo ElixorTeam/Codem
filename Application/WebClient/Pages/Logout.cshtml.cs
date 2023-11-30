@@ -17,7 +17,6 @@ namespace WebClient.Pages
 
             await HttpContext.SignOutAsync(Auth0Constants.AuthenticationScheme, authenticationProperties);
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            //TODO: redirect main page
         }
     }
 }

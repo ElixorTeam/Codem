@@ -52,6 +52,16 @@
           </div>
         </div>
       }
+      @if (IsOwner)
+      {
+        <a href="@GetEditSnippetLink()">
+          <button
+            type="button"
+            class="mt-4 flex w-full h-8 items-center justify-center rounded-md border border-black/[.2] bg-sky-400 hover:bg-sky-500">
+            <p class="pb-1 text-sm text-white">Update snippet</p>
+          </button>
+        </a>
+      }
     </div>
   </div>
 </div>

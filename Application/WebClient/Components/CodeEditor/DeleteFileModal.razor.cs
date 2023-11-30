@@ -5,7 +5,7 @@ namespace WebClient.Components.CodeEditor;
 
 public sealed partial class DeleteFileModal: ComponentBase, IModalInvoke
 {
-    [Inject] private IJSRuntime JSRuntime { get; set; } = null!;
+    [Inject] private IJSRuntime JsRuntime { get; set; } = null!;
     
     [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
     
@@ -22,7 +22,7 @@ public sealed partial class DeleteFileModal: ComponentBase, IModalInvoke
 
     private async Task InitializeModal()
     {
-        Module = await JSRuntime.InvokeAsync<IJSObjectReference>(
+        Module = await JsRuntime.InvokeAsync<IJSObjectReference>(
             "import", "./js/modalInterface.js");
         await Module.InvokeVoidAsync("initModal", "deleteFileModal", ModalUniqueId);
     }

@@ -11,7 +11,7 @@ public sealed class CodeSnippetModel
     public string Title { get; set; } = string.Empty;
     public string UserId { get; set; } = string.Empty;
     public DateOnly CreateDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
-    public DateOnly ExpireTime { get; set; } = DateOnly.FromDateTime(DateTime.Today.AddDays(1));
+    public DateOnly ExpireTime { get; set; } = DateOnly.FromDateTime(DateTime.Today.AddDays(7));
     public SnippetVisibilityEnum Visibility { get; set; } = SnippetVisibilityEnum.Public;
 
     [RegularExpression("^.{4,24}$", ErrorMessage = "Password must be between 4 and 24 characters")]

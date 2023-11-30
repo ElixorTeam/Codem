@@ -6,7 +6,7 @@ namespace WebClient.Components.CodeEditor;
 
 public sealed partial class CodeEditorContextMenu: ComponentBase
 {
-    [Inject] private IJSRuntime JSRuntime { get; set; } = null!;
+    [Inject] private IJSRuntime JsRuntime { get; set; } = null!;
     
     # region Parameters
     
@@ -46,7 +46,7 @@ public sealed partial class CodeEditorContextMenu: ComponentBase
 
     private async Task InitializeDropdown()
     {
-        Module = await JSRuntime.InvokeAsync<IJSObjectReference>(
+        Module = await JsRuntime.InvokeAsync<IJSObjectReference>(
             "import", "./js/dropdownInterface.js");
         var options = new { offsetSkidding = -60 };
         await Module.InvokeVoidAsync("initDropdown", "editorContextMenu",

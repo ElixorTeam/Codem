@@ -41,6 +41,12 @@
       </li>
     }
   </ul>
+  @if (SnippetModels.Count == 0)
+  {
+    <div class="flex w-full justify-center mt-6">
+      <p class="font-light text-3xl">No results</p>
+    </div>
+  }
   @if (TotalPages > 1)
   {
     <div class="flex items-center justify-center w-full">

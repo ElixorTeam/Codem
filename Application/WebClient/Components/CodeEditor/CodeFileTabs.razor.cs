@@ -6,6 +6,7 @@ namespace WebClient.Components.CodeEditor;
 public sealed partial class CodeFileTabs: ComponentBase
 {
     [Inject] private IToastService ToastService { get; set; } = null!;
+    
     [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
     [Parameter] public bool IsReadOnly { get; set; }
 

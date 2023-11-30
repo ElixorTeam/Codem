@@ -23,6 +23,7 @@ public sealed partial class AccountInfo: ComponentBase
     {
         User = UserService.GetUser();
         string topLanguages = await GetTopLanguagesFromAllSnippets();
+        if (string.IsNullOrEmpty(topLanguages)) topLanguages = "No languages";
         StatList = new()
         {
             new() { IconName = HeroiconName.CodeBracket, Value = topLanguages }

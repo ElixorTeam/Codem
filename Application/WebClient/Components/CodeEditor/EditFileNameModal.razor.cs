@@ -12,7 +12,7 @@ public sealed partial class EditFileNameModal: ComponentBase, IModalInvoke, IDis
     # region Injects
     
     [Inject] private IToastService ToastService { get; set; } = null!;
-    [Inject] private IJSRuntime JSRuntime { get; set; } = null!;
+    [Inject] private IJSRuntime JsRuntime { get; set; } = null!;
     
     # endregion
     
@@ -40,7 +40,7 @@ public sealed partial class EditFileNameModal: ComponentBase, IModalInvoke, IDis
     
     private async Task InitializeModal()
     {
-        Module = await JSRuntime.InvokeAsync<IJSObjectReference>(
+        Module = await JsRuntime.InvokeAsync<IJSObjectReference>(
             "import", "./js/modalInterface.js");
         await Module.InvokeVoidAsync("initModal", "editFileNameModal", ModalUniqueId);
     }

@@ -10,6 +10,8 @@ public enum SnippetExpiration
     OneWeek,
     [Description("1 month")]
     OneMonth,
+    [Description("1 year")]
+    OneYear,
     [Description("Never")]
     Never,
 }
@@ -23,6 +25,7 @@ public static class SnippetExpirationExtensions
             SnippetExpiration.OneDay => TimeSpan.FromDays(1),
             SnippetExpiration.OneWeek => TimeSpan.FromDays(7),
             SnippetExpiration.OneMonth => TimeSpan.FromDays(30),
+            SnippetExpiration.OneYear => TimeSpan.FromDays(365),
             _ => TimeSpan.Zero
         };
     }

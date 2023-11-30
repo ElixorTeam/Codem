@@ -23,6 +23,8 @@ public sealed partial class CreateSnippetForm : ComponentBase
     [Parameter, EditorRequired] public CodeFileManager CodeFileManager { get; set; } = null!;
     private CodeSnippetModel Model { get; set; } = new();
 
+    private bool IsAuthorized() => UserService.GetUser()?.Id != null;
+    
     private async Task HandleSubmit()
     {
         List<ValidationResult> validationResults = PerformModelValidation();

@@ -7,11 +7,21 @@ namespace WebClient.Components.Forms;
 public sealed partial class SnippetFormInputs
 {
     [Parameter, EditorRequired] public CodeSnippetModel Model { get; set; } = null!;
+    [Parameter] public bool IsAuthorized { get; set; } = true;
     [Parameter] public bool IsUpdate { get; set; }
     private bool IsPasswordVisible { get; set; } = false;
-    private SnippetExpiration SnippetExpiration { get; set; } = SnippetExpiration.Never;
-    private static Array VisibilityList { get; } = Enum.GetValues(typeof(SnippetVisibilityEnum));
-    private static Array ExpireTimeList { get; } = Enum.GetValues(typeof(SnippetExpiration));
+    private SnippetExpiration SnippetExpiration { get; set; } = SnippetExpiration.OneWeek;
+    private static List<SnippetVisibilityEnum> VisibilityList { get; set; } = new();
+    private static List<SnippetExpiration> ExpireTimeList { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        VisibilityList = Enum.GetValues(typeof(SnippetVisibilityEnum)).Cast<SnippetVisibilityEnum>().ToList();
+        ExpireTimeList = Enum.GetValues(typeof(SnippetExpiration)).Cast<SnippetExpiration>().ToList();
+        if (IsAuthorized) return;
+        ExpireTimeList = ExpireTimeList.Where(c => c != SnippetExpiration.Never).ToList();
+        VisibilityList = VisibilityList.Where(c => c != SnippetVisibilityEnum.Private).ToList();
+    }
 
     private void SwitchPasswordVisibility() => IsPasswordVisible = !IsPasswordVisible;
     

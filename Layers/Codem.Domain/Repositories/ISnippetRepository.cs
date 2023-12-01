@@ -16,7 +16,7 @@ public interface ISnippetRepository : IRepository<Snippet>
 
     #region CUD
 
-    public Snippet Update(Snippet snippet);
+    public void Update(Snippet snippet);
     public Snippet Add(Snippet snippet);
     public void DeleteById(Guid id);
     

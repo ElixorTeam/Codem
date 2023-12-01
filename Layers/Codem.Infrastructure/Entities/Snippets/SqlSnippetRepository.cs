@@ -77,7 +77,7 @@ public class SqlSnippetRepository : ISnippetRepository
         return sqlSnippet.Adapt<Snippet>();
     }
     
-    public Snippet Update(Snippet snippet)
+    public void Update(Snippet snippet)
     {
         SqlSnippetEntity sqlSnippet = _session.Get<SqlSnippetEntity>(snippet.Id) ?? new();
         
@@ -88,7 +88,6 @@ public class SqlSnippetRepository : ISnippetRepository
         sqlSnippetUpdate.UserSnippetFk = sqlSnippet.UserSnippetFk;
         
         _session.Merge(sqlSnippetUpdate);
-        return sqlSnippetUpdate.Adapt<Snippet>();
     }
     
     public void DeleteById(Guid id)

@@ -1,6 +1,6 @@
 ﻿namespace Codem.Application.SnippetActions.Commands.UpdateSnippet;
 
-public class UpdateSnippetCommand : IRequest<SnippetDto>
+public class UpdateSnippetCommand : IRequest
 {
     public SnippetDto Snippet { get; set; }
     

@@ -4,7 +4,7 @@ using UOW.Abstractions;
 
 namespace Codem.Application.SnippetActions.Commands.UpdateSnippet;
 
-public class UpdateSnippetCommandHandler : IRequestHandler<UpdateSnippetCommand, SnippetDto>
+public class UpdateSnippetCommandHandler : IRequestHandler<UpdateSnippetCommand>
 {
     private readonly ISnippetRepository _snippetRepository;
     private readonly  IUnitOfWork _unitOfWork;
@@ -15,12 +15,11 @@ public class UpdateSnippetCommandHandler : IRequestHandler<UpdateSnippetCommand,
         _unitOfWork = unitOfWork;
     }
     
-    public Task<SnippetDto> Handle(UpdateSnippetCommand request, CancellationToken cancellationToken)
+    public Task Handle(UpdateSnippetCommand request, CancellationToken cancellationToken)
     {
-        Snippet snippet = new();
         _unitOfWork.ExecuteTransaction(() => {
-            snippet = _snippetRepository.Update(request.Snippet.Adapt<Snippet>());
+            _snippetRepository.Update(request.Snippet.Adapt<Snippet>());
         });
-        return Task.FromResult(snippet.Adapt<SnippetDto>());
+        return Task.FromResult(Unit.Value);
     }
 }
